@@ -1,6 +1,49 @@
 [
-  {"name":"IBPS","url":"https://www.ibps.in/index.php/crp-updates/","allowed_domains":["ibps.in"],"pattern":"recruit|notification|vacanc|crp|corrigendum"},
-  {"name":"UPSC","url":"https://www.upsc.gov.in/recruitment/recruitment-advertisement","allowed_domains":["upsc.gov.in","upsconline.nic.in"],"pattern":"advertisement|recruit|corrigendum|\\.pdf$"},
-  {"name":"RPSC","url":"https://rpsc.rajasthan.gov.in/advertisements","allowed_domains":["rpsc.rajasthan.gov.in"],"pattern":"advertisement|recruit|corrigendum|\\.pdf$|Pie="},
-  {"name":"RSSB","url":"https://rssb.rajasthan.gov.in/advertisements","allowed_domains":["rssb.rajasthan.gov.in","rsmssb.rajasthan.gov.in"],"pattern":"advertisement|recruit|corrigendum|\\.pdf$"}
+  {
+    "name": "IBPS",
+    "url": "https://www.ibps.in/index.php/crp-updates/",
+    "allowed_domains": [
+      "ibps.in"
+    ],
+    "pattern": "recruit|notification|vacanc|crp|corrigendum",
+    "fallback_urls": [
+      "https://ibps.in/index.php/crp-updates/",
+      "https://www.ibps.in/"
+    ]
+  },
+  {
+    "name": "UPSC",
+    "url": "https://www.upsc.gov.in/recruitment/recruitment-advertisement",
+    "allowed_domains": [
+      "upsc.gov.in",
+      "upsconline.nic.in"
+    ],
+    "pattern": "advertisement|recruit|corrigendum|\\.pdf$",
+    "fallback_urls": [
+      "https://upsc.gov.in/recruitment/recruitment-advertisement"
+    ]
+  },
+  {
+    "name": "RPSC",
+    "url": "https://rpsc.rajasthan.gov.in/advertisements",
+    "allowed_domains": [
+      "rpsc.rajasthan.gov.in"
+    ],
+    "pattern": "advertisement|recruit|corrigendum|\\.pdf$|Pie=",
+    "fallback_urls": [
+      "https://rpsc.rajasthan.gov.in/"
+    ]
+  },
+  {
+    "name": "RSSB",
+    "url": "https://rssb.rajasthan.gov.in/advertisements",
+    "allowed_domains": [
+      "rssb.rajasthan.gov.in",
+      "rsmssb.rajasthan.gov.in"
+    ],
+    "pattern": "advertisement|recruit|corrigendum|\\.pdf$",
+    "fallback_urls": [
+      "https://rssb.rajasthan.gov.in/"
+    ]
+  }
 ]

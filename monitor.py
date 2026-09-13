@@ -4,12 +4,14 @@ import csv
 import hashlib
 import json
 import re
+import subprocess
+import tempfile
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urldefrag, urljoin, urlparse
-from urllib.request import Request, urlopen
 
 
 class Links(HTMLParser):
@@ -47,7 +49,8 @@ def extract(html, base_url, source):
             for domain in source['allowed_domains']
         ):
             continue
-        if not re.search(source['pattern'], title + ' ' + parsed.path + '?' + parsed.query, re.I):
+        if not (re.search(source['pattern'], title + ' ' + parsed.path, re.I)
+                or re.search(source['pattern'], parsed.query, re.I)):
             continue
         notice_id = hashlib.sha256((source['name'] + '\n' + url).encode()).hexdigest()[:24]
         found[notice_id] = {
@@ -60,21 +63,42 @@ def extract(html, base_url, source):
 
 
 def fetch_page(url):
-    for attempt in range(3):
+    # curl uses the runner's system certificate store; IPv4 avoids unreachable IPv6 routes.
+    # Certificate validation stays enabled. No proxy or challenge bypass is used.
+    with tempfile.TemporaryDirectory() as directory:
+        body = Path(directory) / 'page.html'
+        result = subprocess.run([
+            'curl', '--ipv4', '--silent', '--show-error', '--location',
+            '--proto', '=https', '--proto-redir', '=https',
+            '--connect-timeout', '8', '--max-time', '20', '--max-filesize', '5000000',
+            '--user-agent', 'Mozilla/5.0 (compatible; KamyabiRecruitmentMonitor/1.1; +https://kamyabi.in)',
+            '--output', str(body), '--write-out', '%{http_code}\n%{url_effective}\n%{content_type}', url,
+        ], capture_output=True, text=True, timeout=25)
+        if result.returncode:
+            raise RuntimeError(result.stderr.strip() or f'curl exit {result.returncode}')
+        status, final_url, content_type = result.stdout.split('\n', 2)
+        if status != '200':
+            raise RuntimeError(f'HTTP {status} from {final_url}')
+        if 'html' not in content_type.lower():
+            raise ValueError('Source did not return HTML')
+        return body.read_text(encoding='utf-8', errors='replace'), final_url
+
+
+def check_source(source):
+    attempts = []
+    for url in [source['url'], *source.get('fallback_urls', [])]:
         try:
-            request = Request(url, headers={'User-Agent': 'KamyabiRecruitmentMonitor/1.0 (+https://kamyabi.in)'})
-            with urlopen(request, timeout=30) as response:
-                content_type = response.headers.get('Content-Type', '')
-                if 'html' not in content_type.lower():
-                    raise ValueError('Source did not return HTML')
-                data = response.read(5_000_001)
-                if len(data) > 5_000_000:
-                    raise ValueError('Source page exceeds 5 MB limit')
-                return data.decode(response.headers.get_content_charset() or 'utf-8', errors='replace'), response.url
-        except Exception:
-            if attempt == 2:
-                raise
-            time.sleep(2 ** attempt)
+            html, final_url = fetch_page(url)
+            notices = extract(html, final_url, source)
+            if notices:
+                return notices, {'source': source['name'], 'status': 'ok', 'notice_links': len(notices),
+                                 'detail': '', 'fetched_url': final_url, 'attempts': attempts}
+            attempts.append({'url': url, 'error': 'No matching links; check rendering or page structure.'})
+        except Exception as error:
+            attempts.append({'url': url, 'error': type(error).__name__ + ': ' + str(error)})
+        time.sleep(1)
+    return [], {'source': source['name'], 'status': 'needs_attention', 'notice_links': 0,
+                'detail': ' | '.join(a['error'] for a in attempts), 'attempts': attempts}
 
 
 def main():
@@ -89,18 +113,10 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     rows, results = [], []
     timestamp = datetime.now(timezone.utc).isoformat()
-    for source in sources:
-        try:
-            html, final_url = fetch_page(source['url'])
-            notices = extract(html, final_url, source)
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        for notices, result in pool.map(check_source, sources):
             rows.extend(notices)
-            results.append({'source': source['name'], 'status': 'ok' if notices else 'needs_attention',
-                            'notice_links': len(notices),
-                            'detail': '' if notices else 'No matching links. Check JavaScript rendering, selectors, or blocking.'})
-        except Exception as error:
-            results.append({'source': source['name'], 'status': 'error', 'notice_links': 0,
-                            'detail': type(error).__name__ + ': ' + str(error)})
-        time.sleep(1)
+            results.append(result)
     (output / 'notices.json').write_text(json.dumps({'checked_at': timestamp, 'notices': rows}, indent=2))
     fields = ['notice_id', 'source', 'title', 'notice_url', 'source_url', 'status']
     with (output / 'notices.csv').open('w', newline='', encoding='utf-8-sig') as file:

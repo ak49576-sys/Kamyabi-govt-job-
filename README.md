@@ -10,7 +10,7 @@ Open the completed run, read its summary, and download **recruitment-report**. `
 
 ## Local use
 
-Requires Python 3.10 or later; no pip installation or API key is needed.
+Requires Python 3.10 or later and curl; no pip installation or API key is needed. Fetching uses IPv4 and the system certificate store, with certificate validation enabled. Up to four sources run concurrently, with one request at a time per source. Official fallback pages are tried when configured; all failed attempts remain in the report.
 
 ```sh
 python -m unittest -v test_monitor.py
