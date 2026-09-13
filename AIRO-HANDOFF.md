@@ -55,3 +55,11 @@ The staging API client and a manual preview/submit workflow now implement the AP
 ## Latest live verification — 2026-09-13 22:06 UTC
 
 [Run 34785741342](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/34785741342), commit 37808b9f42e27693013d2107a1a483c6bc8879e9: 15 tests passed. IBPS returned 23 candidate links after the certificate repair. UPSC returned 403/timeout; RPSC and RSSB timed out. The overall run remains failed to flag incomplete coverage, and the recruitment-report artifact was saved. Zero jobs submitted or published. The new staging client has been tested with mocked API responses only; real credentials and insertion/pending state remain unverified.
+
+## Supplementary Rajasthan collection — 2026-09-13 22:23 UTC
+
+[Run 34786615567](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/34786615567), commit c562f5f6cbdabdc34b36a764e1e6deee03e06954: 17 tests passed; 25 candidate records collected (23 IBPS notice links and 2 vacancy cards from the canonical https://recruitment.rajasthan.gov.in/ portal). Direct UPSC, RPSC and RSSB sources still fail, so the overall workflow flags incomplete coverage while saving the report. Zero jobs submitted/published.
+
+The portal is a separate supplementary source, not proof of complete RPSC/RSSB coverage. It reads h6 vacancy headings, body labels and displayed deadlines, and removes repeated cards. Its record URLs point to the listing page, not individual official notifications; editors must obtain and review the notification before using the staging API. CSV now includes observed_deadline, recruiting_body and kind. candidate_records counts both link records and cards; candidate_links counts only notice-link records.
+
+[Diagnostic run 34786438750](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/34786438750) compared Linux/Windows: both received UPSC 403 and RPSC/RSSB timeouts. The www Rajasthan portal address failed hostname validation on both; the canonical address without www works. The old RSSB site is archival and has additional TLS/redirect issues, so it was not substituted into current coverage. Diagnostic job success means probes completed, not that source access succeeded.
