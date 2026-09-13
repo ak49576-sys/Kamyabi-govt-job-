@@ -43,3 +43,21 @@ The exact Kamyabi add-jobs endpoint, authentication header, request schema and s
 ## Run from your hosting server
 
 See [AIRO-HANDOFF.md](AIRO-HANDOFF.md) for the access test, cron setup and exact publication API details required. On a compatible Linux server, use `bash run-server.sh`; it checks prerequisites, prevents overlapping runs and preserves dated reports. This option is prepared but has not been tested on your hosting server. Collection from GitHub-hosted runners is currently failing for all four sources.
+
+## Confirmed API contract (Airo report, 2026-09-13)
+
+The supplied host audit identifies `POST https://kamyabi.in/api/v1/add-jobs`, an array payload, `X-Api-Key` authentication and deduplication by `job_id`. It reports inserted records are pending and must be approved in `/admin/jobs`. This is host-audit evidence, not a live submission test from this repository.
+
+`submit_jobs.py` validates an explicit `{"reviewed":true,"jobs":[...]}` document. The jobs require the API's required fields plus a reviewed HTTPS official notification URL. It rejects expired/sentinel deadlines, duplicate IDs and mismatched application dates. A review declaration does not itself verify official content; the editor must do that review.
+
+Local preview, with no network write:
+
+```sh
+python3 submit_jobs.py --file /path/to/reviewed-jobs.json
+```
+
+To stage records after review, set `KAMYABI_API_KEY` in the secret store and use `--submit`. The key is never required for preview. The client does not follow redirects or automatically retry writes. On a connection error, check pending rows before repeating the request.
+
+GitHub option: add the key as repository Actions secret `KAMYABI_API_KEY`, then open **Actions → Stage reviewed Kamyabi jobs → Run workflow**. Paste the reviewed JSON, leaving **submit=false** for the first preview. Set **submit=true** only when ready to send real reviewed records. No automatic daily submission is configured. Successful API counts confirm insertion/skipping; public publication still needs separate verification after admin approval.
+
+The IBPS intermediate is now bundled from the official GlobalSign source; see [certs/README.md](certs/README.md). Python, curl and openssl are required for IBPS checks. The host audit reproduced all four collection failures; changing runner alone is not a verified fix. A 403 or timeout does not by itself prove the specific cause is geographic blocking.

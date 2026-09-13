@@ -1,12 +1,15 @@
 import unittest
 from monitor import extract
-from monitor import check_source
+from monitor import check_source, ibps_ca_bundle
 from unittest.mock import patch
 
 
 class ParsingTests(unittest.TestCase):
     source = {'name': 'Test', 'url': 'https://example.gov.in/notices',
               'allowed_domains': ['example.gov.in'], 'pattern': 'recruit|notification'}
+
+    def test_pinned_intermediate_verifies_against_system_roots(self):
+        self.assertIn(b'BEGIN CERTIFICATE', ibps_ca_bundle())
 
     def test_links_resolve_deduplicate_and_keep_nested_text(self):
         html = '<a href="/recruit.pdf"><b>Recruitment</b> notice</a><a href="/recruit.pdf#page=2">Recruitment</a>'

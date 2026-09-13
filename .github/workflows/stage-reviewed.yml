@@ -1,0 +1,53 @@
+name: Stage reviewed Kamyabi jobs
+on:
+  workflow_dispatch:
+    inputs:
+      jobs_json:
+        description: 'JSON object with reviewed=true and jobs array; no credentials'
+        required: true
+        type: string
+      submit:
+        description: 'Send validated jobs to the pending-job API'
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: kamyabi-stage-reviewed
+  cancel-in-progress: false
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test validation and API formatting
+        run: python -m unittest -v test_submit_jobs.py
+      - name: Save input to a temporary file
+        env:
+          JOBS_JSON: ${{ inputs.jobs_json }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          Path(os.environ['RUNNER_TEMP'], 'reviewed-jobs.json').write_text(os.environ['JOBS_JSON'])
+          PY
+      - name: Validate and preview without sending
+        run: python submit_jobs.py --file "$RUNNER_TEMP/reviewed-jobs.json" --output output/preview.json
+      - name: Send reviewed jobs to pending API
+        if: ${{ inputs.submit }}
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: python submit_jobs.py --file "$RUNNER_TEMP/reviewed-jobs.json" --submit --output output/staging.json
+      - name: Save result reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: staging-result
+          path: output/
+          if-no-files-found: warn
+          retention-days: 30

@@ -4,11 +4,13 @@ import csv
 import hashlib
 import json
 import re
+import ssl
 import subprocess
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
+from functools import lru_cache
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urldefrag, urljoin, urlparse
@@ -62,17 +64,42 @@ def extract(html, base_url, source):
     return list(found.values())
 
 
+@lru_cache(maxsize=1)
+def ibps_ca_bundle():
+    intermediate = Path(__file__).parent / 'certs/globalsign-rsa-ov-2018.pem'
+    pem = intermediate.read_text()
+    der = ssl.PEM_cert_to_DER_cert(pem)
+    if hashlib.sha256(der).hexdigest() != 'b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a':
+        raise ValueError('GlobalSign intermediate fingerprint mismatch')
+    linux_ca = Path('/etc/ssl/certs/ca-certificates.crt')
+    system_ca = str(linux_ca) if linux_ca.is_file() else ssl.get_default_verify_paths().cafile
+    if not system_ca:
+        raise ValueError('System CA bundle is unavailable')
+    verified = subprocess.run(['openssl', 'verify', '-no-CApath', '-CAfile', system_ca, str(intermediate)],
+                              capture_output=True, text=True, timeout=10)
+    if verified.returncode:
+        raise ValueError('GlobalSign intermediate did not verify against system roots')
+    return Path(system_ca).read_bytes() + b'\n' + pem.encode()
+
+
 def fetch_page(url):
     # curl uses the runner's system certificate store; IPv4 avoids unreachable IPv6 routes.
     # Certificate validation stays enabled. No proxy or challenge bypass is used.
     with tempfile.TemporaryDirectory() as directory:
         body = Path(directory) / 'page.html'
+        ca_args = []
+        hostname = (urlparse(url).hostname or '').lower()
+        if hostname == 'ibps.in' or hostname.endswith('.ibps.in'):
+            ca_file = Path(directory) / 'ibps-ca-bundle.pem'
+            ca_file.write_bytes(ibps_ca_bundle())
+            ca_args = ['--cacert', str(ca_file)]
         result = subprocess.run([
             'curl', '--ipv4', '--silent', '--show-error', '--location',
             '--proto', '=https', '--proto-redir', '=https',
             '--connect-timeout', '8', '--max-time', '20', '--max-filesize', '5000000',
             '--user-agent', 'Mozilla/5.0 (compatible; KamyabiRecruitmentMonitor/1.1; +https://kamyabi.in)',
-            '--output', str(body), '--write-out', '%{http_code}\n%{url_effective}\n%{content_type}', url,
+            '--output', str(body), '--write-out', '%{http_code}\n%{url_effective}\n%{content_type}',
+            *ca_args, url,
         ], capture_output=True, text=True, timeout=25)
         if result.returncode:
             raise RuntimeError(result.stderr.strip() or f'curl exit {result.returncode}')

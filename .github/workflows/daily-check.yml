@@ -4,7 +4,7 @@ on:
     - cron: '30 2 * * *'
   workflow_dispatch:
   push:
-    paths: ['monitor.py', 'sources.json', 'test_monitor.py', '.github/workflows/daily-check.yml']
+    paths: ['monitor.py', 'sources.json', 'test_monitor.py', 'submit_jobs.py', 'test_submit_jobs.py', 'certs/**', '.github/workflows/daily-check.yml']
 permissions:
   contents: read
 concurrency:
@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test parsing and domain checks
-        run: python -m unittest -v test_monitor.py
+        run: python -m unittest -v test_monitor.py test_submit_jobs.py
       - name: Collect official notice links
         run: python monitor.py
       - name: Add report to run summary

@@ -43,3 +43,11 @@ Provide documentation or existing implementation evidence for:
 Store the actual API key in GitHub Actions secrets or the server's secret store. Never put it in a commit, report, public file or chat reply.
 
 Do not publish any jobs during this diagnostic. Collected links remain candidates requiring verification of official notification, vacancies, eligibility and dates.
+
+## Audit received and repository changes
+
+The 2026-09-13 Airo host audit reports Python/curl/flock compatibility, but zero links from all four sources on that host. GitHub runs also collected zero links. Do not claim GitHub collection already works, or treat a timeout as definitive proof of a firewall block.
+
+The missing GlobalSign intermediate is now supplied from a verified bundled certificate for IBPS. Python uses openssl to verify the intermediate against system roots before curl uses the combined bundle. Install openssl if absent and retest the reviewed revision.
+
+The staging API client and a manual preview/submit workflow now implement the API contract supplied in the audit. The real key must be added to repository secret KAMYABI_API_KEY by the account owner; no live insert has been attempted by this repository. Do not use placeholder jobs to test production. Preview reviewed real jobs first; confirm pending records in /admin/jobs after submission, then verify public URLs only after approval.
