@@ -11,6 +11,21 @@ class ParsingTests(unittest.TestCase):
     def test_pinned_intermediate_verifies_against_system_roots(self):
         self.assertIn(b'BEGIN CERTIFICATE', ibps_ca_bundle())
 
+    def test_portal_cards_deduplicate_and_require_body_and_deadline(self):
+        source = dict(self.source, parser='rajasthan_cards')
+        html = '<h6>DIRECT JOINT RECRUITMENT OF JEN 2026</h6><p>(RSSB)</p><button>Apply</button><span>14-Sep-2026</span>'
+        rows = extract(html + html + '<h6>Rajasthan Staff Selection Board</h6><p>0 Applications</p>', source['url'], source)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['recruiting_body'], 'RSSB')
+        self.assertEqual(rows[0]['observed_deadline'], '14-Sep-2026')
+        self.assertEqual(rows[0]['status'], 'needs_review')
+        self.assertIn('notification still required', rows[0]['kind'])
+
+    def test_portal_script_and_incomplete_cards_do_not_create_jobs(self):
+        source = dict(self.source, parser='rajasthan_cards')
+        html = '<h6>Recruitment</h6><p>Apply</p><script>(RSSB) 14-Sep-2026</script>'
+        self.assertEqual(extract(html, source['url'], source), [])
+
     def test_links_resolve_deduplicate_and_keep_nested_text(self):
         html = '<a href="/recruit.pdf"><b>Recruitment</b> notice</a><a href="/recruit.pdf#page=2">Recruitment</a>'
         rows = extract(html, self.source['url'], self.source)

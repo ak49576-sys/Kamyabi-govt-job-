@@ -45,5 +45,14 @@
     "fallback_urls": [
       "https://rssb.rajasthan.gov.in/"
     ]
+  },
+  {
+    "name": "Rajasthan Recruitment Portal (supplementary)",
+    "url": "https://recruitment.rajasthan.gov.in/",
+    "allowed_domains": [
+      "recruitment.rajasthan.gov.in"
+    ],
+    "parser": "rajasthan_cards",
+    "pattern": "recruit|contractual|vacanc"
   }
 ]
