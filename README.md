@@ -42,7 +42,7 @@ The exact Kamyabi add-jobs endpoint, authentication header, request schema and s
 
 ## Run from your hosting server
 
-See [AIRO-HANDOFF.md](AIRO-HANDOFF.md) for the access test, cron setup and exact publication API details required. On a compatible Linux server, use `bash run-server.sh`; it checks prerequisites, prevents overlapping runs and preserves dated reports. This option is prepared but has not been tested on your hosting server. Collection from GitHub-hosted runners is currently failing for all four sources.
+See [AIRO-HANDOFF.md](AIRO-HANDOFF.md) for the access test, cron setup and exact publication API details required. On a compatible Linux server, use `bash run-server.sh`; it checks prerequisites, prevents overlapping runs and preserves dated reports. This option is prepared but has not been tested on your hosting server. IBPS collection now works; the other three sources still fail from GitHub-hosted runners. See the latest live verification below.
 
 ## Confirmed API contract (Airo report, 2026-09-13)
 
@@ -61,3 +61,7 @@ To stage records after review, set `KAMYABI_API_KEY` in the secret store and use
 GitHub option: add the key as repository Actions secret `KAMYABI_API_KEY`, then open **Actions → Stage reviewed Kamyabi jobs → Run workflow**. Paste the reviewed JSON, leaving **submit=false** for the first preview. Set **submit=true** only when ready to send real reviewed records. No automatic daily submission is configured. Successful API counts confirm insertion/skipping; public publication still needs separate verification after admin approval.
 
 The IBPS intermediate is now bundled from the official GlobalSign source; see [certs/README.md](certs/README.md). Python, curl and openssl are required for IBPS checks. The host audit reproduced all four collection failures; changing runner alone is not a verified fix. A 403 or timeout does not by itself prove the specific cause is geographic blocking.
+
+## Latest live verification — 2026-09-13 22:06 UTC
+
+[Run 34785741342](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/34785741342), commit 37808b9f42e27693013d2107a1a483c6bc8879e9: 15 tests passed. IBPS returned 23 candidate links after the certificate repair. UPSC returned 403/timeout; RPSC and RSSB timed out. The overall run remains failed to flag incomplete coverage, and the recruitment-report artifact was saved. Zero jobs submitted or published. The new staging client has been tested with mocked API responses only; real credentials and insertion/pending state remain unverified.
