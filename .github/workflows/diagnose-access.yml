@@ -1,0 +1,30 @@
+name: Compare official source access
+on:
+  workflow_dispatch:
+  push:
+    paths: ['diagnose_access.py', '.github/workflows/diagnose-access.yml']
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe official public pages
+        run: python diagnose_access.py
+      - name: Save access results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: access-${{ matrix.os }}
+          path: diagnostics/
+          retention-days: 30
+          if-no-files-found: warn
