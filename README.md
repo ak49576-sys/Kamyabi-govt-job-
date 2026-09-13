@@ -39,3 +39,7 @@ The exact Kamyabi add-jobs endpoint, authentication header, request schema and s
 - UPSC: https://www.upsc.gov.in/recruitment/recruitment-advertisement
 - RPSC: https://rpsc.rajasthan.gov.in/advertisements
 - RSSB: https://rssb.rajasthan.gov.in/advertisements
+
+## Run from your hosting server
+
+See [AIRO-HANDOFF.md](AIRO-HANDOFF.md) for the access test, cron setup and exact publication API details required. On a compatible Linux server, use `bash run-server.sh`; it checks prerequisites, prevents overlapping runs and preserves dated reports. This option is prepared but has not been tested on your hosting server. Collection from GitHub-hosted runners is currently failing for all four sources.
