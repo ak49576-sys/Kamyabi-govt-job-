@@ -2,7 +2,7 @@
 
 Repository: https://github.com/ak49576-sys/Kamyabi-govt-job-
 
-## Current verified status
+## Initial verified status
 
 The GitHub-hosted check ran, but collected zero links. IBPS failed certificate verification, UPSC returned 403, and the Rajasthan sources timed out. Tests passed. No live publication exists. An alternate server may have different access; it must be tested before claiming a fix.
 
@@ -51,3 +51,7 @@ The 2026-09-13 Airo host audit reports Python/curl/flock compatibility, but zero
 The missing GlobalSign intermediate is now supplied from a verified bundled certificate for IBPS. Python uses openssl to verify the intermediate against system roots before curl uses the combined bundle. Install openssl if absent and retest the reviewed revision.
 
 The staging API client and a manual preview/submit workflow now implement the API contract supplied in the audit. The real key must be added to repository secret KAMYABI_API_KEY by the account owner; no live insert has been attempted by this repository. Do not use placeholder jobs to test production. Preview reviewed real jobs first; confirm pending records in /admin/jobs after submission, then verify public URLs only after approval.
+
+## Latest live verification — 2026-09-13 22:06 UTC
+
+[Run 34785741342](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/34785741342), commit 37808b9f42e27693013d2107a1a483c6bc8879e9: 15 tests passed. IBPS returned 23 candidate links after the certificate repair. UPSC returned 403/timeout; RPSC and RSSB timed out. The overall run remains failed to flag incomplete coverage, and the recruitment-report artifact was saved. Zero jobs submitted or published. The new staging client has been tested with mocked API responses only; real credentials and insertion/pending state remain unverified.
