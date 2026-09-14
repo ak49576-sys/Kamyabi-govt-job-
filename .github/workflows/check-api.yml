@@ -1,0 +1,31 @@
+name: Verify Kamyabi API secret
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['check_api.py', 'test_check_api.py', '.github/workflows/check-api.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test zero-record check
+        run: python -m unittest -v test_check_api.py
+      - name: Check saved secret and empty-batch response
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: python check_api.py
+      - name: Save result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-check-result
+          path: output/api-check.json
+          retention-days: 30
+          if-no-files-found: warn
