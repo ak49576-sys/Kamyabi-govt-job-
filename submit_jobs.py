@@ -7,7 +7,9 @@ from datetime import date
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
-from urllib.request import Request, HTTPRedirectHandler, build_opener
+from urllib.request import Request, build_opener
+from api_http import NoRedirect
+from check_api import check as verify_api
 
 ENDPOINT = 'https://kamyabi.in/api/v1/add-jobs'
 LIMITS = {'job_id': 255, 'title': 500, 'department': 500, 'qualification': 1000,
@@ -71,14 +73,10 @@ def validate_document(document, today=None):
     return clean
 
 
-class NoRedirect(HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        # Never forward the API key to a redirected endpoint.
-        return None
-
-
 def send_jobs(jobs, key):
-    request = Request(ENDPOINT, data=json.dumps(jobs).encode(), method='POST',
+    if not verify_api(key)['authentication_verified']:
+        raise ValueError('Read-only API-key verification failed; no jobs sent')
+    request = Request(ENDPOINT, data=json.dumps({'jobs': jobs}).encode(), method='POST',
                       headers={'Content-Type': 'application/json', 'X-Api-Key': key})
     with build_opener(NoRedirect).open(request, timeout=30) as response:
         if response.status != 200:
@@ -87,9 +85,12 @@ def send_jobs(jobs, key):
     if not isinstance(result, dict) or any(type(result.get(k)) is not int or result[k] < 0
                                           for k in ('inserted', 'skipped')):
         raise ValueError('Unexpected API response; check pending rows before retrying')
-    if result['inserted'] + result['skipped'] != len(jobs):
+    updated = result.get('updated', 0)
+    if type(updated) is not int or updated < 0:
+        raise ValueError('Unexpected update count; check pending rows before retrying')
+    if result['inserted'] + updated + result['skipped'] != len(jobs):
         raise ValueError('API counts do not match input; check pending rows before retrying')
-    return {'inserted': result['inserted'], 'skipped': result['skipped'],
+    return {'inserted': result['inserted'], 'updated': updated, 'skipped': result['skipped'],
             'publication_status': 'not verified; review /admin/jobs',
             'expected_insert_status': 'pending, according to the supplied API contract'}
 

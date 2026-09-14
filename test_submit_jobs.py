@@ -51,8 +51,9 @@ class SubmissionTests(unittest.TestCase):
     def test_redirect_does_not_forward_key(self):
         self.assertIsNone(NoRedirect().redirect_request(None, None, 302, '', {}, 'https://other.test/'))
 
+    @patch('submit_jobs.verify_api', return_value={'authentication_verified': True})
     @patch('submit_jobs.build_opener')
-    def test_api_wire_format_and_staging_result(self, opener):
+    def test_api_wire_format_and_staging_result(self, opener, verify):
         response = opener.return_value.open.return_value.__enter__.return_value
         response.status = 200
         response.read.return_value = b'{"inserted":1,"skipped":0,"skipped_ids":[]}'
@@ -60,17 +61,33 @@ class SubmissionTests(unittest.TestCase):
         request = opener.return_value.open.call_args.args[0]
         self.assertEqual(request.full_url, 'https://kamyabi.in/api/v1/add-jobs')
         self.assertEqual(request.get_header('X-api-key'), 'test-key')
-        self.assertTrue(request.data.startswith(b'['))
+        self.assertTrue(request.data.startswith(b'{"jobs":'))
         self.assertEqual(result['inserted'], 1)
         self.assertIn('not verified', result['publication_status'])
 
+    @patch('submit_jobs.verify_api', return_value={'authentication_verified': True})
     @patch('submit_jobs.build_opener')
-    def test_incomplete_response_is_not_success(self, opener):
+    def test_incomplete_response_is_not_success(self, opener, verify):
         response = opener.return_value.open.return_value.__enter__.return_value
         response.status = 200
         response.read.return_value = b'{"inserted":0,"skipped":0}'
         with self.assertRaises(ValueError):
             send_jobs(self.validate(self.document()), 'test-key')
+
+    @patch('submit_jobs.verify_api', return_value={'authentication_verified': False})
+    @patch('submit_jobs.build_opener')
+    def test_failed_status_prevents_submission(self, opener, verify):
+        with self.assertRaises(ValueError):
+            send_jobs(self.validate(self.document()), 'test-key')
+        opener.assert_not_called()
+
+    @patch('submit_jobs.verify_api', return_value={'authentication_verified': True})
+    @patch('submit_jobs.build_opener')
+    def test_upsert_counts_are_included(self, opener, verify):
+        response = opener.return_value.open.return_value.__enter__.return_value
+        response.status = 200
+        response.read.return_value = b'{"inserted":0,"updated":1,"skipped":0}'
+        self.assertEqual(send_jobs(self.validate(self.document()), 'test-key')['updated'], 1)
 
 
 if __name__ == '__main__':

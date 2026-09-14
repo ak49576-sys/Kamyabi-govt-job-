@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['check_api.py', 'test_check_api.py', '.github/workflows/check-api.yml']
+    paths: ['check_api.py', 'api_http.py', 'test_check_api.py', '.github/workflows/check-api.yml']
 permissions:
   contents: read
 jobs:
@@ -15,9 +15,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Test zero-record check
+      - name: Test read-only check
         run: python -m unittest -v test_check_api.py
-      - name: Check saved secret and empty-batch response
+      - name: Check saved secret against authenticated status
         env:
           KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
         run: python check_api.py

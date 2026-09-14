@@ -71,3 +71,13 @@ The portal is a separate supplementary source, not proof of complete RPSC/RSSB c
 Next action for Airo / hosting support: inspect application and edge/CDN logs around 2026-09-14T01:56:37Z for this request. Identify whether 403 originated from an edge rule, hosting permission or application middleware. Test the same empty-array request from hosting using the existing secret store, without printing the key or raw request headers. Return only HTTP status, zero insert/skip counts if supplied, the layer rejecting it and the specific fix made. Do not disable general site protections or publish placeholder jobs. If the endpoint rejects empty batches even after authentication, identify the authentication middleware order and provide an authenticated read-only status endpoint so credentials can be checked without inserting records.
 
 The 403 alone does not prove the key is wrong or that a particular firewall rule is responsible. An HTML homepage/403 response is not evidence of successful API authentication.
+
+## Updated API deployment contract — 2026-09-14
+
+The latest Airo report says IMPORT_API_KEY is now configured on hosting, X-Api-Key and X-Import-Key are accepted, and /api/v1/add-jobs now aliases the import handler. These host changes require publishing the site. The configured GitHub secret remains KAMYABI_API_KEY and must match hosting's IMPORT_API_KEY.
+
+Credential checking now uses GET https://kamyabi.in/api/v1/status with X-Api-Key. Only HTTP 200 plus JSON {"ok":true,"auth":"api_key"} confirms authentication. It sends no record payload. The older empty-batch POST diagnostic is historical and no longer used.
+
+Submissions now use {"jobs":[...]} and must pass the read-only credential check before any POST. The latest report says the import handler upserts jobs into pending review. This supersedes the earlier duplicate-skip description: review existing job IDs before submitting because upserts may update existing records. No automatic retries are configured. The client accepts inserted/skipped counts and an optional updated count; the actual published response schema still needs a live contract check. Unexpected counts are reported as an unknown submission result, not success; check admin rows before repeating.
+
+Next: publish the Airo site, then rerun Verify Kamyabi API secret on the current revision. A preview sign-in gate or absence of import errors does not prove authenticated live API access. After successful status verification, preview real reviewed jobs before staging them; verify pending state at /admin/jobs and public URLs separately after approval.

@@ -73,3 +73,13 @@ The IBPS intermediate is now bundled from the official GlobalSign source; see [c
 The portal is a separate supplementary source, not proof of complete RPSC/RSSB coverage. It reads h6 vacancy headings, body labels and displayed deadlines, and removes repeated cards. Its record URLs point to the listing page, not individual official notifications; editors must obtain and review the notification before using the staging API. CSV now includes observed_deadline, recruiting_body and kind. candidate_records counts both link records and cards; candidate_links counts only notice-link records.
 
 [Diagnostic run 34786438750](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/34786438750) compared Linux/Windows: both received UPSC 403 and RPSC/RSSB timeouts. The www Rajasthan portal address failed hostname validation on both; the canonical address without www works. The old RSSB site is archival and has additional TLS/redirect issues, so it was not substituted into current coverage. Diagnostic job success means probes completed, not that source access succeeded.
+
+## Updated API deployment contract — 2026-09-14
+
+The latest Airo report says IMPORT_API_KEY is now configured on hosting, X-Api-Key and X-Import-Key are accepted, and /api/v1/add-jobs now aliases the import handler. These host changes require publishing the site. The configured GitHub secret remains KAMYABI_API_KEY and must match hosting's IMPORT_API_KEY.
+
+Credential checking now uses GET https://kamyabi.in/api/v1/status with X-Api-Key. Only HTTP 200 plus JSON {"ok":true,"auth":"api_key"} confirms authentication. It sends no record payload. The older empty-batch POST diagnostic is historical and no longer used.
+
+Submissions now use {"jobs":[...]} and must pass the read-only credential check before any POST. The latest report says the import handler upserts jobs into pending review. This supersedes the earlier duplicate-skip description: review existing job IDs before submitting because upserts may update existing records. No automatic retries are configured. The client accepts inserted/skipped counts and an optional updated count; the actual published response schema still needs a live contract check. Unexpected counts are reported as an unknown submission result, not success; check admin rows before repeating.
+
+Next: publish the Airo site, then rerun Verify Kamyabi API secret on the current revision. A preview sign-in gate or absence of import errors does not prove authenticated live API access. After successful status verification, preview real reviewed jobs before staging them; verify pending state at /admin/jobs and public URLs separately after approval.

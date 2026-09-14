@@ -11,14 +11,15 @@ class ApiCheckTests(unittest.TestCase):
         opener.assert_not_called()
 
     @patch('check_api.build_opener')
-    def test_empty_batch_and_redacted_report(self, opener):
+    def test_read_only_request_and_redacted_report(self, opener):
         response = opener.return_value.open.return_value.__enter__.return_value
         response.status = 200
-        response.read.return_value = b'{"inserted":0,"skipped":0,"skipped_ids":[]}'
+        response.read.return_value = b'{"ok":true,"auth":"api_key"}'
         report = check('synthetic-key')
         request = opener.return_value.open.call_args.args[0]
-        self.assertEqual(request.data, b'[]')
-        self.assertEqual(request.full_url, 'https://kamyabi.in/api/v1/add-jobs')
+        self.assertIsNone(request.data)
+        self.assertEqual(request.get_method(), 'GET')
+        self.assertEqual(request.full_url, 'https://kamyabi.in/api/v1/status')
         self.assertEqual(request.get_header('X-api-key'), 'synthetic-key')
         self.assertTrue(report['authentication_verified'])
         self.assertNotIn('synthetic-key', str(report))
