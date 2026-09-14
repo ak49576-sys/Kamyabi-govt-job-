@@ -1,0 +1,72 @@
+name: IBPS Recruitment Pipeline
+on:
+  # schedule:
+  #   - cron: '0 8 * * *'  # 08:00 IST daily (02:00 UTC)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Enable dry-run mode (no API submissions)'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      source:
+        description: 'Recruitment source to fetch (ibps, upsc, rpsc, rssb, all)'
+        required: true
+        default: 'ibps'
+        type: choice
+        options:
+          - 'ibps'
+          - 'upsc'
+          - 'rpsc'
+          - 'rssb'
+          - 'all'
+  push:
+    paths: ['monitor.py', 'sources.json', 'test_monitor.py', '.github/workflows/ibps-pipeline.yml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-ibps-pipeline
+  cancel-in-progress: false
+
+jobs:
+  ibps-fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Run unit tests
+        run: python -m unittest -v test_monitor.py
+      
+      - name: Fetch IBPS recruitment records
+        env:
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
+          SOURCE: ${{ github.event.inputs.source || 'ibps' }}
+        run: |
+          echo "Fetching recruitment records from: $SOURCE (dry_run=$DRY_RUN)"
+          python monitor.py
+      
+      - name: Add report to run summary
+        if: always()
+        run: |
+          if [ -f output/summary.md ]; then
+            cat output/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      
+      - name: Save recruitment report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibps-recruitment-report
+          path: output/
+          retention-days: 30
+          if-no-files-found: warn
