@@ -1,0 +1,71 @@
+name: IBPS Recruitment Import
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Validate without API submission
+        type: boolean
+        default: true
+        required: true
+      source:
+        description: Recruitment source
+        type: choice
+        options: [ibps]
+        default: ibps
+        required: true
+      reviewed_jobs_file:
+        description: Optional repository JSON path with reviewed=true and complete IBPS jobs; required for import
+        type: string
+        default: ''
+permissions:
+  contents: read
+concurrency:
+  group: kamyabi-ibps-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test existing collection and validation
+        run: python -m unittest -v test_monitor.py test_submit_jobs.py
+      - name: Collect and validate IBPS
+        if: inputs.dry_run
+        env:
+          DRY_RUN: 'true'
+          SOURCE: ${{ inputs.source }}
+          REVIEWED_JOBS_FILE: ${{ inputs.reviewed_jobs_file }}
+        run: npx --yes --package=tsx@4.20.5 tsx ibps-pipeline.ts
+      - name: Import reviewed IBPS records
+        if: ${{ !inputs.dry_run }}
+        env:
+          DRY_RUN: 'false'
+          SOURCE: ${{ inputs.source }}
+          REVIEWED_JOBS_FILE: ${{ inputs.reviewed_jobs_file }}
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: npx --yes --package=tsx@4.20.5 tsx ibps-pipeline.ts
+      - name: Add import counts to summary
+        if: always()
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          counts = Path('output/import-counts.json')
+          if counts.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+                  summary.write('### IBPS import counts\n\n```json\n' + counts.read_text() + '\n```\n')
+      - name: Save collection and import reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibps-import-report
+          path: output/
+          retention-days: 30
+          if-no-files-found: warn
