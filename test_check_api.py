@@ -2,9 +2,22 @@ import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError
 from check_api import check
+from check_api import response_details
 
 
 class ApiCheckTests(unittest.TestCase):
+    def test_response_metadata_does_not_echo_body_or_key(self):
+        report = response_details({'Server': 'cloudflare', 'Content-Type': 'text/html', 'CF-Ray': 'abc123-BOM'},
+                                  b'<html>Just a moment challenge-platform secret-test-value</html>')
+        self.assertTrue(report['challenge_indicated'])
+        self.assertEqual(report['cf_ray'], 'abc123-BOM')
+        self.assertNotIn('secret-test-value', str(report))
+
+    def test_cloudflare_header_alone_is_not_a_challenge(self):
+        report = response_details({'Server': 'cloudflare', 'Content-Type': 'application/json'}, b'{"error":"Forbidden"}')
+        self.assertTrue(report['server_mentions_cloudflare'])
+        self.assertFalse(report['challenge_indicated'])
+
     @patch('check_api.build_opener')
     def test_missing_secret_makes_no_request(self, opener):
         self.assertFalse(check('')['authentication_verified'])
