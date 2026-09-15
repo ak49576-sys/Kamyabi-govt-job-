@@ -1,72 +1,32 @@
-name: IBPS Recruitment Pipeline
-on:
-  # schedule:
-  #   - cron: '0 8 * * *'  # 08:00 IST daily (02:00 UTC)
-  workflow_dispatch:
-    inputs:
-      dry_run:
-        description: 'Enable dry-run mode (no API submissions)'
-        required: true
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
-      source:
-        description: 'Recruitment source to fetch (ibps, upsc, rpsc, rssb, all)'
-        required: true
-        default: 'ibps'
-        type: choice
-        options:
-          - 'ibps'
-          - 'upsc'
-          - 'rpsc'
-          - 'rssb'
-          - 'all'
-  push:
-    paths: ['monitor.py', 'sources.json', 'test_monitor.py', '.github/workflows/ibps-pipeline.yml']
+# In ak49576-sys/Kamyabi-govt-job-
 
-permissions:
-  contents: read
+# 1. Verify current state
+cat .github/workflows/ibps-pipeline.yml | grep -E "python|monitor|source"
 
-concurrency:
-  group: kamyabi-ibps-pipeline
-  cancel-in-progress: false
+# 2. Check that daily-check.yml is separate and untouched
+ls .github/workflows/
 
-jobs:
-  ibps-fetch:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      
-      - name: Run unit tests
-        run: python -m unittest -v test_monitor.py
-      
-      - name: Fetch IBPS recruitment records
-        env:
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
-          SOURCE: ${{ github.event.inputs.source || 'ibps' }}
-        run: |
-          echo "Fetching recruitment records from: $SOURCE (dry_run=$DRY_RUN)"
-          python monitor.py
-      
-      - name: Add report to run summary
-        if: always()
-        run: |
-          if [ -f output/summary.md ]; then
-            cat output/summary.md >> "$GITHUB_STEP_SUMMARY"
-          fi
-      
-      - name: Save recruitment report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ibps-recruitment-report
-          path: output/
-          retention-days: 30
-          if-no-files-found: warn
+# 3. Download only the replacement workflow
+curl -fsSL https://kamyabi.in/data/ibps-pipeline.yml \
+  -o .github/workflows/ibps-pipeline.yml
+
+# 4. Verify the replacement
+grep "monitor.py" .github/workflows/ibps-pipeline.yml   # must return nothing
+grep "source=ibps" .github/workflows/ibps-pipeline.yml  # must return a match
+grep "schedule" .github/workflows/ibps-pipeline.yml     # must return nothing
+
+# 5. Commit
+git add .github/workflows/ibps-pipeline.yml
+git commit -m "Fix ibps-pipeline.yml: replace Python/monitor.py with TypeScript pipeline
+
+Previous file called monitor.py unconditionally; SOURCE env var was set
+but monitor.py did not filter by it, causing UPSC/RPSC/RSSB to run.
+push trigger caused automatic runs on every relevant file change.
+
+Replacement:
+- Calls pipeline.ts --source=ibps only
+- workflow_dispatch only (no push trigger, no schedule)
+- dry_run=true by default
+- Fails only on genuine IBPS errors
+- monitor.py, scraper.py, daily-check.yml untouched"
+git push
