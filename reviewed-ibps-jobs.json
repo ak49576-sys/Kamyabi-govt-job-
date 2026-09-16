@@ -2,17 +2,17 @@
   "reviewed": true,
   "jobs": [
     {
-      "job_id": "ibps-crp-clerical-2024",
-      "title": "CRP for Clerical Cadre – Recruitment Notification",
+      "job_id": "ibps-crp-rrb-xv-2026",
+      "title": "IBPS CRP RRB XV 2026 – Office Assistants and Officers",
       "recruiting_body": "IBPS",
-      "department": "Banking Sector",
-      "qualification": "12th Pass / Graduation as per official notification",
+      "department": "Regional Rural Banks",
+      "qualification": "Graduation and post-specific qualifications/experience as stated in the official notification",
       "state_or_central": "Central",
-      "source_url": "https://www.ibps.in/index.php/crp-updates/",
-      "official_notification_url": "https://www.ibps.in/index.php/crp-updates/",
-      "last_date": "2026-12-31",
-      "vacancy_count": 500,
-      "application_start_date": "2026-09-01"
+      "source_url": "https://www.ibps.in/index.php/rural-bank-xv/",
+      "official_notification_url": "https://www.ibps.in/wp-content/uploads/CRP-RRBs-XV-notification.pdf",
+      "application_start_date": "2026-09-01",
+      "application_last_date": "2026-09-21",
+      "last_date": "2026-09-21"
     }
   ]
 }
