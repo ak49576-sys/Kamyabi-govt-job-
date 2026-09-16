@@ -1,0 +1,47 @@
+name: IBPS Live Import to Kamyabi
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: kamyabi-ibps-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test collection and submission safeguards
+        run: python -m unittest -v test_monitor.py test_submit_jobs.py
+      - name: Import reviewed IBPS records to Kamyabi
+        env:
+          DRY_RUN: 'false'
+          SOURCE: ibps
+          REVIEWED_JOBS_FILE: reviewed-ibps-jobs.json
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: npx --yes --package=tsx@4.20.5 tsx ibps-pipeline.ts
+      - name: Add import counts to summary
+        if: always()
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          counts = Path('output/import-counts.json')
+          if counts.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+                  summary.write('### IBPS live import counts\n\n```json\n' + counts.read_text() + '\n```\n')
+      - name: Save import report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibps-live-import-report
+          path: output/
+          retention-days: 30
+          if-no-files-found: warn
