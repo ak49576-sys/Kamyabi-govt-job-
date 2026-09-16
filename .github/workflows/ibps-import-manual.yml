@@ -14,9 +14,10 @@ on:
         default: ibps
         required: true
       reviewed_jobs_file:
-        description: Optional repository JSON path with reviewed=true and complete IBPS jobs; required for import
+        description: Repository JSON path containing reviewed IBPS jobs
         type: string
-        default: ''
+        default: reviewed-ibps-jobs.json
+        required: true
 permissions:
   contents: read
 concurrency:
