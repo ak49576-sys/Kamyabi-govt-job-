@@ -26,8 +26,8 @@ def response_details(headers, body):
 
 
 def check(key):
-    report = {'secret_present': bool(key), 'authentication_verified': False,
-              'records_sent': 0, 'inserted': 0}
+    report = {'status_endpoint': STATUS_ENDPOINT, 'secret_present': bool(key),
+              'authentication_verified': False, 'records_sent': 0, 'inserted': 0}
     if not key or any(c in key for c in '\r\n'):
         report['result'] = 'Missing or invalid KAMYABI_API_KEY secret'
         return report
