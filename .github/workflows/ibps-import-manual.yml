@@ -2,10 +2,13 @@ name: IBPS Recruitment Import
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: Validate without API submission
-        type: boolean
-        default: true
+      mode:
+        description: Choose validation or live Kamyabi import
+        type: choice
+        options:
+          - validate_only
+          - import_to_kamyabi
+        default: validate_only
         required: true
       source:
         description: Recruitment source
@@ -38,14 +41,14 @@ jobs:
       - name: Test existing collection and validation
         run: python -m unittest -v test_monitor.py test_submit_jobs.py
       - name: Collect and validate IBPS
-        if: inputs.dry_run
+        if: inputs.mode == 'validate_only'
         env:
           DRY_RUN: 'true'
           SOURCE: ${{ inputs.source }}
           REVIEWED_JOBS_FILE: ${{ inputs.reviewed_jobs_file }}
         run: npx --yes --package=tsx@4.20.5 tsx ibps-pipeline.ts
       - name: Import reviewed IBPS records
-        if: ${{ !inputs.dry_run }}
+        if: inputs.mode == 'import_to_kamyabi'
         env:
           DRY_RUN: 'false'
           SOURCE: ${{ inputs.source }}
