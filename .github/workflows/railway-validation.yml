@@ -1,0 +1,50 @@
+name: Validate Railway Recruitment Boards
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:30 IST daily. Read-only validation; no Kamyabi publication.
+    - cron: '0 4 * * *'
+  push:
+    branches: [main]
+    paths:
+      - railway_validation.py
+      - test_railway_validation.py
+      - vacancy_scope.py
+      - state_psc_validation.py
+      - .github/workflows/railway-validation.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-railway-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test Railway safeguards
+        run: python -m unittest -v test_railway_validation.py test_vacancy_scope.py
+      - name: Validate unified official RRB portal
+        run: python railway_validation.py --output output/railways
+      - name: Add Railway report to summary
+        if: always()
+        run: |
+          if [ -f output/railways/summary.md ]; then
+            cat output/railways/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save Railway validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: railway-validation-report
+          path: output/railways/
+          retention-days: 30
+          if-no-files-found: warn
