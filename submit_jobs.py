@@ -9,7 +9,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, build_opener
 from api_http import NoRedirect
-from check_api import check as verify_api
+from check_api import USER_AGENT, check as verify_api
 
 ENDPOINT = 'https://kamyabi.in/api/v1/add-jobs'
 LIMITS = {'job_id': 255, 'title': 500, 'department': 500, 'qualification': 1000,
@@ -77,7 +77,7 @@ def send_jobs(jobs, key):
     if not verify_api(key)['authentication_verified']:
         raise ValueError('Read-only API-key verification failed; no jobs sent')
     request = Request(ENDPOINT, data=json.dumps(jobs).encode(), method='POST',
-                      headers={'Content-Type': 'application/json', 'X-Api-Key': key})
+                      headers={'Content-Type': 'application/json', 'User-Agent': USER_AGENT, 'X-Api-Key': key})
     with build_opener(NoRedirect).open(request, timeout=30) as response:
         if response.status != 200:
             raise ValueError('Unexpected API status; check pending rows before retrying')
