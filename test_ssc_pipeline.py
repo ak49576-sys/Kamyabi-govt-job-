@@ -35,6 +35,16 @@ class SscPipelineTests(unittest.TestCase):
         self.assertIn("application deadline has passed", result["reasons"])
         self.assertIn("missing record-specific official SSC notification URL", result["reasons"])
 
+    def test_demo_record_is_never_eligible(self):
+        result = normalise_record({
+            "id": "demo-1",
+            "title": "Selection Posts Demo (Do not Post Vacancy In it)",
+            "lastDate": "2026-12-31",
+            "notificationUrl": "https://ssc.gov.in/notice.pdf",
+        }, today=date(2026, 9, 17))
+        self.assertFalse(result["eligible_for_review"])
+        self.assertIn("demo or test advertisement must never be published", result["reasons"])
+
     def test_duplicates_are_reported_and_never_submitted(self):
         payload = {"data": [
             {"id": 7, "title": "One"},
