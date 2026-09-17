@@ -101,6 +101,8 @@ def normalise_record(record, today=None):
         reasons.append("missing stable advertisement id")
     if not title:
         reasons.append("missing title")
+    elif re.search(r"\b(?:demo|test)(?:ing)?\b|do not post", title, re.IGNORECASE):
+        reasons.append("demo or test advertisement must never be published")
     if not deadline:
         reasons.append("missing or unparseable application deadline")
     elif date.fromisoformat(deadline) < today:
