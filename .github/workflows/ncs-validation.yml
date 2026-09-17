@@ -10,6 +10,8 @@ on:
     paths:
       - ncs_validation.py
       - test_ncs_validation.py
+      - vacancy_scope.py
+      - test_vacancy_scope.py
       - state_psc_validation.py
       - .github/workflows/ncs-validation.yml
 
@@ -30,7 +32,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test NCS safeguards
-        run: python -m unittest -v test_ncs_validation.py
+        run: python -m unittest -v test_ncs_validation.py test_vacancy_scope.py
       - name: Validate official NCS government-job listing
         run: python ncs_validation.py --output output/ncs
       - name: Add validation report to summary
