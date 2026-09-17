@@ -1,0 +1,49 @@
+name: Validate National Career Service
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:15 IST daily. Read-only validation; no Kamyabi publication.
+    - cron: '45 3 * * *'
+  push:
+    branches: [main]
+    paths:
+      - ncs_validation.py
+      - test_ncs_validation.py
+      - state_psc_validation.py
+      - .github/workflows/ncs-validation.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-ncs-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test NCS safeguards
+        run: python -m unittest -v test_ncs_validation.py
+      - name: Validate official NCS government-job listing
+        run: python ncs_validation.py --output output/ncs
+      - name: Add validation report to summary
+        if: always()
+        run: |
+          if [ -f output/ncs/summary.md ]; then
+            cat output/ncs/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save NCS validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncs-validation-report
+          path: output/ncs/
+          retention-days: 30
+          if-no-files-found: warn
