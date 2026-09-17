@@ -15,12 +15,12 @@ class RailwayValidationTests(unittest.TestCase):
             "url": "https://rrb.indianrailways.gov.in/cen-01-2026.pdf",
         }])
 
-    @patch("railway_validation.fetch_html")
     def test_official_rrb_fallback_is_allowed(self):
         page = '<a href="/notice.pdf">CEN 02/2026 Notification</a>'
         links = extract_candidates(page, "https://rrbcdg.gov.in/")
         self.assertEqual(links[0]["url"], "https://rrbcdg.gov.in/notice.pdf")
 
+    @patch("railway_validation.fetch_html")
     def test_portal_identity_and_scope_are_required(self, fetch):
         fetch.return_value = (
             "<html>Government of India, Ministry of Railways, Railway Recruitment Board</html>",
