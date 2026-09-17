@@ -11,8 +11,14 @@ from state_psc_validation import LinkParser, fetch_html, official_https
 from vacancy_scope import classify_vacancy
 
 RRB_PORTAL = "https://rrb.indianrailways.gov.in/"
-RRB_PAGES = (RRB_PORTAL, RRB_PORTAL + "chandigarh", RRB_PORTAL + "ajmer")
-RRB_DOMAINS = ("indianrailways.gov.in",)
+RRB_PAGES = (
+    RRB_PORTAL,
+    RRB_PORTAL + "chandigarh",
+    RRB_PORTAL + "ajmer",
+    "https://rrbcdg.gov.in/",
+    "https://indianrailways.gov.in/railwayboard/view_section.jsp?id=0,4,1244&lang=0",
+)
+RRB_DOMAINS = ("indianrailways.gov.in", "rrbcdg.gov.in")
 PORTAL_MARKER = re.compile(r"railway recruitment boards?|ministry of railways", re.IGNORECASE)
 NOTICE_MARKER = re.compile(
     r"\bCEN\s*[A-Z0-9./-]*|centralised employment notice|"
