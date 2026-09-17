@@ -2,6 +2,9 @@ name: SSC Recruitment Dry Run
 
 on:
   workflow_dispatch:
+  schedule:
+    # 08:30 IST daily. Validation and report generation only; never publishes.
+    - cron: '0 3 * * *'
   push:
     branches: [main]
     paths:
