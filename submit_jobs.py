@@ -76,7 +76,7 @@ def validate_document(document, today=None):
 def send_jobs(jobs, key):
     if not verify_api(key)['authentication_verified']:
         raise ValueError('Read-only API-key verification failed; no jobs sent')
-    request = Request(ENDPOINT, data=json.dumps({'jobs': jobs}).encode(), method='POST',
+    request = Request(ENDPOINT, data=json.dumps(jobs).encode(), method='POST',
                       headers={'Content-Type': 'application/json', 'X-Api-Key': key})
     with build_opener(NoRedirect).open(request, timeout=30) as response:
         if response.status != 200:
