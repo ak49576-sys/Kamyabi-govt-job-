@@ -1,0 +1,46 @@
+name: Validate SSC UPSC RPSC official sources
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'source_validation.py'
+      - 'test_source_validation.py'
+      - 'monitor.py'
+      - '.github/workflows/source-validation.yml'
+permissions:
+  contents: read
+concurrency:
+  group: kamyabi-source-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    name: Validate ${{ matrix.source }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        source: [ssc, upsc, rpsc]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test validation safeguards
+        run: python -m unittest -v test_monitor.py test_source_validation.py
+      - name: Validate official source
+        run: python source_validation.py --source ${{ matrix.source }} --output output/${{ matrix.source }}
+      - name: Add source report to summary
+        if: always()
+        run: |
+          if [ -f output/${{ matrix.source }}/summary.md ]; then
+            cat output/${{ matrix.source }}/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.source }}-validation-report
+          path: output/${{ matrix.source }}/
+          retention-days: 30
+          if-no-files-found: warn
