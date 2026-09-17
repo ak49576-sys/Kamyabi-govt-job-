@@ -1,0 +1,50 @@
+name: SSC Recruitment Dry Run
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ssc_pipeline.py
+      - test_ssc_pipeline.py
+      - source_validation.py
+      - .github/workflows/ssc-dry-run.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-ssc-dry-run
+  cancel-in-progress: false
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test SSC safeguards
+        run: python -m unittest -v test_source_validation.py test_ssc_pipeline.py
+      - name: Build SSC review report
+        run: python ssc_pipeline.py --output output/ssc
+      - name: Add counts to summary
+        if: always()
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          counts = Path('output/ssc/counts.json')
+          if counts.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+                  summary.write('### SSC dry-run counts\n\n```json\n' + counts.read_text() + '\n```\n')
+      - name: Save SSC dry-run report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssc-dry-run-report
+          path: output/ssc/
+          retention-days: 30
+          if-no-files-found: warn
