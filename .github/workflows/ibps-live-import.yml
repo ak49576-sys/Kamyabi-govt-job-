@@ -1,6 +1,11 @@
 name: IBPS Live Import to Kamyabi
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/live-import-trigger'
 permissions:
   contents: read
 concurrency:
