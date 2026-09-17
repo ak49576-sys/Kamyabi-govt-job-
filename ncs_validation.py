@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from state_psc_validation import fetch_html
+from vacancy_scope import ALLOWED_CATEGORIES
 
 NCS_ENDPOINT = "https://ncs.gov.in/job-listing?isGovernmentJob=true"
 NCS_DOMAINS = ("ncs.gov.in",)
@@ -30,6 +31,8 @@ def validate():
             "government_filter_verified": True,
             "dynamic_listing": True,
             "records_observed": None,
+            "scope_policy": "fail_closed",
+            "allowed_categories": list(ALLOWED_CATEGORIES),
             "publish_attempted": False,
             "note": (
                 "Official government-job listing is reachable. Job cards load dynamically, "
@@ -45,6 +48,8 @@ def validate():
             "government_filter_verified": False,
             "dynamic_listing": True,
             "records_observed": None,
+            "scope_policy": "fail_closed",
+            "allowed_categories": list(ALLOWED_CATEGORIES),
             "publish_attempted": False,
             "detail": type(error).__name__ + ": " + str(error),
             "note": "No jobs were created or published.",
@@ -66,6 +71,8 @@ def main():
         f"- Status: **{report['status']}**\n"
         f"- Government filter verified: **{report['government_filter_verified']}**\n"
         "- Records inferred from dynamic page: **0**\n"
+        f"- Scope policy: **{report['scope_policy']}**\n"
+        f"- Allowed categories: **{', '.join(report['allowed_categories'])}**\n"
         "- Publishing attempted: **No**\n"
         f"- Endpoint: {report['endpoint']}\n"
     )
