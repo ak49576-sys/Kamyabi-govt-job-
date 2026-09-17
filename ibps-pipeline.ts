@@ -10,8 +10,11 @@ import { join, resolve } from 'node:path';
 function run(args: string[], allowPartial = false): string {
   const result = spawnSync('python', args, { encoding: 'utf8', timeout: 180000 });
   if (result.error) throw new Error('Python step could not complete');
-  if (result.status !== 0 && !(allowPartial && result.status === 1))
-    throw new Error('Python step failed; inspect the generated reports');
+  if (result.status !== 0 && !(allowPartial && result.status === 1)) {
+    const detail = result.stdout.trim().slice(0, 500);
+    throw new Error(detail ? `Python step failed: ${detail}` :
+      'Python step failed; inspect the generated reports');
+  }
   return result.stdout;
 }
 
