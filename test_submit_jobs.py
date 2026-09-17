@@ -62,7 +62,7 @@ class SubmissionTests(unittest.TestCase):
         request = opener.return_value.open.call_args.args[0]
         self.assertEqual(request.full_url, 'https://kamyabi.in/api/v1/add-jobs')
         self.assertEqual(request.get_header('X-api-key'), 'test-key')
-        self.assertTrue(request.data.startswith(b'{"jobs":'))
+        self.assertEqual(json.loads(request.data), self.validate(self.document()))
         self.assertEqual(result['inserted'], 1)
         self.assertIn('not verified', result['publication_status'])
 
