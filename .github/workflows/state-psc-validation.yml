@@ -1,0 +1,53 @@
+name: Validate State PSC official sources
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:00 IST daily. Read-only validation; no Kamyabi publication.
+    - cron: '30 3 * * *'
+  push:
+    branches: [main]
+    paths:
+      - state_psc_validation.py
+      - test_state_psc_validation.py
+      - .github/workflows/state-psc-validation.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-state-psc-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate ${{ matrix.source }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        source: [rpsc, uppsc, mppsc, bpsc, hpsc, ukpsc, jpsc, wbpsc, gpsc, mpsc]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test validation safeguards
+        run: python -m unittest -v test_state_psc_validation.py
+      - name: Validate official commission source
+        run: python state_psc_validation.py --source ${{ matrix.source }} --output output/${{ matrix.source }}
+      - name: Add source report to summary
+        if: always()
+        run: |
+          if [ -f output/${{ matrix.source }}/summary.md ]; then
+            cat output/${{ matrix.source }}/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.source }}-validation-report
+          path: output/${{ matrix.source }}/
+          retention-days: 30
+          if-no-files-found: warn
