@@ -10,7 +10,7 @@ from urllib.parse import urljoin, urldefrag
 from state_psc_validation import LinkParser, fetch_html, official_https
 from vacancy_scope import classify_vacancy
 
-RITES_CAREERS = "https://rites.com/"
+RITES_CAREERS = "https://www.rites.com/"
 RITES_DOMAINS = ("rites.com",)
 IDENTITY_MARKER = re.compile(r"RITES|Rail India Technical and Economic Service", re.I)
 VACANCY_MARKER = re.compile(r"recruitment|vacanc|career|advertisement|\.pdf(?:$|[?#])", re.I)
