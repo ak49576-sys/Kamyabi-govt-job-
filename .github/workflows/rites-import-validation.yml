@@ -1,7 +1,16 @@
-name: Validate RITES Import Record
+name: RITES Recruitment Import
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Choose validation or live Kamyabi import
+        type: choice
+        options:
+          - validate_only
+          - import_to_kamyabi
+        default: validate_only
+        required: true
   push:
     branches: [main]
     paths:
@@ -14,11 +23,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: kamyabi-rites-import-validation
+  group: kamyabi-rites-import
   cancel-in-progress: false
 
 jobs:
-  validate:
+  import:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -28,20 +37,26 @@ jobs:
           python-version: '3.12'
       - name: Test submission safeguards
         run: python -m unittest -v test_submit_jobs.py
-      - name: Validate reviewed RITES record without submission
+      - name: Validate reviewed RITES record
+        if: github.event_name == 'push' || inputs.mode == 'validate_only'
         run: python submit_jobs.py --file reviewed-rites-jobs.json --output output/rites-import.json
+      - name: Publish reviewed RITES record to Kamyabi
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'import_to_kamyabi'
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: python submit_jobs.py --file reviewed-rites-jobs.json --submit --output output/rites-import.json
       - name: Add result to summary
         if: always()
         run: |
           if [ -f output/rites-import.json ]; then
-            echo '### RITES validation result' >> "$GITHUB_STEP_SUMMARY"
+            echo '### RITES import result' >> "$GITHUB_STEP_SUMMARY"
             cat output/rites-import.json >> "$GITHUB_STEP_SUMMARY"
           fi
-      - name: Save RITES validation report
+      - name: Save RITES import report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rites-import-validation-report
+          name: rites-import-report
           path: output/
           retention-days: 30
           if-no-files-found: warn
