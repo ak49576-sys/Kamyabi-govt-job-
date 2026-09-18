@@ -1,6 +1,18 @@
 # Kamyabi.in official recruitment monitor
 
-A dependency-free Python starter for daily checks of IBPS, UPSC, RPSC and RSSB official pages, plus supplementary vacancy cards from the Rajasthan Recruitment Portal. It collects candidate notification links into CSV/JSON and reports source errors explicitly. It does not publish jobs to Kamyabi.in.
+A dependency-free Python starter for daily checks of IBPS, UPSC, RPSC and RSSB official pages, plus supplementary vacancy cards from the Rajasthan Recruitment Portal. It collects candidate notification links into CSV/JSON and reports source errors explicitly. The separate reviewed-publication workflow delivers approved records to Kamyabi.in.
+
+## Automatic reviewed publication — 2026-09-18
+
+`Automatic reviewed job publication` runs daily at **08:15 IST** (02:45 UTC), on changes to reviewed job files on `main`, and on manual dispatch. It uses the existing `KAMYABI_API_KEY` Actions secret. No website rebuild is needed for successful database imports.
+
+`auto_import.py` loads `reviewed-*-jobs.json`, requires explicit human review, validates the complete API schema and employer-specific official domains (currently IBPS and RITES), skips expired records using the India date, and compares current records with the public jobs API. Only missing/changed records are upserted. It checks public visibility and matching fields after import; pending records cause a visible workflow failure and require checking `/admin/jobs`. It never approves a pending record itself. API writes have no automatic retry within a run; a later scheduled run may upsert the same stable job ID after checking public state.
+
+New reviewed IBPS/RITES files matching that pattern are picked up automatically. Raw notices are **not** automatically converted into publishable vacancies. The separate daily monitor still produces candidate links for review; SSC, state PSC, railway and NCS validation jobs remain diagnostic. Other employers need a reviewed source-domain mapping and complete records before automatic submission. This is automatic delivery of reviewed jobs, not full unattended discovery and verification of every government vacancy.
+
+Check Actions summaries/artifact `automatic-import-report` for eligible, expired, unchanged, submitted and public-mismatch counts. A green run with no eligible records does not mean new jobs were discovered. Preview locally with `python auto_import.py`; use `--submit` only with the secret configured.
+
+The historical notes below describe earlier deployments; this section supersedes statements that no scheduled submission exists.
 
 ## Daily operation
 
