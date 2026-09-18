@@ -1,0 +1,21 @@
+{
+  "reviewed": true,
+  "reviewed_at": "2026-09-18",
+  "review_note": "Dates, vacancy codes and total posts checked against the official RITES careers listing and official notification URL. Aggregate listing avoids inventing post-specific qualifications.",
+  "jobs": [
+    {
+      "job_id": "rites-engineering-professionals-rg-31-45-2026",
+      "title": "RITES Engineering Professionals Recruitment 2026 – 33 DGM, Manager and Assistant Manager Posts",
+      "department": "RITES Limited, Ministry of Railways",
+      "qualification": "Relevant full-time Civil Engineering degree and, for specified design posts, the prescribed postgraduate qualification; post-qualification experience varies by post. Candidates must check the official notification for VC RG/31/26 to RG/45/26.",
+      "state_or_central": "Central PSU",
+      "source_url": "https://rites.com/career",
+      "official_notification_url": "https://www.rites.com/Upload/Career/CEDS_Cluster-I_final_adv_pdf-2026-Sep-15-16-20-38.pdf",
+      "application_start_date": "2026-09-15",
+      "application_last_date": "2026-10-08",
+      "last_date": "2026-10-08",
+      "vacancy_count": 33,
+      "recruiting_body": "RITES Limited"
+    }
+  ]
+}
