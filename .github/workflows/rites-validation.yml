@@ -1,0 +1,50 @@
+name: Validate RITES Railway PSU
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:45 IST daily. Read-only discovery; no Kamyabi publication.
+    - cron: '15 4 * * *'
+  push:
+    branches: [main]
+    paths:
+      - rites_validation.py
+      - test_rites_validation.py
+      - vacancy_scope.py
+      - state_psc_validation.py
+      - .github/workflows/rites-validation.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-rites-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test RITES safeguards
+        run: python -m unittest -v test_rites_validation.py test_vacancy_scope.py
+      - name: Validate official RITES careers source
+        run: python rites_validation.py --output output/rites
+      - name: Add RITES report to summary
+        if: always()
+        run: |
+          if [ -f output/rites/summary.md ]; then
+            cat output/rites/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save RITES validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rites-validation-report
+          path: output/rites/
+          retention-days: 30
+          if-no-files-found: warn
