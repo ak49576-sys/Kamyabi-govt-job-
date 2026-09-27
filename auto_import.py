@@ -14,7 +14,13 @@ from submit_jobs import send_jobs, validate_document, valid_date
 
 PUBLIC_URL = 'https://kamyabi.in/api/v1/jobs'
 # Explicit source/body binding. Adding an employer requires an adapter/domain review.
-SOURCES = {\n    'IBPS': {'ibps.in'},\n    'RITES Limited': {'rites.com'},\n    'Union Public Service Commission': {'upsc.gov.in', 'pib.gov.in', 'upsconline.nic.in'},\n    'ISRO — Space Applications Centre': {'isro.gov.in', 'careers.sac.gov.in'},\n    'Mineral Exploration and Consultancy Limited': {'mecl.co.in'}\n}
+SOURCES = {
+    'IBPS': {'ibps.in'},
+    'RITES Limited': {'rites.com'},
+    'Union Public Service Commission': {'upsc.gov.in', 'pib.gov.in', 'upsconline.nic.in'},
+    'ISRO — Space Applications Centre': {'isro.gov.in', 'careers.sac.gov.in'},
+    'Mineral Exploration and Consultancy Limited': {'mecl.co.in'}
+}
 
 
 def load_queue(root, today):
