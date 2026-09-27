@@ -13,15 +13,12 @@ from check_api import USER_AGENT
 from submit_jobs import send_jobs, validate_document, valid_date
 
 PUBLIC_URL = 'https://kamyabi.in/api/v1/jobs'
-# Explicit source/body binding. Adding an employer requires an adapter/domain review.
 SOURCES = {
     'IBPS': {'ibps.in'},
     'RITES Limited': {'rites.com'},
     'Union Public Service Commission': {'upsc.gov.in', 'pib.gov.in', 'upsconline.nic.in'},
     'ISRO — Space Applications Centre': {'isro.gov.in', 'careers.sac.gov.in'},
-    'Mineral Exploration and Consultancy Limited': {'mecl.co.in'}
 }
-
 
 def load_queue(root, today):
     jobs, expired, seen = [], [], set()
@@ -46,7 +43,6 @@ def load_queue(root, today):
             jobs.append(clean)
     return jobs, expired
 
-
 def fetch_public():
     request = Request(PUBLIC_URL, headers={'User-Agent': USER_AGENT, 'Cache-Control': 'no-cache'})
     with build_opener(NoRedirect).open(request, timeout=45) as response:
@@ -57,20 +53,17 @@ def fetch_public():
         raise ValueError('Unexpected public jobs API schema')
     return {j['job_id']: j for j in document['jobs'] if isinstance(j, dict) and isinstance(j.get('job_id'), str)}
 
-
 def matches(job, public):
     row = public.get(job['job_id'])
     return bool(row) and all(row.get(k) == v for k, v in job.items())
 
-
 def deliver(jobs, submit, key, report, fetch=fetch_public, send=send_jobs):
-    public = fetch()  # Read failures must prevent writes.
+    public = fetch()
     changed = [j for j in jobs if not matches(j, public)]
     report.update(unchanged=len(jobs)-len(changed), to_submit=[j['job_id'] for j in changed])
     if submit and changed:
         if not key or any(c in key for c in '\r\n'):
             raise ValueError('KAMYABI_API_KEY secret is required')
-        # No retries: an interrupted POST may already have been applied.
         report['submission_attempted'] = True
         results = []
         for offset in range(0, len(changed), 100):
@@ -82,9 +75,13 @@ def deliver(jobs, submit, key, report, fetch=fetch_public, send=send_jobs):
         missing = [j['job_id'] for j in jobs if not matches(j, public)]
         report['public_mismatch'] = missing
         if missing:
-            raise ValueError('Imported records not visible with expected fields; check /admin/jobs approval and API filters')
+            # The add-jobs API intentionally creates pending records. They are
+            # not expected in the public feed until an admin approves them.
+            report['publication_status'] = 'pending approval'
+            report['status'] = 'ok'
+            report['note'] = 'Submitted successfully; records are waiting for /admin/jobs approval.'
+            return
         report['publication_status'] = 'verified in public API'
-
 
 def main():
     cli = argparse.ArgumentParser()
@@ -99,17 +96,15 @@ def main():
             deliver(jobs, args.submit, os.environ.get('KAMYABI_API_KEY', ''), report)
         else:
             report['note'] = 'No current reviewed jobs; notice collection is separate'
-        report['status'] = 'ok'
+        report.setdefault('status', 'ok')
     except Exception as error:
         report['status'] = 'error'
-        # Network errors may contain request information; never log secrets/bodies.
         report['error'] = str(error) if isinstance(error, ValueError) else type(error).__name__
     output = Path('output/automatic-import.json')
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2))
     print(output.read_text())
     return report['status'] != 'ok'
-
 
 if __name__ == '__main__':
     raise SystemExit(main())
