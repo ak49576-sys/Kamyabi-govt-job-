@@ -16,34 +16,25 @@ class AutomaticImportTests(unittest.TestCase):
             (root / 'reviewed-test-jobs.json').write_text(json.dumps({'reviewed': reviewed, 'jobs': [job]}))
             return load_queue(root, today)
 
-    def test_valid_reviewed(self):
-        self.assertEqual(self.queue(JOB)[0], [JOB])
-
-    def test_expired_skipped(self):
-        self.assertEqual(self.queue(JOB, today=date(2026, 9, 22)), ([], [JOB['job_id']]))
-
+    def test_valid_reviewed(self): self.assertEqual(self.queue(JOB)[0], [JOB])
+    def test_expired_skipped(self): self.assertEqual(self.queue(JOB, today=date(2026, 9, 22)), ([], [JOB['job_id']]))
     def test_review_required(self):
         with self.assertRaises(ValueError): self.queue(JOB, reviewed=False)
-
     def test_unofficial_domain(self):
         job = copy.deepcopy(JOB)
         job['official_notification_url'] = 'https://ibps.in.evil.test/a.pdf'
         with self.assertRaises(ValueError): self.queue(job)
-
     def test_unknown_employer(self):
         job = dict(JOB, recruiting_body='Private Bank')
         with self.assertRaises(ValueError): self.queue(job)
-
     def test_unchanged_no_write(self):
         send = Mock()
         deliver([JOB], True, 'key', {}, fetch=lambda: {JOB['job_id']: JOB}, send=send)
         send.assert_not_called()
-
     def test_preview_no_write(self):
         send = Mock()
         deliver([JOB], False, '', {}, fetch=lambda: {}, send=send)
         send.assert_not_called()
-
     def test_import_and_public_verification(self):
         fetch = Mock(side_effect=[{}, {JOB['job_id']: JOB}])
         send = Mock(return_value={'inserted': 1})
@@ -51,17 +42,18 @@ class AutomaticImportTests(unittest.TestCase):
         deliver([JOB], True, 'key', report, fetch=fetch, send=send)
         send.assert_called_once_with([JOB], 'key')
         self.assertEqual(report['publication_status'], 'verified in public API')
-
-    def test_pending_is_not_success(self):
-        with self.assertRaisesRegex(ValueError, 'not visible'):
-            deliver([JOB], True, 'key', {}, fetch=lambda: {}, send=Mock())
-
+    def test_pending_is_successful_submission(self):
+        send = Mock(return_value={'inserted': 1, 'updated': 0, 'skipped': 0})
+        report = {}
+        deliver([JOB], True, 'key', report, fetch=lambda: {}, send=send)
+        self.assertEqual(report['publication_status'], 'pending approval')
+        self.assertEqual(report['status'], 'ok')
+        self.assertEqual(report['submitted'], 1)
     def test_read_failure_blocks_write(self):
         send = Mock()
         with self.assertRaises(OSError):
             deliver([JOB], True, 'key', {}, fetch=Mock(side_effect=OSError()), send=send)
         send.assert_not_called()
-
     def test_post_failure_not_retried(self):
         send = Mock(side_effect=OSError())
         with self.assertRaises(OSError):
