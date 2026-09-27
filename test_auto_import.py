@@ -60,4 +60,5 @@ class AutomaticImportTests(unittest.TestCase):
             deliver([JOB], True, 'key', {}, fetch=lambda: {}, send=send)
         self.assertEqual(send.call_count, 1)
 
+# Pending API records are accepted until admin publication.
 if __name__ == '__main__': unittest.main()
