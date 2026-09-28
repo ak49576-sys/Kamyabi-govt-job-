@@ -20,9 +20,16 @@ SOURCES = {
     'ISRO — Space Applications Centre': {'isro.gov.in', 'careers.sac.gov.in'},
 }
 
-def load_queue(root, today):
+def load_queue(root, today, filenames=None):
     jobs, expired, seen = [], [], set()
-    for path in sorted(root.glob('reviewed-*-jobs.json')):
+    paths = sorted(root.glob('reviewed-*-jobs.json'))
+    if filenames is not None:
+        known = {path.name for path in paths}
+        requested = set(filenames)
+        if requested - known:
+            raise ValueError('Unknown or non-reviewed job file: ' + ', '.join(sorted(requested - known)))
+        paths = [path for path in paths if path.name in requested]
+    for path in paths:
         doc = json.loads(path.read_text())
         if doc.get('reviewed') is not True or not isinstance(doc.get('jobs'), list):
             raise ValueError(f'{path.name}: explicit review and jobs array required')
@@ -86,11 +93,12 @@ def deliver(jobs, submit, key, report, fetch=fetch_public, send=send_jobs):
 def main():
     cli = argparse.ArgumentParser()
     cli.add_argument('--submit', action='store_true')
+    cli.add_argument('--files', nargs='+', help='Stage only these changed reviewed file names')
     args = cli.parse_args()
     report = {'mode': 'live' if args.submit else 'preview', 'submitted': 0, 'publication_status': 'not verified'}
     try:
         today = datetime.now(ZoneInfo('Asia/Kolkata')).date()
-        jobs, expired = load_queue(Path('.'), today)
+        jobs, expired = load_queue(Path('.'), today, args.files)
         report.update(eligible=len(jobs), expired=expired)
         if jobs:
             deliver(jobs, args.submit, os.environ.get('KAMYABI_API_KEY', ''), report)

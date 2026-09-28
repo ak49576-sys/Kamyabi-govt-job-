@@ -1,7 +1,5 @@
-name: Automatic reviewed job publication
+name: Stage reviewed jobs for admin approval
 on:
-  schedule:
-    - cron: '45 2 * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -21,16 +19,32 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Test import safeguards
         run: python -m unittest -v test_submit_jobs.py test_auto_import.py
-      - name: Publish current reviewed jobs and verify public API
+      - name: Stage changed reviewed jobs
+        if: github.event_name == 'push'
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+          BEFORE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          mapfile -t changed < <(git diff --name-only --diff-filter=AM "$BEFORE_SHA" "$GITHUB_SHA" -- 'reviewed-*-jobs.json')
+          if (( ${#changed[@]} == 0 )); then
+            echo 'No new or modified reviewed job files to stage.'
+            exit 0
+          fi
+          python auto_import.py --submit --files "${changed[@]}"
+      - name: Manually stage reviewed jobs
+        if: github.event_name == 'workflow_dispatch'
         env:
           KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
         run: python auto_import.py --submit
-      - name: Publish run summary
+      - name: Record staging status
         if: always()
         shell: python
         run: |

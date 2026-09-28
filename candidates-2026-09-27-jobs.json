@@ -1,5 +1,5 @@
 {
-  "reviewed": true,
+  "reviewed": false,
   "jobs": [
     {
       "job_id": "upsc-direct-recruitment-12-2026",
@@ -27,5 +27,6 @@
       "application_last_date": "2026-09-30",
       "recruiting_body": "ISRO — Space Applications Centre"
     }
-  ]
+  ],
+  "review_note": "Candidate leads only. UPSC has a PIB summary rather than a job-specific UPSC notice; ISRO points to a general opportunities page. Confirm direct notices and all dates before creating a new reviewed file. Previously staged rows require separate admin review."
 }
