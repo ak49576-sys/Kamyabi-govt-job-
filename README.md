@@ -2,17 +2,15 @@
 
 A dependency-free Python starter for daily checks of IBPS, UPSC, RPSC and RSSB official pages, plus supplementary vacancy cards from the Rajasthan Recruitment Portal. It collects candidate notification links into CSV/JSON and reports source errors explicitly. The separate reviewed-publication workflow delivers approved records to Kamyabi.in.
 
-## Automatic reviewed publication — 2026-09-18
+## Reviewed job staging — 2026-09-28
 
-`Automatic reviewed job publication` runs daily at **08:15 IST** (02:45 UTC), on changes to reviewed job files on `main`, and on manual dispatch. It uses the existing `KAMYABI_API_KEY` Actions secret. No website rebuild is needed for successful database imports.
+**Actions → Stage reviewed jobs for admin approval** stages only new or modified `reviewed-*-jobs.json` files pushed to `main`, or stages all reviewed files when manually dispatched. There is no daily staging schedule. The workflow uses the `KAMYABI_API_KEY` Actions secret and writes to the pending-job API; an administrator must check the notice and approve each job in `/admin/jobs` before it is public. A green staging run confirms API delivery, not publication.
 
-`auto_import.py` loads `reviewed-*-jobs.json`, requires explicit human review, validates the complete API schema and employer-specific official domains (currently IBPS and RITES), skips expired records using the India date, and compares current records with the public jobs API. Only missing/changed records are upserted. It checks public visibility and matching fields after import; pending records cause a visible workflow failure and require checking `/admin/jobs`. It never approves a pending record itself. API writes have no automatic retry within a run; a later scheduled run may upsert the same stable job ID after checking public state.
+`auto_import.py` validates explicitly reviewed records, official domains, schema and deadlines, then compares them with the public API. Pending records are invisible to that comparison; use `--files` for a targeted import. The automatic workflow limits each push to changed reviewed files to avoid repeating pending upserts on unrelated pushes. Manual dispatch can resubmit pending records, so check `/admin/jobs` before running it. Existing pending records on the server must be reviewed there separately.
 
-New reviewed IBPS/RITES files matching that pattern are picked up automatically. Raw notices are **not** automatically converted into publishable vacancies. The separate daily monitor still produces candidate links for review; SSC, state PSC, railway and NCS validation jobs remain diagnostic. Other employers need a reviewed source-domain mapping and complete records before automatic submission. This is automatic delivery of reviewed jobs, not full unattended discovery and verification of every government vacancy.
+`candidates-2026-09-27-jobs.json` holds UPSC and ISRO entries that still need their specific official notices confirmed; it is not eligible for automatic staging. Raw notices are never promoted into reviewed files automatically. The separate daily recruitment monitor reports candidate links and source errors for editorial review.
 
-Check Actions summaries/artifact `automatic-import-report` for eligible, expired, unchanged, submitted and public-mismatch counts. A green run with no eligible records does not mean new jobs were discovered. Preview locally with `python auto_import.py`; use `--submit` only with the secret configured.
-
-The historical notes below describe earlier deployments; this section supersedes statements that no scheduled submission exists.
+Read the Actions summary and `automatic-import-report` artifact for eligibility, submissions and public visibility. Preview locally with `python auto_import.py`, and pass `--submit` only when ready to stage reviewed jobs. Historical notes below describe earlier deployments.
 
 ## Daily operation
 
