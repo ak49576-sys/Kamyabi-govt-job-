@@ -27,6 +27,19 @@ class AutomaticImportTests(unittest.TestCase):
     def test_unknown_employer(self):
         job = dict(JOB, recruiting_body='Private Bank')
         with self.assertRaises(ValueError): self.queue(job)
+    def test_only_named_reviewed_files_are_staged(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'reviewed-first-jobs.json').write_text(json.dumps({'reviewed': True, 'jobs': [JOB]}))
+            other = dict(JOB, job_id='ibps-other-2026')
+            (root / 'reviewed-second-jobs.json').write_text(json.dumps({'reviewed': True, 'jobs': [other]}))
+            jobs, expired = load_queue(root, date(2026, 9, 18), ['reviewed-second-jobs.json'])
+            self.assertEqual([j['job_id'] for j in jobs], ['ibps-other-2026'])
+            self.assertEqual(expired, [])
+            self.assertEqual(load_queue(root, date(2026, 9, 18), []), ([], []))
+            with self.assertRaises(ValueError):
+                load_queue(root, date(2026, 9, 18), ['../candidates-2026-09-27-jobs.json'])
+
     def test_unchanged_no_write(self):
         send = Mock()
         deliver([JOB], True, 'key', {}, fetch=lambda: {JOB['job_id']: JOB}, send=send)
