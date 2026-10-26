@@ -22,7 +22,7 @@ jobs:
           set -euo pipefail
           test -n "$APIFY_DATASET_URL" || { echo "::error::APIFY_DATASET_URL secret is empty or missing"; exit 1; }
           mkdir -p output
-          curl --fail --silent --show-error --location --max-time 60 \
+          curl --globoff --fail --silent --show-error --location --max-time 60 \
             "$APIFY_DATASET_URL" -o /tmp/apify-dataset.csv
           python - <<'PY'
           import csv, json, os, sys
