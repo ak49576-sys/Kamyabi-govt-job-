@@ -1,0 +1,100 @@
+name: Apify Dataset Review for Kamyabi
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-apify-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch Apify CSV and create review report
+        env:
+          APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
+        run: |
+          set -euo pipefail
+          test -n "$APIFY_DATASET_URL" || { echo "::error::APIFY_DATASET_URL secret is empty or missing"; exit 1; }
+          mkdir -p output
+          curl --fail --silent --show-error --location --max-time 60 \
+            "$APIFY_DATASET_URL" -o /tmp/apify-dataset.csv
+          python - <<'PY'
+          import csv, json, os, sys
+          from datetime import datetime
+          from pathlib import Path
+          src = Path('/tmp/apify-dataset.csv')
+          out = Path('output')
+          required = {'postName', 'detailUrl', 'lastDate', 'recruitmentBoard'}
+          with src.open('r', encoding='utf-8-sig', newline='') as f:
+              reader = csv.DictReader(f)
+              headers = set(reader.fieldnames or [])
+              missing = sorted(required - headers)
+              if missing:
+                  raise SystemExit('CSV schema mismatch; missing columns: ' + ', '.join(missing))
+              rows = list(reader)
+          if not rows:
+              raise SystemExit('Apify dataset returned zero rows; refusing to treat this as a successful collection.')
+          seen = set()
+          report = []
+          for row in rows:
+              title = (row.get('postName') or '').strip()
+              url = (row.get('detailUrl') or '').strip()
+              key = (title.casefold(), url.casefold())
+              if key in seen:
+                  continue
+              seen.add(key)
+              from urllib.parse import urlparse
+              parsed = urlparse(url)
+              report.append({
+                  'title': title,
+                  'recruitment_board': (row.get('recruitmentBoard') or '').strip(),
+                  'last_date_as_scraped': (row.get('lastDate') or '').strip(),
+                  'candidate_url': url,
+                  'candidate_url_host': parsed.hostname or '',
+                  'advt_no': (row.get('advtNo') or '').strip(),
+                  'qualification_as_scraped': (row.get('qualification') or '').strip(),
+                  'post_date_as_scraped': (row.get('postDate') or '').strip(),
+                  'parse_confidence': (row.get('parse_confidence') or '').strip(),
+                  'review_status': 'NEEDS_OFFICIAL_NOTIFICATION_VERIFICATION',
+                  'publishable': False,
+                  'review_note': 'Scraped candidate only. Confirm the vacancy and dates from the recruiting body official notification; do not publish from an aggregator link alone.'
+              })
+          fields = list(report[0].keys())
+          with (out / 'apify-review.csv').open('w', encoding='utf-8-sig', newline='') as f:
+              writer = csv.DictWriter(f, fieldnames=fields)
+              writer.writeheader()
+              writer.writerows(report)
+          summary = {
+              'fetched_at_utc': datetime.utcnow().replace(microsecond=0).isoformat() + 'Z',
+              'source': 'Apify dataset CSV export',
+              'raw_rows': len(rows),
+              'unique_candidate_rows': len(report),
+              'duplicates_removed': len(rows) - len(report),
+              'automatically_submitted_to_kamyabi': 0,
+              'automatically_published': 0,
+              'review_required_for_all_rows': True,
+              'note': 'This workflow only downloads and prepares a review report. It never sends jobs to Kamyabi.'
+          }
+          (out / 'summary.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+              f.write('## Apify → Kamyabi candidate review\n\n')
+              f.write(f"- Raw rows fetched: **{len(rows)}**\n")
+              f.write(f"- Unique candidate rows: **{len(report)}**\n")
+              f.write(f"- Duplicates removed: **{len(rows)-len(report)}**\n")
+              f.write('- Jobs submitted or published: **0**\n\n')
+              f.write('Download the **apify-kamyabi-review** artifact and verify every item against the recruiting body’s official notification before adding it to a reviewed jobs file.\n')
+          PY
+      - name: Upload review report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apify-kamyabi-review
+          path: output/
+          retention-days: 30
+          if-no-files-found: warn
