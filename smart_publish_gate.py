@@ -40,10 +40,12 @@ def _fingerprints(row):
     return keys
 
 
-def assess(candidate, existing_records, official_evidence, today=None):
+def assess(candidate, existing_records, official_evidence, today=None, inventory_complete=False):
     """Return a fail-closed decision; eligible is only for *future* approval logic."""
     today = today or date.today()
     reasons = []
+    if not inventory_complete:
+        reasons.append("pending_and_published_inventory_unverified")
     if not isinstance(candidate, dict) or not isinstance(existing_records, list):
         return {"decision": "manual_review", "reasons": ["invalid_input"]}
     missing = [field for field in REQUIRED if candidate.get(field) in (None, "")]
@@ -93,13 +95,13 @@ def assess(candidate, existing_records, official_evidence, today=None):
     return {"decision": "eligible_for_dry_run", "reasons": []}
 
 
-def assess_batch(candidates, existing_records, evidence_by_job_id, today=None):
+def assess_batch(candidates, existing_records, evidence_by_job_id, today=None, inventory_complete=False):
     """Fail closed on duplicates within the incoming batch too."""
     results = []
     prior = list(existing_records)
     for candidate in candidates:
         evidence = evidence_by_job_id.get(candidate.get("job_id"))
-        result = assess(candidate, prior, evidence, today)
+        result = assess(candidate, prior, evidence, today, inventory_complete)
         results.append({"job_id": candidate.get("job_id"), **result})
         if result["decision"] == "eligible_for_dry_run":
             prior.append({**candidate, "status": "pending"})
