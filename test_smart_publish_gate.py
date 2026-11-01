@@ -77,6 +77,21 @@ class SmartPublishingGateTests(unittest.TestCase):
                          ["eligible_for_dry_run", "duplicate_or_update_review"])
 
 
+    def test_held_first_record_blocks_later_duplicate(self):
+        first = dict(JOB, job_id="held-first")
+        second = dict(JOB, job_id="later-copy")
+        evidence = dict(EVIDENCE, official_last_date="2026-11-20")
+        results = assess_batch([first, second], [], {
+            first["job_id"]: evidence, second["job_id"]: EVIDENCE,
+        }, TODAY, inventory_complete=True)
+        self.assertEqual([r["decision"] for r in results],
+                         ["manual_review", "duplicate_or_update_review"])
+
+    def test_blank_ids_do_not_look_like_same_id_without_other_identity(self):
+        existing = [{"job_id": None, "status": "pending"}]
+        result = assess({}, existing, {}, TODAY, inventory_complete=True)
+        self.assertEqual(result["decision"], "manual_review")
+
     def test_malformed_candidate_in_batch_is_held_without_crashing(self):
         results = assess_batch([None, JOB, "broken"], [], {JOB["job_id"]: EVIDENCE}, TODAY, inventory_complete=True)
         self.assertEqual([r["decision"] for r in results],
