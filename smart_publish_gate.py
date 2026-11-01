@@ -1,17 +1,21 @@
-"""Read-only smart publication eligibility gate. No network calls or writes.
+"""Read-only smart publication eligibility preview. No network calls or writes.
 
-Evidence must come from a separate trusted official-notice verifier; this
-module does NOT treat an aggregator, a URL, or a boolean as verification.
+The official evidence object must be populated by the independent, server-side
+official-page verifier, never by Apify, an importer, or a job submitter. This
+pure preview does not authenticate evidence and cannot authorize publication.
 """
+
 from datetime import date
 from urllib.parse import urlparse
 import re
 
 REQUIRED = ("job_id", "title", "recruiting_body", "advt_no", "last_date",
-            "official_notification_url", "vacancy_count", "qualification")
-EVIDENCE_FIELDS = ("official_title", "official_recruiting_body", "official_advt_no",
-                   "official_last_date", "official_vacancy_count", "official_qualification")
+            "official_notification_url", "vacancy_count", "qualification", "scope_category")
+OFFICIAL_MATCH_FIELDS = ("official_title", "official_recruiting_body", "official_advt_no",
+                         "official_last_date")
 TRUSTED_STATES = {"pending", "approved", "published", "rejected"}
+ALLOWED_SCOPES = {"central_government", "state_government", "railways",
+                  "public_sector_banking", "armed_forces", "psu"}
 
 
 def _norm(value):
@@ -27,7 +31,6 @@ def _host(value):
             return ""
         return (parsed.hostname or "").lower()
     except ValueError:
-        # Invalid IPv6 brackets or malformed URL syntax must fail closed.
         return ""
 
 
@@ -42,7 +45,6 @@ def _fingerprints(row):
     if notice_host:
         from urllib.parse import urlsplit, urlunsplit
         parts = urlsplit(notice_url)
-        # Exact notice path/query, ignoring cosmetic host case and fragments.
         keys.add(("notice-url", urlunsplit(("https", notice_host, parts.path, parts.query, ""))))
     if body and advt:
         keys.add(("advt", body, advt))
@@ -52,7 +54,7 @@ def _fingerprints(row):
 
 
 def assess(candidate, existing_records, official_evidence, today=None, inventory_complete=False):
-    """Return a fail-closed decision; eligible is only for *future* approval logic."""
+    """Four checks; `eligible_for_dry_run` never grants actual publication."""
     today = today or date.today()
     reasons = []
     if not inventory_complete:
@@ -75,7 +77,11 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
     host = _host(candidate.get("official_notification_url"))
     if not host or host in {"freejobalert.com", "www.freejobalert.com"}:
         reasons.append("nonofficial_notice_url")
-    if not isinstance(official_evidence, dict) or official_evidence.get("source_type") != "official_notice":
+
+    # Basic payload shape stays required, but the official-page fast track
+    # only cross-matches issuer, advertisement, post title and deadline.
+    # A PDF, extracted vacancy count and extracted qualification are optional.
+    if official_evidence.get("source_type") not in {"official_notice", "official_page"}:
         reasons.append("official_evidence_missing")
     else:
         if official_evidence.get("url") != candidate.get("official_notification_url"):
@@ -83,7 +89,6 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
         mapping = {
             "official_title": "title", "official_recruiting_body": "recruiting_body",
             "official_advt_no": "advt_no", "official_last_date": "last_date",
-            "official_vacancy_count": "vacancy_count", "official_qualification": "qualification",
         }
         for evidence_field, job_field in mapping.items():
             observed = official_evidence.get(evidence_field)
@@ -92,8 +97,22 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
                 reasons.append("missing_official_field:" + evidence_field)
             elif _norm(observed) != _norm(claimed):
                 reasons.append("official_mismatch:" + job_field)
-        if official_evidence.get("retrieval_succeeded") is not True:
+        if (official_evidence.get("retrieval_succeeded") is not True
+                or official_evidence.get("official_content_verified") is not True):
             reasons.append("official_retrieval_unconfirmed")
+        if official_evidence.get("checked_on") != today.isoformat():
+            reasons.append("official_evidence_stale")
+        if official_evidence.get("withdrawn") is True:
+            reasons.append("withdrawn_notice")
+
+    # Classification must come from independent official-source verification,
+    # not the broad scraped category or mere URL domain.
+    scope = candidate.get("scope_category")
+    if (scope not in ALLOWED_SCOPES
+            or official_evidence.get("verified_scope_category") != scope
+            or official_evidence.get("classification_verified") is not True):
+        reasons.append("government_psu_scope_not_verified")
+
     fingerprints = _fingerprints(candidate)
     if not fingerprints:
         reasons.append("insufficient_duplicate_identity")
@@ -106,6 +125,8 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
             return {"decision": "duplicate_or_update_review", "reasons": ["existing_record:" + str(row.get("status"))]}
     if reasons:
         return {"decision": "manual_review", "reasons": sorted(set(reasons))}
+    # Additional database-atomic identity+URL reservation is required later;
+    # this read-only preview cannot make it or release the live publish gate.
     return {"decision": "eligible_for_dry_run", "reasons": []}
 
 
@@ -122,8 +143,6 @@ def assess_batch(candidates, existing_records, evidence_by_job_id, today=None, i
         evidence = evidence_by_job_id.get(candidate.get("job_id"))
         result = assess(candidate, prior, evidence, today, inventory_complete)
         results.append({"job_id": candidate.get("job_id"), **result})
-        # Every identifiable incoming record claims its identity for this batch,
-        # even when held for manual review. A later copy must not become eligible.
         if candidate.get("job_id") or _fingerprints(candidate):
             prior.append({**candidate, "status": "pending"})
     return results
