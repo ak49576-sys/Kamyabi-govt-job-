@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run read-only gate tests
-        run: python -m unittest -v test_smart_publish_gate.py test_smart_publish_preview.py test_public_inventory_probe.py test_admin_inventory_readonly.py
+        run: python -m unittest -v test_smart_publish_gate.py test_smart_publish_preview.py test_public_inventory_probe.py test_admin_inventory_readonly.py test_prepare_airo_safety_patch.py
   api-contract-check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
