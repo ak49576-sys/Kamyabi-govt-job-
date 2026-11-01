@@ -53,3 +53,7 @@ Each fixture must contain: candidate job ID, recruiting body, advertisement ID, 
 ## Execution status
 
 This matrix defines future acceptance tests. **It has not been executed.** Previous selected isolated suites passed 75 tests, but do not verify this full matrix. Missing Airo runtime/database config blocks true end-to-end validation. No live publication or Airo credits used.
+
+## Initial executable subset (2026-11-01)
+
+Added branch-only Python files `safety_prototypes/official_notice_matcher.py` and `safety_prototypes/test_official_notice_matcher.py`. Ran `python3 -m unittest -v test_official_notice_matcher.py` against the identical local source: **13 tests passed**. Cases cover fake/unconfirmed official source, unreadable notice, wrong issuer/ad/post, boundary match, withdrawal/correction unknown, expired/reversed dates and blank advertisement. The evaluator **always returns HOLD**, including on matching text, because structured notice-date extraction and trustworthy issuer/document fetch have not been implemented. These are intentionally negative/fail-closed unit checks, **not** official-PDF parsing or completed acceptance of the 30-case matrix. The earlier 75 tests were run separately in a previous temporary Airo environment and are not a single combined 88-test run. No production code, live jobs or Airo credits were changed.
