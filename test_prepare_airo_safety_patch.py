@@ -22,6 +22,8 @@ class AiroPatchTests(unittest.TestCase):
         self.assertIn("const canAutoPromote = false;", result[ADD_JOBS])
         self.assertIn("approved: false,", result[AUTO_VERIFY])
         self.assertNotIn("return { job_id: r.jobId, approved: true };", result[AUTO_VERIFY])
+        self.assertIn("eq(govtJobs.verificationStatus, 'pending')", result[AUTO_VERIFY])
+        self.assertIn("import { and, eq } from 'drizzle-orm';", result[AUTO_VERIFY])
         self.assertEqual(originals, sample_sources())  # no mutation
 
     def test_diff_has_only_expected_paths(self):
