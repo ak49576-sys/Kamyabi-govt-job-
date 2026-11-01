@@ -17,3 +17,23 @@ jobs:
           python-version: '3.12'
       - name: Run read-only gate tests
         run: python -m unittest -v test_smart_publish_gate.py test_smart_publish_preview.py
+  api-contract-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authenticated read-only status endpoint
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: python check_api.py
+      - name: Save nonsecret API status report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smart-publish-api-contract-check
+          path: output/api-check.json
+          retention-days: 7
+          if-no-files-found: warn
