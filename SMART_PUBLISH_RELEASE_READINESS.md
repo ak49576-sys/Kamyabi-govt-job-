@@ -15,7 +15,7 @@ Date: 2026-11-01. **Release decision: NO-GO. Automatic publishing must remain di
 
 - Batch review now holds malformed candidates and invalid batch containers instead of raising an exception.
 - Every identifiable incoming candidate reserves its batch identity even when held for manual review, so a later duplicate cannot become dry-run eligible merely because the earlier record failed official evidence checks.
-- Added focused regression tests for these cases. **The new test results have not yet been independently confirmed; prior 70+8 pass counts predate these changes.**
+- Added focused regression tests for these cases and malformed official URLs. **22 smart publishing gate unit tests passed locally on the latest branch sources on 2026-11-01.** This does not substitute for the complete GitHub Actions suite or staging backend verification; the prior 70+8 CI pass counts predate these changes.
 - All changes remain on the unmerged safety branch; the live service and its existing write workflows are unchanged.
 
 ## Confirmed production-side blockers
