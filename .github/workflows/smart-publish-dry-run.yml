@@ -1,0 +1,19 @@
+name: Smart publication safety dry run
+on:
+  push:
+    branches:
+      - feature/smart-publish-safety-dry-run
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  safety-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run read-only gate tests
+        run: python -m unittest -v test_smart_publish_gate.py
