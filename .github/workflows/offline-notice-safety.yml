@@ -1,0 +1,27 @@
+name: Offline official-notice safety prototypes
+
+on:
+  push:
+    branches:
+      - feature/smart-publish-safety-dry-run
+    paths:
+      - 'safety_prototypes/**'
+      - '.github/workflows/offline-notice-safety.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-verification-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install local PDF test dependencies
+        run: python -m pip install pypdf==6.10.0 reportlab==4.4.9
+      - name: Test offline official notice and duplicate safeguards
+        run: python -m unittest discover -s safety_prototypes -p 'test_*.py' -v
