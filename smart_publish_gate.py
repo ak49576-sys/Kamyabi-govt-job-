@@ -35,7 +35,7 @@ def _fingerprints(row):
     keys = set()
     if body and advt:
         keys.add(("advt", body, advt))
-    if body and title and re.fullmatch(r"20\\d{2}", year):
+    if body and title and re.fullmatch(r"20\d{2}", year):
         keys.add(("title-year", body, title, year))
     return keys
 
