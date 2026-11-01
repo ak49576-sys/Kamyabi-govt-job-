@@ -38,6 +38,10 @@ Date: 2026-11-01. **Release decision: NO-GO. Automatic publishing must remain di
 
 The exported `GET /api/v1/admin/jobs` returns `total: jobs.length` for each page and uses descending createdAt with limit/offset, without a unique tie-breaker, global count, stable snapshot or cursor. Concurrent imports and approvals can shift pages, so even enumerating all current-looking pages cannot prove there are no missing duplicates. The read-only inventory diagnostic was changed to return `inventory_complete: false` even after apparently successful page enumeration, and its tests were updated; those newest tests still require execution confirmation. The six updated inventory diagnostic unit tests passed on 2026-11-01. The proposed replacement contract is in [ADMIN_INVENTORY_CONSISTENCY_CONTRACT.md](ADMIN_INVENTORY_CONSISTENCY_CONTRACT.md). **No unattended publication may rely on this endpoint's apparent completeness.**
 
+## Reservation input hardening (2026-11-01)
+
+The isolated MySQL reservation prototype and canonical-identity builder now hold malformed input types instead of raising exceptions or touching the database. Two focused tests passed without a database, including a forbidden-connection assertion proving malformed reservations do not open a DB cursor. The disposable MySQL integration suite remains a separate requirement; no production schema or data was changed.
+
 ## Existing workflows requiring deployment review
 
 - `.github/workflows/automatic-import.yml` can submit on main push of reviewed JSON or manual dispatch. Despite workflow title, the live Airo backend's admin-key path may auto-approve valid-looking records. Do not assume POST is pending-only until backend containment is deployed and verified.
