@@ -2,6 +2,12 @@
 
 Date: 2026-11-01. **Release decision: NO-GO. Automatic publishing must remain disabled.**
 
+## Relaxed four-check eligibility preview — 2026-11-01
+
+**Implemented on the branch only:** the preview now accepts separately verified official HTML pages as well as PDFs, matches issuer/advertisement/post/deadline rather than demanding exact vacancy-count/qualification extracts, requires an open application window, independently verified government/PSU scope, and retains duplicate inventory checks. The independent `safety_prototypes/fast_track_review.py` adds issuer-domain/DNS preflight and a SQLite-only two-key reservation rehearsal. The existing dry-run workflow now tests the relaxed gate and the offline prototype workflow tests the low-level cases.
+
+**36 focused local tests passed; no full GitHub CI or GoDaddy staging result has yet been established for this revision.** The source/retrieval flags in the read-only preview must be issued by a future trusted backend, never supplied by an Apify payload. The live Airo importer still has unsafe auto-approval paths, so **production publication and pending-only submission remain DISABLED**. See [RELAXED_SMART_PUBLISH_POLICY.md](RELAXED_SMART_PUBLISH_POLICY.md).
+
 ## Completed on isolated/unmerged safety branch
 
 - Audited user-provided GoDaddy Airo project ZIP and identified unsafe auto-approval paths in `admin/apify-import/POST.ts`, `add-jobs/POST.ts`, and `admin/jobs/auto-verify/POST.ts`.
