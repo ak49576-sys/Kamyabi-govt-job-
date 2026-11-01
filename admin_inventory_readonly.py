@@ -77,15 +77,19 @@ def fetch_inventory(key, open_request=None):
         else:
             raise InventoryError("Inventory pagination cap reached")
         counts[status] = count
-    return {"inventory_complete": True, "records": records, "counts": counts}
+    # The Airo endpoint reports page length as total with no stable snapshot.
+    # Offset pages may shift during imports/approvals. Fail closed.
+    return {"inventory_complete": False, "records": records, "counts": counts,
+            "reason": "no_consistent_snapshot_or_total_count"}
 
 
 def main():
     try:
         inventory = fetch_inventory(os.environ.get("KAMYABI_ADMIN_READ_KEY", ""))
-        print(json.dumps({"mode": "read_only", "inventory_complete": True,
-                          "counts": inventory["counts"], "submitted": 0, "published": 0}))
-        return 0
+        print(json.dumps({"mode": "read_only", "inventory_complete": False,
+                          "counts": inventory["counts"], "reason": inventory["reason"],
+                          "submitted": 0, "published": 0}))
+        return 1
     except InventoryError:
         print(json.dumps({"mode": "read_only", "inventory_complete": False,
                           "error": "Admin inventory unavailable or incomplete",
