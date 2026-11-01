@@ -47,3 +47,15 @@ The exported `GET /api/v1/admin/jobs` requires the broad `API_KEY`, while GitHub
 The review-only generator `prepare_airo_safety_patch.py` was executed in memory against the user-provided project ZIP. All three required source paths and all exact replacement anchors matched once; all three proposed versions differ from the originals, producing a 92-line unified diff. No file was written or deployed. The GitHub test suite also verifies that missing/drifted source patterns abort rather than applying partial changes. This does **not** establish compilation or production behavior; the backend still requires isolated integration testing and a source-compatible deployment workflow.
 
 Additional review: `fix-unverified-dates/POST.ts` and `run-fix/POST.ts` preserve already-approved statuses while clearing historic dates and setting a 2099 sentinel. These routes do not independently promote pending records, but must not be used as automated publication remediation; the sentinel violates our current vacancy-validity policy.
+
+## Isolated export testing (2026-11-01)
+
+A temporary local copy of the user's Airo ZIP was extracted and the exact three-route patch applied to **that copy only**. Results:
+
+- TypeScript syntactic transpilation of all three changed routes: **3/3 passed**.
+- Existing `pipeline-guard.test.ts`: **34 tests passed**.
+- `npm ci`: blocked by an existing package-lock mismatch (missing `yjs`, `lib0`, `isomorphic.js`). For isolated tests only, dependencies were installed without modifying the project's lockfile.
+- Whole-project `npm run type-check`: **failed** due to existing missing `@airo/content`, missing `format-overrides-plugin`, and Vite config symbols/type errors. No new diagnostics were reported against the three changed routes, but this is not a clean build.
+- `url-verified-reset.test.ts`: **blocked** on absent platform database configuration at `/local/config.json`. The existing test imports the server DB client during module initialization. No production DB connection was attempted.
+
+**Deployment gate remains CLOSED.** Source syntax checks and 34 passing pipeline tests do not constitute complete integration validation. Further work requires a representative local Airo platform configuration or test-specific mocks, plus new tests covering the changed auto-approval branches. The temp install did not use Airo credits and no live API writes were performed.
