@@ -41,3 +41,9 @@ The exported `GET /api/v1/admin/jobs` requires the broad `API_KEY`, while GitHub
 - No live production POST in tests. Mock DB and HTTP calls or run an isolated nonproduction database.
 
 **Status:** This is a branch-only deployment plan. Production code and GoDaddy hosting were not changed, no Airo credits used, and auto-publishing is still OFF.
+
+## Export compatibility validation (2026-11-01)
+
+The review-only generator `prepare_airo_safety_patch.py` was executed in memory against the user-provided project ZIP. All three required source paths and all exact replacement anchors matched once; all three proposed versions differ from the originals, producing a 92-line unified diff. No file was written or deployed. The GitHub test suite also verifies that missing/drifted source patterns abort rather than applying partial changes. This does **not** establish compilation or production behavior; the backend still requires isolated integration testing and a source-compatible deployment workflow.
+
+Additional review: `fix-unverified-dates/POST.ts` and `run-fix/POST.ts` preserve already-approved statuses while clearing historic dates and setting a 2099 sentinel. These routes do not independently promote pending records, but must not be used as automated publication remediation; the sentinel violates our current vacancy-validity policy.
