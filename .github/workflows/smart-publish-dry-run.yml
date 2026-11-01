@@ -47,3 +47,16 @@ jobs:
           python-version: '3.12'
       - name: Inspect public inventory contract (read only)
         run: python public_inventory_probe.py
+  admin-inventory-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Attempt authorized read-only inventory enumeration
+        env:
+          KAMYABI_ADMIN_READ_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: python admin_inventory_readonly.py
+        continue-on-error: true
