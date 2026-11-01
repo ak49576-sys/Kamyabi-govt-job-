@@ -16,4 +16,4 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run read-only gate tests
-        run: python -m unittest -v test_smart_publish_gate.py
+        run: python -m unittest -v test_smart_publish_gate.py test_smart_publish_preview.py
