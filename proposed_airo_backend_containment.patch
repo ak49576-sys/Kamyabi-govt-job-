@@ -53,7 +53,29 @@
                  verified:           true,
 --- a/src/server/api/v1/admin/jobs/auto-verify/POST.ts
 +++ b/src/server/api/v1/admin/jobs/auto-verify/POST.ts
-@@ -114,28 +114,16 @@
+@@ -27,9 +27,9 @@
+ 
+ import type { Request, Response } from 'express';
+ import { db } from '../../../../../db/client.js';
+ import { govtJobs } from '../../../../../db/schema.js';
+-import { eq } from 'drizzle-orm';
++import { and, eq } from 'drizzle-orm';
+ import { getSecret } from '#airo/secrets';
+ import { autoVerify } from '../../../../../lib/auto-verify.js';
+ import { notifyJobsBatch } from '../../../../../indexing-api.js';
+ import { submitIndexNow } from '../../../../../indexnow.js';
+@@ -68,9 +68,9 @@
+           applicationLastDate:     govtJobs.applicationLastDate,
+           importSource:            govtJobs.importSource,
+         })
+         .from(govtJobs)
+-        .where(eq(govtJobs.jobId, singleJobId));
++        .where(and(eq(govtJobs.jobId, singleJobId), eq(govtJobs.verificationStatus, 'pending')));
+       if (rows.length === 0) {
+         return res.status(404).json({ error: `Job not found: ${singleJobId}` });
+       }
+     } else {
+@@ -114,33 +114,21 @@
              application_last_date:     toDateStr(r.applicationLastDate),
            });
  
@@ -90,3 +112,9 @@
              // Update rejection_reason with the failure detail (stays pending)
              await db.update(govtJobs).set({
                rejectionReason: `[Rule ${result.rule}] ${result.reason}`,
+-            }).where(eq(govtJobs.jobId, r.jobId));
++            }).where(and(eq(govtJobs.jobId, r.jobId), eq(govtJobs.verificationStatus, 'pending')));
+             return { job_id: r.jobId, approved: false, reason: result.reason, rule: result.rule };
+           }
+         })
+       );
