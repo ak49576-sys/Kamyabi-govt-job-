@@ -11,6 +11,13 @@ Date: 2026-11-01. **Release decision: NO-GO. Automatic publishing must remain di
 - Verified GitHub Actions: [offline 70 tests passed, with the separate MySQL suite intentionally skipped](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/41268375444) and [disposable MySQL 8 integration 8 tests passed](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/41268169073). These are prototypes, not production approval tests.
 - Preserved original live website, original ZIP and protected main deployment; used no Airo credits.
 
+## Additional GitHub-only safety improvements (not production-validated)
+
+- Batch review now holds malformed candidates and invalid batch containers instead of raising an exception.
+- Every identifiable incoming candidate reserves its batch identity even when held for manual review, so a later duplicate cannot become dry-run eligible merely because the earlier record failed official evidence checks.
+- Added focused regression tests for these cases. **The new test results have not yet been independently confirmed; prior 70+8 pass counts predate these changes.**
+- All changes remain on the unmerged safety branch; the live service and its existing write workflows are unchanged.
+
 ## Confirmed production-side blockers
 
 | Gate | Current state | Required for go-live |
