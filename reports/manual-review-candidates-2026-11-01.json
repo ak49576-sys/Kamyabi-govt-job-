@@ -9,7 +9,7 @@
   "submission_status": "NOT_SUBMITTED_LIVE_ADMIN_UNSAFE",
   "rules": [
     "Never auto approve or publish these candidates.",
-    "Require official notices and corrections before approval.",
+    "Allow independently verified official HTML pages or PDFs; hold uncertain facts, known withdrawals and conflicting corrections.",
     "Require a complete consistent Kamyabi duplicate inventory before admission.",
     "Private-bank listings must not be classified as government jobs."
   ],
