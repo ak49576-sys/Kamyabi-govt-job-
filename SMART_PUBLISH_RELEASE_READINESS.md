@@ -27,12 +27,16 @@ Date: 2026-11-01. **Release decision: NO-GO. Automatic publishing must remain di
 | Airo platform build/type check | Export lacks platform config/modules | Compile/test in real Airo runtime |
 | Official PDF retrieval | Offline URL policy only; no pinned-IP TLS fetch | SSRF-safe actual fetch, redirect/IP pinning, size/time limits |
 | PDF content and amendment evidence | Synthetic text fixtures only | Official issue/correction/withdrawal fetch and content evidence |
-| Admin inventory | Full authenticated pagination not confirmed | Read-only authorized complete inventory, including all statuses |
+| Admin inventory | Exported API `total` is only page length; offset pagination has no stable snapshot and excludes a distinct published state | Read-only, consistent snapshot or cursor-based inventory covering all relevant statuses and mutations |
 | Duplicate transaction | Disposable MySQL table tested | Reviewed migration and existing-data reconciliation in Kamyabi staging MySQL |
 | Manual approval | Live route still accepts weak URL/date evidence | Regression-test strict human verification, UI and state transition |
 | Public feed regression | Not run against staging backend | Prove only explicit reviewed actions affect published feed |
 | Feature flag/rollback | No production flag or rollback test | Default OFF, run dry-run, audit log, rollback drill |
 | Owner go-live approval | Not requested | Ask only after ALL gates pass |
+
+## Inventory-completeness finding (2026-11-01)
+
+The exported `GET /api/v1/admin/jobs` returns `total: jobs.length` for each page and uses descending createdAt with limit/offset, without a unique tie-breaker, global count, stable snapshot or cursor. Concurrent imports and approvals can shift pages, so even enumerating all current-looking pages cannot prove there are no missing duplicates. The read-only inventory diagnostic was changed to return `inventory_complete: false` even after apparently successful page enumeration, and its tests were updated; those newest tests still require execution confirmation. **No unattended publication may rely on this endpoint's apparent completeness.**
 
 ## Existing workflows requiring deployment review
 
