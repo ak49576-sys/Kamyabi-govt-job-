@@ -76,6 +76,22 @@ class SmartPublishingGateTests(unittest.TestCase):
         self.assertEqual([r["decision"] for r in results],
                          ["eligible_for_dry_run", "duplicate_or_update_review"])
 
+
+    def test_rejected_record_is_collision_not_new_job(self):
+        existing = [dict(JOB, status="rejected")]
+        self.assertEqual(self.check(existing=existing)["decision"], "duplicate_or_update_review")
+
+    def test_matching_official_url_different_title_id_and_advertisement(self):
+        existing = [dict(JOB, job_id="prior-ibps-job", title="Different post",
+                         advt_no="DIFFERENT/2026", status="pending")]
+        self.assertEqual(self.check(existing=existing)["decision"], "duplicate_or_update_review")
+
+    def test_fragment_does_not_hide_duplicate_notice(self):
+        existing = [dict(JOB, job_id="prior-ibps-job", title="Different post",
+                         advt_no="DIFFERENT/2026", status="approved",
+                         official_notification_url=JOB["official_notification_url"] + "#page=2")]
+        self.assertEqual(self.check(existing=existing)["decision"], "duplicate_or_update_review")
+
     def test_ongc_conflicting_deadline_never_eligible(self):
         job = dict(JOB, job_id="ongc-apprentice-2026", title="Apprentice",
                    recruiting_body="ONGC", advt_no="ONGC/APPR/1/2026",
