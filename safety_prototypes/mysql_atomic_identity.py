@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS safety_identity_reservations (
 
 def reserve_mysql_identity(connection, *, job_id: str, identity: str,
                            document_sha256: str) -> Reservation:
-    if (not job_id or len(job_id) > 255 or not identity or len(identity) > 1024
+    if (not isinstance(job_id, str) or not job_id or len(job_id) > 255
+            or not isinstance(identity, str) or not identity or len(identity) > 1024
+            or not isinstance(document_sha256, str)
             or not re.fullmatch(r"[0-9a-fA-F]{64}", document_sha256)):
         return Reservation("hold_invalid_inputs", None)
     identity_hash = sha256(identity.encode("utf-8")).hexdigest()
