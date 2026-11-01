@@ -16,6 +16,8 @@ def _component(value: str) -> str:
 
 
 def canonical_identity(issuer: str, advertisement: str, cycle: str, post: str) -> str | None:
+    if not all(isinstance(v, str) for v in (issuer, advertisement, cycle, post)):
+        return None
     items = tuple(_component(v) for v in (issuer, advertisement, cycle, post))
     if any(not item or len(item) > 180 for item in items):
         return None
