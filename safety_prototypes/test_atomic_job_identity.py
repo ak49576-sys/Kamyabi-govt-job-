@@ -26,6 +26,12 @@ class IdentityStoreTests(unittest.TestCase):
             evidence_sha256=digest,
         )
 
+    def test_malformed_identity_parts_are_held(self):
+        for parts in ((None, "A", "2026", "Post"), ("SSC", 10, "2026", "Post"),
+                      ("SSC", "A", None, "Post"), ("SSC", "A", "2026", [])):
+            with self.subTest(parts=parts):
+                self.assertIsNone(canonical_identity(*parts))
+
     def test_first_claim_only_reserves(self):
         self.assertEqual(self.claim().state, "reserved_dry_run")
         self.assertEqual(self.conn.execute("SELECT COUNT(*) FROM publication_identity").fetchone()[0], 1)
