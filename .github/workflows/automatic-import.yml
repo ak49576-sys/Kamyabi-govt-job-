@@ -1,0 +1,48 @@
+name: Automatic reviewed job publication
+on:
+  schedule:
+    - cron: '45 2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'reviewed-*-jobs.json'
+      - 'auto_import.py'
+      - 'test_auto_import.py'
+      - '.github/workflows/automatic-import.yml'
+permissions:
+  contents: read
+concurrency:
+  group: kamyabi-ibps-import
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test import safeguards
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py
+      - name: Publish current reviewed jobs and verify public API
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: python auto_import.py --submit
+      - name: Publish run summary
+        if: always()
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          report = Path('output/automatic-import.json')
+          if report.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+                  f.write('### Automatic reviewed imports\n\n```json\n' + report.read_text() + '\n```\n')
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: automatic-import-report
+          path: output/automatic-import.json
+          retention-days: 30

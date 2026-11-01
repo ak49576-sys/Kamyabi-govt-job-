@@ -1,0 +1,37 @@
+name: Publish new Kamyabi jobs to X
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: kamyabi-x-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      BUFFER_X_CHANNEL_ID: ${{ secrets.BUFFER_X_CHANNEL_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check publication safeguards
+        run: python -m unittest -v test_kamyabi_x_publisher.py
+      - name: Publish one new open job
+        if: ${{ env.BUFFER_API_KEY != '' && env.BUFFER_X_CHANNEL_ID != '' }}
+        run: python kamyabi_x_publisher.py --publish
+      - name: Save publication receipt
+        if: ${{ env.BUFFER_API_KEY != '' && env.BUFFER_X_CHANNEL_ID != '' }}
+        run: |
+          if ! git diff --quiet -- x-published-jobs.json || [ -n "$(git ls-files --others --exclude-standard x-published-jobs.json)" ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add x-published-jobs.json
+            git commit -m 'Record Kamyabi X publication receipt'
+            git push
+          fi
