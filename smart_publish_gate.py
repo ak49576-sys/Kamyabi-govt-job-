@@ -97,7 +97,8 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
         if not isinstance(row, dict) or row.get("status") not in TRUSTED_STATES:
             reasons.append("incomplete_existing_inventory")
             continue
-        if row.get("job_id") == candidate.get("job_id") or fingerprints & _fingerprints(row):
+        same_id = bool(candidate.get("job_id")) and row.get("job_id") == candidate.get("job_id")
+        if same_id or fingerprints & _fingerprints(row):
             return {"decision": "duplicate_or_update_review", "reasons": ["existing_record:" + str(row.get("status"))]}
     if reasons:
         return {"decision": "manual_review", "reasons": sorted(set(reasons))}
@@ -117,6 +118,8 @@ def assess_batch(candidates, existing_records, evidence_by_job_id, today=None, i
         evidence = evidence_by_job_id.get(candidate.get("job_id"))
         result = assess(candidate, prior, evidence, today, inventory_complete)
         results.append({"job_id": candidate.get("job_id"), **result})
-        if result["decision"] == "eligible_for_dry_run":
+        # Every identifiable incoming record claims its identity for this batch,
+        # even when held for manual review. A later copy must not become eligible.
+        if candidate.get("job_id") or _fingerprints(candidate):
             prior.append({**candidate, "status": "pending"})
     return results
