@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run read-only gate tests
-        run: python -m unittest -v test_smart_publish_gate.py test_smart_publish_preview.py
+        run: python -m unittest -v test_smart_publish_gate.py test_smart_publish_preview.py test_public_inventory_probe.py
   api-contract-check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -37,3 +37,13 @@ jobs:
           path: output/api-check.json
           retention-days: 7
           if-no-files-found: warn
+  public-feed-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect public inventory contract (read only)
+        run: python public_inventory_probe.py
