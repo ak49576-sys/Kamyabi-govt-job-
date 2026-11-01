@@ -37,7 +37,7 @@ The exported `GET /api/v1/admin/jobs` requires the broad `API_KEY`, while GitHub
 
 A further source inspection of the exported `admin/jobs/auto-verify/POST.ts` found that the `job_id` path selects by job ID alone, unlike the bulk path which selects `verificationStatus = 'pending'`. When a specific already-approved/rejected ID is submitted and its autoVerify result fails, the handler can update `rejectionReason` on that nonpending record. This is a state-integrity problem even when the separate containment patch prevents new approvals.
 
-Before staging deployment, restrict **both** the single-job SELECT and subsequent rejection-reason UPDATE to pending records, return a non-mutating conflict for nonpending IDs, and add regression tests for approved/rejected/missing/pending IDs. Make the status check and write atomic or conditional at the database level to avoid a concurrent manual-approval race. No production endpoint was called during this finding.
+The review-only patch generator now proposes a pending-state condition for both the single-job SELECT and rejection-reason UPDATE; its three-route, 120-line diff matched the exact uploaded Airo export, and five generator unit tests passed. **It has not been applied or runtime-tested.** Before staging deployment, confirm response semantics for nonpending IDs (currently selected as not found), and add HTTP-handler regression tests for approved/rejected/missing/pending IDs. Make the status check and write atomic or conditional at the database level to avoid a concurrent manual-approval race. No production endpoint was called during this finding.
 
 ## Required test matrix before deployment
 
