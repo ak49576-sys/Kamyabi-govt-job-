@@ -37,6 +37,19 @@ class SmartPublishingGateTests(unittest.TestCase):
         job = dict(JOB, official_notification_url="https://www.freejobalert.com/a")
         self.assertEqual(self.check(job=job)["decision"], "manual_review")
 
+    def test_malformed_official_url_is_held_without_crashing(self):
+        bad = dict(JOB, official_notification_url="https://[invalid")
+        result = self.check(job=bad)
+        self.assertEqual(result["decision"], "manual_review")
+        self.assertIn("nonofficial_notice_url", result["reasons"])
+
+    def test_malformed_existing_record_url_does_not_crash(self):
+        existing = [dict(JOB, job_id="other", title="Other post",
+                         advt_no="OTHER", official_notification_url="https://[invalid",
+                         status="pending")]
+        result = self.check(existing=existing)
+        self.assertEqual(result["decision"], "eligible_for_dry_run")
+
     def test_official_evidence_required(self):
         self.assertEqual(self.check(evidence={})["decision"], "manual_review")
 
