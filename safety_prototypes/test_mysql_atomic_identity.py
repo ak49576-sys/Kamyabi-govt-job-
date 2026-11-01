@@ -8,6 +8,27 @@ from atomic_job_identity import canonical_identity
 from mysql_atomic_identity import CREATE_TEST_TABLE, reserve_mysql_identity
 
 
+class MysqlReservationInputTests(unittest.TestCase):
+    def test_bad_types_are_held_without_touching_db(self):
+        class ForbiddenConnection:
+            def cursor(self):
+                raise AssertionError("Invalid inputs must never reach database")
+        invalid = [
+            (None, "identity", "a" * 64),
+            (123, "identity", "a" * 64),
+            ("job", None, "a" * 64),
+            ("job", 55, "a" * 64),
+            ("job", "identity", None),
+            ("job", "identity", 77),
+            ("job", "identity", "not-a-digest"),
+        ]
+        for job_id, identity, digest in invalid:
+            with self.subTest(job_id=job_id, identity=identity, digest=digest):
+                result = reserve_mysql_identity(ForbiddenConnection(), job_id=job_id,
+                                                identity=identity, document_sha256=digest)
+                self.assertEqual(result.state, "hold_invalid_inputs")
+
+
 class MysqlReservationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
