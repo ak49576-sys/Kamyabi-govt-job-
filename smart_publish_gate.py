@@ -21,10 +21,14 @@ def _norm(value):
 def _host(value):
     if not isinstance(value, str):
         return ""
-    parsed = urlparse(value)
-    if parsed.scheme != "https" or parsed.username or parsed.password:
+    try:
+        parsed = urlparse(value)
+        if parsed.scheme != "https" or parsed.username or parsed.password:
+            return ""
+        return (parsed.hostname or "").lower()
+    except ValueError:
+        # Invalid IPv6 brackets or malformed URL syntax must fail closed.
         return ""
-    return (parsed.hostname or "").lower()
 
 
 def _fingerprints(row):
