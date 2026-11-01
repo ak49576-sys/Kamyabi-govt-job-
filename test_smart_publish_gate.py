@@ -8,10 +8,13 @@ JOB = {
     "recruiting_body": "IBPS", "advt_no": "IBPS/2026-27/06",
     "last_date": "2026-11-12", "official_notification_url": "https://www.ibps.in/notice.pdf",
     "vacancy_count": 3, "qualification": "Graduate",
+    "scope_category": "public_sector_banking",
 }
 EVIDENCE = {
     "source_type": "official_notice", "url": JOB["official_notification_url"],
-    "retrieval_succeeded": True, "official_title": JOB["title"],
+    "retrieval_succeeded": True, "official_content_verified": True,
+    "checked_on": "2026-11-01", "classification_verified": True,
+    "verified_scope_category": "public_sector_banking", "official_title": JOB["title"],
     "official_recruiting_body": JOB["recruiting_body"],
     "official_advt_no": JOB["advt_no"], "official_last_date": JOB["last_date"],
     "official_vacancy_count": JOB["vacancy_count"],
