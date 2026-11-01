@@ -18,7 +18,7 @@ The application/API still requires populated basic job fields such as vacancy co
 - `smart_publish_gate.py`: existing read-only preview uses the four-check policy and accepts `source_type: official_page`. It cross-matches issuer/advt/post/deadline, freshness and verified scope, but does not publish.
 - `safety_prototypes/fast_track_review.py`: separate official HTML/PDF preflight and four-check dry-run rehearsal, with a verified-page evidence contract and no Kamyabi HTTP write.
 - `safety_prototypes/fast_track_reservation.py`: **SQLite-only** atomic rehearsal of canonical identity and notice-URL uniqueness. No production schema change.
-- `test_smart_publish_relaxed.py` and `safety_prototypes/test_fast_track_*.py`: 36 new focused tests passed locally (11 preview and 25 low-level). Existing preview fixtures updated. The full GitHub Actions suites need fresh results.
+- `test_smart_publish_relaxed.py` and `safety_prototypes/test_fast_track_*.py`: 36 new focused tests passed locally (11 preview and 25 low-level). Existing preview fixtures updated. The updated GitHub Actions preview and offline suites subsequently passed 51 and 97 tests respectively; these are isolated code tests, not GoDaddy staging certification.
 - `.github/workflows/smart-publish-dry-run.yml` and the existing offline-notice safety workflow run the relevant tests on the safety branch.
 
 Example of a **dry-run-only** eligible official-page evidence object:
