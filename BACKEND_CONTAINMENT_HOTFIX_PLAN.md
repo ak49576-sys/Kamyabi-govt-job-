@@ -39,6 +39,11 @@ A further source inspection of the exported `admin/jobs/auto-verify/POST.ts` fou
 
 The review-only patch generator now proposes a pending-state condition for both the single-job SELECT and rejection-reason UPDATE; its three-route, 120-line diff matched the exact uploaded Airo export, and five generator unit tests passed. **It has not been applied or runtime-tested.** Before staging deployment, confirm response semantics for nonpending IDs (currently selected as not found), and add HTTP-handler regression tests for approved/rejected/missing/pending IDs. Make the status check and write atomic or conditional at the database level to avoid a concurrent manual-approval race. No production endpoint was called during this finding.
 
+
+### Pending-state HTTP-handler rehearsal (2026-11-01)
+
+Executed the **actual proposed patched** auto-verify handler source loaded from the exported Airo ZIP using Node's TypeScript type-stripping and mocked DB/secrets/verifier/indexing dependencies. Five cases passed: already-approved, rejected, and published single-job IDs returned 404 without writes; a passing URL-only check for a pending job remained unapproved and caused no mutation; and a failing pending job updated only its review reason with a pending-conditioned WHERE clause. These are mocked handler tests, not a real MySQL transaction or Airo deployment. The proposed diff remains unmerged/undeployed. Next: persist these cases as CI tests and exercise real isolated DB state transitions and races.
+
 ## Required test matrix before deployment
 
 - For each of Apify import, admin-key add-jobs, pipeline-key add-jobs, and bulk auto-verify: both domain-valid and invalid test notices must remain unpublished.
