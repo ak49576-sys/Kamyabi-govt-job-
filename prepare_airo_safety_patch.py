@@ -53,7 +53,14 @@ REPLACEMENTS = {
         ("const canAutoPromote =\n              !isGithubPipeline &&\n              (existing?.importSource ?? null) !== 'github_pipeline';",
          "const canAutoPromote = false; // Hold until authoritative evidence gate exists"),
     ),
-    AUTO_VERIFY: ((AUTO_BLOCK_OLD, AUTO_BLOCK_NEW),),
+    AUTO_VERIFY: (
+        (AUTO_BLOCK_OLD, AUTO_BLOCK_NEW),
+        ("import { eq } from 'drizzle-orm';", "import { and, eq } from 'drizzle-orm';"),
+        ("where(eq(govtJobs.jobId, singleJobId));",
+         "where(and(eq(govtJobs.jobId, singleJobId), eq(govtJobs.verificationStatus, 'pending')));"),
+        ("            await db.update(govtJobs).set({\n              rejectionReason: `[Rule ${result.rule}] ${result.reason}`,\n            }).where(eq(govtJobs.jobId, r.jobId));",
+         "            await db.update(govtJobs).set({\n              rejectionReason: `[Rule ${result.rule}] ${result.reason}`,\n            }).where(and(eq(govtJobs.jobId, r.jobId), eq(govtJobs.verificationStatus, 'pending')));"),
+    ),
 }
 
 
