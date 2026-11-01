@@ -55,6 +55,8 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
         reasons.append("pending_and_published_inventory_unverified")
     if not isinstance(candidate, dict) or not isinstance(existing_records, list):
         return {"decision": "manual_review", "reasons": ["invalid_input"]}
+    if not isinstance(official_evidence, dict):
+        official_evidence = {}
     missing = [field for field in REQUIRED if candidate.get(field) in (None, "")]
     if missing:
         reasons.append("missing_fields:" + ",".join(missing))
@@ -104,9 +106,14 @@ def assess(candidate, existing_records, official_evidence, today=None, inventory
 
 def assess_batch(candidates, existing_records, evidence_by_job_id, today=None, inventory_complete=False):
     """Fail closed on duplicates within the incoming batch too."""
+    if not isinstance(candidates, list) or not isinstance(existing_records, list) or not isinstance(evidence_by_job_id, dict):
+        return [{"job_id": None, "decision": "manual_review", "reasons": ["invalid_batch_input"]}]
     results = []
     prior = list(existing_records)
     for candidate in candidates:
+        if not isinstance(candidate, dict):
+            results.append({"job_id": None, "decision": "manual_review", "reasons": ["invalid_candidate"]})
+            continue
         evidence = evidence_by_job_id.get(candidate.get("job_id"))
         result = assess(candidate, prior, evidence, today, inventory_complete)
         results.append({"job_id": candidate.get("job_id"), **result})
