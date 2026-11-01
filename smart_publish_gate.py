@@ -11,7 +11,7 @@ REQUIRED = ("job_id", "title", "recruiting_body", "advt_no", "last_date",
             "official_notification_url", "vacancy_count", "qualification")
 EVIDENCE_FIELDS = ("official_title", "official_recruiting_body", "official_advt_no",
                    "official_last_date", "official_vacancy_count", "official_qualification")
-TRUSTED_STATES = {"pending", "approved", "published"}
+TRUSTED_STATES = {"pending", "approved", "published", "rejected"}
 
 
 def _norm(value):
@@ -33,6 +33,13 @@ def _fingerprints(row):
     title = _norm(row.get("title"))
     year = str(row.get("last_date") or "")[:4]
     keys = set()
+    notice_url = row.get("official_notification_url")
+    notice_host = _host(notice_url)
+    if notice_host:
+        from urllib.parse import urlsplit, urlunsplit
+        parts = urlsplit(notice_url)
+        # Exact notice path/query, ignoring cosmetic host case and fragments.
+        keys.add(("notice-url", urlunsplit(("https", notice_host, parts.path, parts.query, ""))))
     if body and advt:
         keys.add(("advt", body, advt))
     if body and title and re.fullmatch(r"20\d{2}", year):
