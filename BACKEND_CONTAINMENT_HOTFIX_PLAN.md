@@ -32,6 +32,13 @@ The current handler immediately publishes when a caller supplies a URL and well-
 
 The exported `GET /api/v1/admin/jobs` requires the broad `API_KEY`, while GitHub's existing import secret may be `IMPORT_API_KEY`. Design a dedicated read-only secret/scope or a signed server-side inventory export. Ensure pagination consistency, completeness, and no key in logs. See `admin_inventory_readonly.py` for the fail-closed client; it has not authenticated successfully against production.
 
+
+## Single-job auto-verification must enforce pending state
+
+A further source inspection of the exported `admin/jobs/auto-verify/POST.ts` found that the `job_id` path selects by job ID alone, unlike the bulk path which selects `verificationStatus = 'pending'`. When a specific already-approved/rejected ID is submitted and its autoVerify result fails, the handler can update `rejectionReason` on that nonpending record. This is a state-integrity problem even when the separate containment patch prevents new approvals.
+
+Before staging deployment, restrict **both** the single-job SELECT and subsequent rejection-reason UPDATE to pending records, return a non-mutating conflict for nonpending IDs, and add regression tests for approved/rejected/missing/pending IDs. Make the status check and write atomic or conditional at the database level to avoid a concurrent manual-approval race. No production endpoint was called during this finding.
+
 ## Required test matrix before deployment
 
 - For each of Apify import, admin-key add-jobs, pipeline-key add-jobs, and bulk auto-verify: both domain-valid and invalid test notices must remain unpublished.
