@@ -77,6 +77,19 @@ class SmartPublishingGateTests(unittest.TestCase):
                          ["eligible_for_dry_run", "duplicate_or_update_review"])
 
 
+    def test_malformed_candidate_in_batch_is_held_without_crashing(self):
+        results = assess_batch([None, JOB, "broken"], [], {JOB["job_id"]: EVIDENCE}, TODAY, inventory_complete=True)
+        self.assertEqual([r["decision"] for r in results],
+                         ["manual_review", "eligible_for_dry_run", "manual_review"])
+        self.assertEqual(results[0]["reasons"], ["invalid_candidate"])
+
+    def test_invalid_batch_containers_fail_closed(self):
+        for candidates, existing, evidence in ((None, [], {}), ([JOB], None, {}), ([JOB], [], None)):
+            with self.subTest(candidates=candidates, existing=existing, evidence=evidence):
+                result = assess_batch(candidates, existing, evidence, TODAY, inventory_complete=True)
+                self.assertEqual(result[0]["decision"], "manual_review")
+                self.assertIn("invalid_batch_input", result[0]["reasons"])
+
     def test_rejected_record_is_collision_not_new_job(self):
         existing = [dict(JOB, status="rejected")]
         self.assertEqual(self.check(existing=existing)["decision"], "duplicate_or_update_review")
