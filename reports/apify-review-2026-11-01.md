@@ -41,6 +41,16 @@
 | 19 | NABARD | [SOC Analyst, Cyber Security Analyst and More – 16 Posts](https://www.freejobalert.com/articles/nabard-recruitment-2026-apply-online-for-16-soc-analyst-cyber-security-analyst-and-more-posts-3072194) | 04 | 02-11-2026 | Official application date; PDF pending | **Manual hold** |
 | 20 | BOBCAPS | [Business Development Manager](https://www.freejobalert.com/articles/bobcaps-business-development-manager-recruitment-2026-apply-online-3052484) | — | 31-01-2027 | Not yet checked | **Manual hold** |
 
+## Triage priority and non-publication decisions (1 November, IST)
+
+1. **Deadline today (1 Nov):** LIC HFL Apprentice (#17) is date-critical and **not eligible for automatic publishing** without an official current notice and complete duplicate check; deadline must not be assumed extendable.
+2. **Deadline 2 Nov:** NABARD Specialists (#19), NABCONS Project Consultant (#18), and NABCONS PMU/Tech (#11) need immediate source checks. For NABARD, the official application window confirms the date but the detailed 2026 PDF was not located after searching; do **not** substitute older NABARD PDFs.
+3. **Deadline 3 Nov:** RBI Mumbai Pharmacist (#15) is blocked by the official site human-check; do not infer verification from a third-party site's claimed link.
+4. **Scope filter:** Dhanlaxmi Bank (#1), Nainital Bank (#2), and Tamilnad Mercantile Bank/TMB (#3, #9, #13, #14) are **private bank leads**; they must not be called government vacancies solely because the Actor returned them. Hold outside the government-only automatic publishing lane pending site taxonomy decision.
+5. **Deadline 9 Nov:** SBI (#16) has a validated official careers-listing number/window but requires the actual advertisement's roles and count.
+
+**No automatic approval:** Even a verified official notice alone is insufficient while Kamyabi's full pending/approved/rejected inventory and atomic duplicate protection remain unverified. The review report is an offline staging artifact, not a pending-review entry in the live admin queue.
+
 ## Release gates (all required)
 
 1. Open the recruiting organisation's **official notification PDF** for each candidate and verify advertised posts, vacancy number, qualifications, start/end dates and changes/withdrawals.
