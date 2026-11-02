@@ -8,9 +8,11 @@ from check_api import USER_AGENT
 
 URL = 'https://kamyabi.in/api/v1/admin/jobs?status='
 TARGETS = {'powergrid-engineer-trainee-2027', 'ongc-apprentice-2026'}
-FIELDS = ('jobId', 'job_id', 'title', 'verificationStatus', 'lastDate',
-          'applicationStartDate', 'applicationLastDate', 'officialNotificationUrl',
-          'sourceUrl', 'urlVerified', 'verified', 'vacancyCount')
+FIELDS = ('jobId', 'job_id', 'title', 'verificationStatus', 'verification_status',
+          'lastDate', 'last_date', 'applicationStartDate', 'application_start_date',
+          'applicationLastDate', 'application_last_date', 'officialNotificationUrl',
+          'official_notification_url', 'sourceUrl', 'source_url', 'urlVerified',
+          'url_verified', 'verified', 'vacancyCount', 'vacancy_count')
 
 
 def inspect(key, opener=None):
@@ -18,6 +20,7 @@ def inspect(key, opener=None):
     if not key or any(char in key for char in '\r\n'):
         raise ValueError('Admin credential unavailable')
     found = []
+    listing = []
     for status in ('approved', 'pending', 'rejected'):
         req = Request(URL + status, method='GET', headers={
             'X-Api-Key': key, 'Accept': 'application/json', 'User-Agent': USER_AGENT})
@@ -27,6 +30,10 @@ def inspect(key, opener=None):
             body = json.loads(response.read(3_000_001))
         if not isinstance(body, dict) or not isinstance(body.get('jobs'), list):
             raise ValueError('Admin response missing jobs array')
+        listing.append({'status': status, 'returned_jobs': len(body['jobs']),
+                        'response_keys': sorted(body.keys()),
+                        'sample_job_keys': sorted(body['jobs'][0].keys()) if body['jobs']
+                        and isinstance(body['jobs'][0], dict) else []})
         for job in body['jobs']:
             if not isinstance(job, dict):
                 continue
@@ -34,7 +41,8 @@ def inspect(key, opener=None):
             if job_id in TARGETS:
                 found.append({'queried_status': status,
                               'fields': {k: job[k] for k in FIELDS if k in job}})
-    return {'targets': sorted(TARGETS), 'records': found, 'writes_attempted': 0}
+    return {'targets': sorted(TARGETS), 'records': found, 'listing': listing,
+            'writes_attempted': 0}
 
 
 if __name__ == '__main__':
