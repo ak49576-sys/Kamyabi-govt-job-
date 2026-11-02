@@ -117,5 +117,39 @@
       "ongcindia.com"
     ],
     "pattern": "recruit|apprentice|consultant|advertisement|notice|\\.pdf$"
+  },
+  {
+    "name": "GAIL",
+    "url": "https://www.gailonline.com/vacancies.html",
+    "allowed_domains": [
+      "gailonline.com"
+    ],
+    "pattern": "recruit|vacanc|career|trainee|apprentice|consultant|advertisement|\\.pdf$"
+  },
+  {
+    "name": "HPCL",
+    "url": "https://www.hindustanpetroleum.com/job-openings",
+    "allowed_domains": [
+      "hindustanpetroleum.com",
+      "jobs.hpcl.co.in"
+    ],
+    "pattern": "recruit|vacanc|job|opening|apprentice|advertisement|\\.pdf$"
+  },
+  {
+    "name": "BHEL",
+    "url": "https://www.bhel.com/recruitment",
+    "allowed_domains": [
+      "bhel.com",
+      "careers.bhel.in"
+    ],
+    "pattern": "recruit|career|job|opening|apprentice|vacanc|advertisement|\\.pdf$"
+  },
+  {
+    "name": "BPCL",
+    "url": "https://www.bharatpetroleum.in/bharat-petroleum-for/careers/job-openings.aspx",
+    "allowed_domains": [
+      "bharatpetroleum.in"
+    ],
+    "pattern": "recruit|career|job|opening|vacanc|advertisement|\\.pdf$"
   }
 ]
