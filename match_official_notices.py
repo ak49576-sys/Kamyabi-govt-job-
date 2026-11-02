@@ -119,6 +119,8 @@ def match_sbi(rows, html, official_url=SBI_URL):
         document_reachable = pdf_reachable(official_pdf)
         document_text, pdf_text_status = (extract_official_pdf_text(official_pdf)
                                           if document_reachable else ("", "NO_OFFICIAL_PDF"))
+        total_snippet_match = re.search(r".{0,30}TOTAL.{0,130}", re.sub(r"\s+", " ", document_text.upper()))
+        total_snippet = total_snippet_match.group()[:160] if total_snippet_match else ""
         checks = inspect_pdf_text(document_text, advert, (row.get("lastDate") or "").strip(),
                                   (row.get("postName") or "").strip(),
                                   (row.get("qualification") or "").strip())
@@ -134,6 +136,7 @@ def match_sbi(rows, html, official_url=SBI_URL):
             "advertisement_in_pdf": checks["advertisement_in_pdf"],
             "deadline_in_pdf": checks["deadline_in_pdf"],
             "scraped_vacancy_count": checks["scraped_vacancy_count"],
+            "total_table_sample": total_snippet,
             "total_count_evidence_in_pdf": checks["total_count_evidence_in_pdf"],
             "qualification_keywords_found": ", ".join(checks["qualification_keywords_found"]),
             "verification_status": ("OFFICIAL_PDF_LINK_FOUND_REQUIRES_CONTENT_REVIEW" if document_reachable else
@@ -179,7 +182,7 @@ def main():
     fields = ["title", "advt_no", "scraped_deadline", "aggregator_url",
               "official_listing_url", "official_document_url", "official_document_reachable", "pdf_text_status",
               "advertisement_in_pdf", "deadline_in_pdf", "scraped_vacancy_count",
-              "total_count_evidence_in_pdf", "qualification_keywords_found",
+              "total_count_evidence_in_pdf", "qualification_keywords_found", "total_table_sample",
               "verification_status", "publishable", "review_note"]
     with (out / "sbi-official-matches.csv").open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fields)
@@ -203,6 +206,7 @@ def main():
         "advertisement_in_pdf_count": sum(r["advertisement_in_pdf"] for r in report),
         "deadline_in_pdf_count": sum(r["deadline_in_pdf"] for r in report),
         "vacancy_count_evidence_count": sum(r["total_count_evidence_in_pdf"] for r in report),
+        "total_table_samples": [r["total_table_sample"] for r in report if r["total_table_sample"]][:2],
         "fully_verified": 0,
         "automatically_submitted": 0,
         "automatically_published": 0,
