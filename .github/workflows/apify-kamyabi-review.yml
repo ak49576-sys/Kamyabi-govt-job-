@@ -170,12 +170,14 @@ jobs:
           coverage = json.loads(Path('output/official-coverage/report.json').read_text())
           ssc = json.loads(Path('output/ssc/report.json').read_text())
           triage = json.loads(Path('output/official-coverage/triage-summary.json').read_text())
+          pdf = json.loads(Path('output/official-coverage/pdf-evidence.json').read_text())
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
               out.write('\\n## Expanded official recruitment coverage (no automatic import)\\n\\n')
               for row in coverage['sources']:
                   out.write(f"- {row['source']}: **{row['status']}**, {row['candidate_records']} candidate links/cards\\n")
               out.write(f"- SSC: **{ssc['status']}**, {ssc['records_observed']} advertisement records\\n")
               out.write(f"- Priority review: **{triage['priority_review']}**; other review: **{triage['needs_review']}**; excluded historical/results: **{triage['excluded']}**\\n")
+              out.write(f"- Official PDFs examined: **{len(pdf.get('documents', []))}**; text extracted: **{sum(d.get('status') == 'text_extracted' for d in pdf.get('documents', []))}**\n")
               out.write('- Unreachable sources and missing notification details stay on hold.\\n')
           PY
 
