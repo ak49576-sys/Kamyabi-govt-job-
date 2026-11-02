@@ -22,25 +22,35 @@ def inspect(key, opener=None):
     found = []
     listing = []
     for status in ('approved', 'pending', 'rejected'):
-        req = Request(URL + status, method='GET', headers={
-            'X-Api-Key': key, 'Accept': 'application/json', 'User-Agent': USER_AGENT})
-        with opener.open(req, timeout=30) as response:
-            if response.status != 200 or 'json' not in response.headers.get('Content-Type', '').lower():
-                raise ValueError('Unexpected admin response; no write attempted')
-            body = json.loads(response.read(3_000_001))
-        if not isinstance(body, dict) or not isinstance(body.get('jobs'), list):
-            raise ValueError('Admin response missing jobs array')
-        listing.append({'status': status, 'returned_jobs': len(body['jobs']),
-                        'response_keys': sorted(body.keys()),
-                        'sample_job_keys': sorted(body['jobs'][0].keys()) if body['jobs']
-                        and isinstance(body['jobs'][0], dict) else []})
-        for job in body['jobs']:
-            if not isinstance(job, dict):
-                continue
-            job_id = job.get('jobId') or job.get('job_id')
-            if job_id in TARGETS:
-                found.append({'queried_status': status,
-                              'fields': {k: job[k] for k in FIELDS if k in job}})
+        offset = 0
+        while True:
+            req = Request(URL + status + '&limit=100&offset=' + str(offset), method='GET', headers={
+                'X-Api-Key': key, 'Accept': 'application/json', 'User-Agent': USER_AGENT})
+            with opener.open(req, timeout=30) as response:
+                if response.status != 200 or 'json' not in response.headers.get('Content-Type', '').lower():
+                    raise ValueError('Unexpected admin response; no write attempted')
+                body = json.loads(response.read(3_000_001))
+            if not isinstance(body, dict) or not isinstance(body.get('jobs'), list):
+                raise ValueError('Admin response missing jobs array')
+            rows = body['jobs']
+            total = body.get('total')
+            if type(total) is not int or total < 0 or total > 2000:
+                raise ValueError('Unexpected admin pagination total')
+            listing.append({'status': status, 'offset': offset,
+                            'returned_jobs': len(rows), 'total_jobs': total,
+                            'response_keys': sorted(body.keys())})
+            for job in rows:
+                if not isinstance(job, dict):
+                    continue
+                job_id = job.get('jobId') or job.get('job_id')
+                if job_id in TARGETS:
+                    found.append({'queried_status': status,
+                                  'fields': {k: job[k] for k in FIELDS if k in job}})
+            offset += len(rows)
+            if offset >= total:
+                break
+            if not rows:
+                raise ValueError('Pagination stopped early; no write attempted')
     return {'targets': sorted(TARGETS), 'records': found, 'listing': listing,
             'writes_attempted': 0}
 
