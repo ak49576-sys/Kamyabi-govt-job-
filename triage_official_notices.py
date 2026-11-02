@@ -79,6 +79,11 @@ def main():
     summary['note'] = 'Priority is editorial review only. Application deadlines and notification text are not verified.'
     (root / 'triage-summary.json').write_text(json.dumps(summary, indent=2))
     print(json.dumps(summary, indent=2))
+    # Include a small public notice shortlist in logs for editorial follow-up.
+    for record in groups['priority_review'][:20]:
+        title = re.sub(r'[\\r\\n\\t]+', ' ', str(record.get('title', '')))[:180]
+        url = str(record.get('notice_url', ''))[:500]
+        print(json.dumps({'priority_title': title, 'source': record.get('source'), 'official_url': url}))
 
 
 if __name__ == '__main__':
