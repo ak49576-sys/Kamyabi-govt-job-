@@ -18,7 +18,7 @@ SBI_URLS = [SBI_URL, "https://sbi.bank.in/web/careers/Current-openings",
 OFFICIAL_HOSTS = {"sbi.bank.in", "sbi.co.in", "bank.sbi"}
 
 
-def match_sbi(rows, html):
+def match_sbi(rows, html, official_url=SBI_URL):
     text = unescape(re.sub(r"<[^>]+>", " ", html))
     text = re.sub(r"\s+", " ", text).upper()
     output = []
@@ -35,7 +35,7 @@ def match_sbi(rows, html):
             "advt_no": advert,
             "scraped_deadline": (row.get("lastDate") or "").strip(),
             "aggregator_url": (row.get("detailUrl") or "").strip(),
-            "official_listing_url": SBI_URL if found else "",
+            "official_listing_url": official_url if found else "",
             "verification_status": ("OFFICIAL_ADVERTISEMENT_NUMBER_MATCH_ONLY" if found else
                                     "NOT_CONFIRMED_ON_OFFICIAL_PAGE"),
             "publishable": False,
@@ -54,6 +54,7 @@ def main():
     html = ""
     status = "official_page_unavailable"
     checked_urls = []
+    matched_source_url = SBI_URL
     for source_url in SBI_URLS:
         try:
             req = Request(source_url, headers={"User-Agent": "KamyabiNoticeReview/1.0"})
@@ -68,11 +69,12 @@ def main():
                 status = "official_page_accessible_but_listings_not_in_html"
             if "CRPD" in candidate_html.upper():
                 html = candidate_html
+                matched_source_url = source_url
                 status = "official_listing_text_available"
                 break
         except Exception:
             continue
-    report = match_sbi(rows, html)
+    report = match_sbi(rows, html, matched_source_url)
     fields = ["title", "advt_no", "scraped_deadline", "aggregator_url",
               "official_listing_url", "verification_status", "publishable", "review_note"]
     with (out / "sbi-official-matches.csv").open("w", encoding="utf-8-sig", newline="") as file:
