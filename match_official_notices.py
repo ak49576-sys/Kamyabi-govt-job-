@@ -71,6 +71,9 @@ def main():
         "checked_at_utc": datetime.now(timezone.utc).isoformat(),
         "source": SBI_URL,
         "source_status": status,
+        "official_html_bytes": len(html.encode("utf-8")),
+        "raw_advert_prefix_occurrences": html.upper().count("CRPD"),
+        "text_advert_prefix_occurrences": unescape(re.sub(r"<[^>]+>", " ", html)).upper().count("CRPD"),
         "sbi_candidates": len(report),
         "advertisement_number_matches": sum(
             r["verification_status"] == "OFFICIAL_ADVERTISEMENT_NUMBER_MATCH_ONLY" for r in report),
