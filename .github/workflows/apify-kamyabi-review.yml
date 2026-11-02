@@ -1,6 +1,9 @@
 name: Apify Dataset Review for Kamyabi
 
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/apify-kamyabi-review.yml']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
