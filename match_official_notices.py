@@ -6,6 +6,8 @@ No import or publication occurs here.
 import csv
 import json
 import re
+import shutil
+import subprocess
 from datetime import datetime, timezone
 from html import unescape
 from urllib.parse import urljoin, unquote
@@ -49,6 +51,42 @@ def pdf_reachable(url):
         return False
 
 
+
+def inspect_pdf_text(text, advert, scraped_deadline):
+    normalized = re.sub(r"\\s+", " ", text).upper()
+    advert_match = bool(re.search(re.escape(advert), normalized))
+    deadline_match = False
+    try:
+        deadline = datetime.strptime(scraped_deadline, "%d-%m-%Y")
+        pattern = (rf"{deadline.day:02d}[./-]{deadline.month:02d}[./-]{deadline.year}"
+                   rf"(?=\\D|$)")
+        deadline_match = bool(re.search(pattern, normalized))
+    except ValueError:
+        pass
+    return {"advertisement_in_pdf": advert_match, "deadline_in_pdf": deadline_match}
+
+
+def extract_official_pdf_text(url):
+    converter = shutil.which("pdftotext")
+    if not url or not converter:
+        return "", "PDF_TEXT_TOOL_UNAVAILABLE"
+    try:
+        with urlopen(Request(url, headers={"User-Agent": "KamyabiNoticeReview/1.0"}), timeout=25) as response:
+            final = urlparse(response.geturl())
+            if final.scheme != "https" or (final.hostname or "").lower() not in OFFICIAL_HOSTS:
+                return "", "PDF_REDIRECT_UNTRUSTED"
+            pdf = response.read(8_000_001)
+        if len(pdf) > 8_000_000 or not pdf.startswith(b"%PDF-"):
+            return "", "PDF_INVALID_OR_TOO_LARGE"
+        process = subprocess.run([converter, "-layout", "-", "-"], input=pdf,
+                                 capture_output=True, timeout=25, check=False)
+        if process.returncode != 0:
+            return "", "PDF_TEXT_EXTRACTION_FAILED"
+        return process.stdout.decode("utf-8", errors="replace"), "PDF_TEXT_EXTRACTED"
+    except Exception:
+        return "", "PDF_TEXT_EXTRACTION_FAILED"
+
+
 def match_sbi(rows, html, official_url=SBI_URL):
     text = unescape(re.sub(r"<[^>]+>", " ", html))
     text = re.sub(r"\s+", " ", text).upper()
@@ -63,6 +101,9 @@ def match_sbi(rows, html, official_url=SBI_URL):
         found = bool(valid and re.search(r"(?<![A-Z0-9])" + re.escape(advert) + r"(?![A-Z0-9])", text))
         official_pdf = find_official_pdf(html, advert, official_url) if found else ""
         document_reachable = pdf_reachable(official_pdf)
+        document_text, pdf_text_status = (extract_official_pdf_text(official_pdf)
+                                          if document_reachable else ("", "NO_OFFICIAL_PDF"))
+        checks = inspect_pdf_text(document_text, advert, (row.get("lastDate") or "").strip())
         output.append({
             "title": (row.get("postName") or "").strip(),
             "advt_no": advert,
@@ -71,6 +112,9 @@ def match_sbi(rows, html, official_url=SBI_URL):
             "official_listing_url": official_url if found else "",
             "official_document_url": official_pdf,
             "official_document_reachable": document_reachable,
+            "pdf_text_status": pdf_text_status,
+            "advertisement_in_pdf": checks["advertisement_in_pdf"],
+            "deadline_in_pdf": checks["deadline_in_pdf"],
             "verification_status": ("OFFICIAL_PDF_LINK_FOUND_REQUIRES_CONTENT_REVIEW" if document_reachable else
                                     "OFFICIAL_ADVERTISEMENT_NUMBER_MATCH_ONLY" if found else
                                     "NOT_CONFIRMED_ON_OFFICIAL_PAGE"),
@@ -112,7 +156,8 @@ def main():
             continue
     report = match_sbi(rows, html, matched_source_url)
     fields = ["title", "advt_no", "scraped_deadline", "aggregator_url",
-              "official_listing_url", "official_document_url", "official_document_reachable",
+              "official_listing_url", "official_document_url", "official_document_reachable", "pdf_text_status",
+              "advertisement_in_pdf", "deadline_in_pdf",
               "verification_status", "publishable", "review_note"]
     with (out / "sbi-official-matches.csv").open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fields)
@@ -131,6 +176,7 @@ def main():
         "advertisement_number_matches": sum(
             r["verification_status"] != "NOT_CONFIRMED_ON_OFFICIAL_PAGE" for r in report),
         "official_pdf_links_reachable": sum(r["official_document_reachable"] for r in report),
+        "pdf_advert_and_deadline_matches": sum(r["advertisement_in_pdf"] and r["deadline_in_pdf"] for r in report),
         "fully_verified": 0,
         "automatically_submitted": 0,
         "automatically_published": 0,
