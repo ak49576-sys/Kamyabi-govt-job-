@@ -53,13 +53,13 @@ def pdf_reachable(url):
 
 
 def inspect_pdf_text(text, advert, scraped_deadline):
-    normalized = re.sub(r"\\s+", " ", text).upper()
+    normalized = re.sub(r"\s+", " ", text).upper()
     advert_match = bool(re.search(re.escape(advert), normalized))
     deadline_match = False
     try:
         deadline = datetime.strptime(scraped_deadline, "%d-%m-%Y")
         pattern = (rf"{deadline.day:02d}[./-]{deadline.month:02d}[./-]{deadline.year}"
-                   rf"(?=\\D|$)")
+                   rf"(?=\D|$)")
         deadline_match = bool(re.search(pattern, normalized))
     except ValueError:
         pass
