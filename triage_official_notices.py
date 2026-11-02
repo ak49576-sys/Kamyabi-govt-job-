@@ -29,9 +29,9 @@ def classify(notice, today):
     if not OPENING.search(title):
         return 'needs_review', 'not_clearly_recruitment'
     # Prefer the advertisement year in the visible title over an unrelated URL year.
-    years = set(re.findall(r'(?<!\\d)20\\d{2}(?!\\d)', title))
+    years = set(re.findall(r'(?<!\d)20\d{2}(?!\d)', title))
     if not years:
-        years = set(re.findall(r'(?<!\\d)20\\d{2}(?!\\d)', parsed.path))
+        years = set(re.findall(r'(?<!\d)20\d{2}(?!\d)', parsed.path))
     if not years:
         return 'needs_review', 'year_unconfirmed'
     current = {str(today.year), str(today.year + 1)}
