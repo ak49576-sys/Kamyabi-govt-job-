@@ -18,6 +18,8 @@ SOURCES = {
     'Railway Recruitment Board': {'rrbcdg.gov.in', 'rrbapply.gov.in'},
     'Reserve Bank of India': {'rbi.org.in', 'opportunities.rbi.org.in'},
     'Bank of Baroda': {'bankofbaroda.bank.in'},
+    'Canara Bank': {'canarabank.bank.in'},
+    'Oil and Natural Gas Corporation': {'ongcindia.com'},
     'NTPC Limited': {'ntpc.co.in'},
     'POWERGRID': {'powergrid.in'},
     'Indian Oil Corporation': {'iocl.com'},
