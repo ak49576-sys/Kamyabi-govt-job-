@@ -1,7 +1,7 @@
 import unittest
 from datetime import date
 
-from triage_official_notices import classify, triage, prepare_review_queue
+from triage_official_notices import classify, triage, prepare_review_queue, parse_observed_deadline
 
 
 TODAY = date(2026, 11, 2)
@@ -54,6 +54,20 @@ class OfficialTriageTests(unittest.TestCase):
         groups = triage([n, n, notice('Recruitment Result 2026',
                                      'https://ntpc.co.in/result-2026')], TODAY)
         self.assertEqual(len(prepare_review_queue(groups)['candidates']), 1)
+
+    def test_rajasthan_card_deadline_is_only_unverified_evidence(self):
+        n = {'source': 'Rajasthan Recruitment Portal',
+             'title': 'Contractual Recruitment 2026',
+             'notice_url': 'https://recruitment.rajasthan.gov.in/',
+             'observed_deadline': '20-Nov-2026'}
+        prepared = prepare_review_queue(triage([n], TODAY))['candidates'][0]
+        self.assertEqual(prepared['observed_deadline_iso_unverified'], '2026-11-20')
+        self.assertIsNone(prepared['last_date'])
+        self.assertIs(prepared['publishable'], False)
+
+    def test_invalid_card_deadline_does_not_become_job_deadline(self):
+        self.assertIsNone(parse_observed_deadline('31-Dec-2099x'))
+        self.assertIsNone(parse_observed_deadline('31-Feb-2026'))
 
     def test_invalid_url_excluded(self):
         self.assertEqual(classify(notice('Recruitment 2026', 'http://example.com'), TODAY)[0],
