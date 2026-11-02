@@ -1,7 +1,7 @@
 import unittest
 from datetime import date
 
-from triage_official_notices import classify, triage
+from triage_official_notices import classify, triage, prepare_review_queue
 
 
 TODAY = date(2026, 11, 2)
@@ -36,6 +36,24 @@ class OfficialTriageTests(unittest.TestCase):
         n = notice('Recruitment 2026')
         groups = triage([n, dict(n, title='Recruitment 2026 duplicate')], TODAY)
         self.assertEqual(sum(len(v) for v in groups.values()), 1)
+
+    def test_structured_review_queue_never_marks_notice_publishable(self):
+        n = notice('Recruitment of Engineer Trainees 2026')
+        groups = triage([n], TODAY)
+        prepared = prepare_review_queue(groups)
+        self.assertIs(prepared['reviewed'], False)
+        self.assertIs(prepared['submission_ready'], False)
+        item = prepared['candidates'][0]
+        self.assertEqual(item['official_candidate_url'], n['notice_url'])
+        self.assertIsNone(item['last_date'])
+        self.assertIsNone(item['official_notification_url'])
+        self.assertIs(item['publishable'], False)
+
+    def test_review_queue_excludes_results_and_deduplicates(self):
+        n = notice('Recruitment of Engineer Trainees 2026')
+        groups = triage([n, n, notice('Recruitment Result 2026',
+                                     'https://ntpc.co.in/result-2026')], TODAY)
+        self.assertEqual(len(prepare_review_queue(groups)['candidates']), 1)
 
     def test_invalid_url_excluded(self):
         self.assertEqual(classify(notice('Recruitment 2026', 'http://example.com'), TODAY)[0],
