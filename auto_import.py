@@ -15,6 +15,16 @@ from submit_jobs import send_jobs, validate_document, valid_date
 PUBLIC_URL = 'https://kamyabi.in/api/v1/jobs'
 SOURCES = {
     'IBPS': {'ibps.in'},
+    'Railway Recruitment Board': {'rrbcdg.gov.in', 'rrbapply.gov.in'},
+    'Reserve Bank of India': {'rbi.org.in', 'opportunities.rbi.org.in'},
+    'Bank of Baroda': {'bankofbaroda.bank.in'},
+    'NTPC Limited': {'ntpc.co.in'},
+    'POWERGRID': {'powergrid.in'},
+    'Indian Oil Corporation': {'iocl.com'},
+    'Staff Selection Commission': {'ssc.gov.in'},
+    'Rajasthan Public Service Commission': {'rpsc.rajasthan.gov.in'},
+    'Rajasthan Staff Selection Board': {'rssb.rajasthan.gov.in', 'rsmssb.rajasthan.gov.in'},
+    'Government of Rajasthan': {'recruitment.rajasthan.gov.in', 'rajasthan.gov.in'},
     'State Bank of India': {'sbi.bank.in', 'sbi.co.in', 'bank.sbi'},
     'RITES Limited': {'rites.com'},
     'Union Public Service Commission': {'upsc.gov.in', 'pib.gov.in', 'upsconline.nic.in'},
