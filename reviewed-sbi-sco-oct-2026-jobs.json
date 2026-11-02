@@ -1,0 +1,21 @@
+{
+  "reviewed": true,
+  "reviewed_at": "2026-11-02",
+  "review_note": "Compared Apify record CRPD/SCO/2026-27/30 with SBI official current-openings page and 18-page English advertisement on 2026-11-02; six total vacancies, dates and post-specific qualifications verified. Pending-review submission only.",
+  "jobs": [
+    {
+      "job_id": "sbi-sco-fixed-term-crpd-30-2026",
+      "title": "SBI Specialist Cadre Officers 2026 – 6 AI and Analytics Posts (CRPD/SCO/2026-27/30)",
+      "department": "State Bank of India – Central Recruitment & Promotion Department",
+      "qualification": "Post-specific degree in Computer Science, IT, Engineering, Statistics, MCA, Data Science, AI or related discipline, with prescribed senior experience (8–15+ years depending on post); refer to the official advertisement.",
+      "state_or_central": "Central PSU",
+      "last_date": "2026-11-09",
+      "source_url": "https://sbi.bank.in/web/careers/current-openings",
+      "official_notification_url": "https://sbi.bank.in/documents/77530/57941334/17102026_Detail_ADV_CRPD_SCO_2026-27_30.pdf/226b6572-e6bd-2b73-f266-dc7db9b282bd?t=1792240760461",
+      "recruiting_body": "State Bank of India",
+      "application_start_date": "2026-10-19",
+      "application_last_date": "2026-11-09",
+      "vacancy_count": 6
+    }
+  ]
+}
