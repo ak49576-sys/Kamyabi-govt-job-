@@ -54,10 +54,7 @@
       "recruitment.rajasthan.gov.in"
     ],
     "parser": "rajasthan_cards",
-    "pattern": "recruit|contractual|vacanc",
-    "fallback_urls": [
-      "https://www.recruitment.rajasthan.gov.in/"
-    ]
+    "pattern": "recruit|contractual|vacanc"
   },
   {
     "name": "RRB Chandigarh (Railways)",
