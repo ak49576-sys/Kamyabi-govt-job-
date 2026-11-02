@@ -22,12 +22,12 @@ OFFICIAL_HOSTS = {"sbi.bank.in", "sbi.co.in", "bank.sbi"}
 
 def find_official_pdf(html, advert, base_url):
     """Return only an official PDF URL with the same year and advert suffix."""
-    match = re.fullmatch(r"CRPD/SCO/(20\\d{2}-\\d{2})/(\\d{1,3})", advert)
+    match = re.fullmatch(r"CRPD/SCO/(20\d{2}-\d{2})/(\d{1,3})", advert)
     if not match:
         return ""
     year, number = match.groups()
     pattern = re.compile(re.escape(year) + r"[^0-9]{1,15}0?" + re.escape(number) + r"(?![0-9])", re.I)
-    for raw in re.findall(r'href=["\\\']([^"\\\']+)["\\\']', html, flags=re.I):
+    for raw in re.findall(r'href="([^"]+)"', html, flags=re.I):
         candidate = urljoin(base_url, unescape(raw))
         parsed = urlparse(candidate)
         path = unquote(parsed.path)
