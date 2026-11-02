@@ -1,0 +1,35 @@
+{
+  "reviewed": true,
+  "reviewed_at": "2026-11-02",
+  "review_note": "Verified both advertisements CRPD/SCO/2026-27/26 and /27 against SBI official current openings and English PDFs on 2026-11-02; dates, aggregate vacancy counts and qualifications checked; stage pending only.",
+  "jobs": [
+    {
+      "job_id": "sbi-sco-product-research-crpd-26-2026",
+      "title": "SBI Specialist Cadre Officers 2026 – 7 Chief Manager and Manager Product & Research Posts",
+      "department": "State Bank of India – Central Recruitment & Promotion Department",
+      "qualification": "MBA/PGDM/PGDBM/PGDBA or equivalent; finance specialization preferred. Chief Manager requires 7 years in forex/rupee markets; Manager requires 3 years in equity/forex/debt research. Refer to official notice.",
+      "state_or_central": "Central PSU",
+      "last_date": "2026-11-23",
+      "source_url": "https://sbi.bank.in/web/careers/current-openings",
+      "official_notification_url": "https://sbi.bank.in/documents/77530/57941334/FINAL%2BADVT%2BCRPD%2B_SCO_2026-27_26_GMU.pdf/ade1acc4-609b-5c9a-ed89-670e70d0a82c?t=1793600742622",
+      "recruiting_body": "State Bank of India",
+      "application_start_date": "2026-11-02",
+      "application_last_date": "2026-11-23",
+      "vacancy_count": 7
+    },
+    {
+      "job_id": "sbi-sco-risk-specialist-crpd-27-2026",
+      "title": "SBI Risk Specialist Recruitment 2026 – 3 Posts",
+      "department": "State Bank of India – Central Recruitment & Promotion Department",
+      "qualification": "CA, CFA, or MBA/PGDM or equivalent in Finance/Data Analytics/Business Analytics, with at least 2 years post-qualification experience in Expected Credit Loss modelling; see official notification.",
+      "state_or_central": "Central PSU",
+      "last_date": "2026-11-23",
+      "source_url": "https://sbi.bank.in/web/careers/current-openings",
+      "official_notification_url": "https://sbi.bank.in/documents/77530/57941334/DETAILED%2BADV_RMD_SCO_2026-27_27.pdf/fff268f5-f55d-3ec8-b1ca-b7a51e705e0e?t=1793599952659",
+      "recruiting_body": "State Bank of India",
+      "application_start_date": "2026-11-02",
+      "application_last_date": "2026-11-23",
+      "vacancy_count": 3
+    }
+  ]
+}
