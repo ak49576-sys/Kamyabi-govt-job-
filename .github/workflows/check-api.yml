@@ -1,4 +1,5 @@
 name: Verify Kamyabi API secret
+# Read-only credential check; this workflow never submits jobs.
 on:
   workflow_dispatch:
   push:
