@@ -6,8 +6,7 @@ No import or publication occurs here.
 import csv
 import json
 import re
-import shutil
-import subprocess
+from io import BytesIO
 from datetime import datetime, timezone
 from html import unescape
 from urllib.parse import urljoin, unquote
@@ -67,8 +66,11 @@ def inspect_pdf_text(text, advert, scraped_deadline):
 
 
 def extract_official_pdf_text(url):
-    converter = shutil.which("pdftotext")
-    if not url or not converter:
+    if not url:
+        return "", "NO_OFFICIAL_PDF"
+    try:
+        from pypdf import PdfReader
+    except ImportError:
         return "", "PDF_TEXT_TOOL_UNAVAILABLE"
     try:
         with urlopen(Request(url, headers={"User-Agent": "KamyabiNoticeReview/1.0"}), timeout=25) as response:
@@ -78,11 +80,11 @@ def extract_official_pdf_text(url):
             pdf = response.read(8_000_001)
         if len(pdf) > 8_000_000 or not pdf.startswith(b"%PDF-"):
             return "", "PDF_INVALID_OR_TOO_LARGE"
-        process = subprocess.run([converter, "-layout", "-", "-"], input=pdf,
-                                 capture_output=True, timeout=25, check=False)
-        if process.returncode != 0:
-            return "", "PDF_TEXT_EXTRACTION_FAILED"
-        return process.stdout.decode("utf-8", errors="replace"), "PDF_TEXT_EXTRACTED"
+        reader = PdfReader(BytesIO(pdf))
+        if len(reader.pages) > 50:
+            return "", "PDF_TOO_MANY_PAGES"
+        text = "\\n".join(page.extract_text() or "" for page in reader.pages)
+        return text, "PDF_TEXT_EXTRACTED"
     except Exception:
         return "", "PDF_TEXT_EXTRACTION_FAILED"
 
