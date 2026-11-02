@@ -5,7 +5,7 @@ on:
     - cron: '30 2 * * *' # 08:00 IST; GitHub schedules may be delayed
   push:
     branches: [main]
-    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py']
+    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
@@ -253,6 +253,9 @@ jobs:
           if result['status'] != 'ok':
               raise SystemExit('Admin pending-job preview unavailable; see report, no approvals attempted')
           PY
+
+      - name: Verify new ONGC apprentice advertisement (read-only)
+        run: python verify_ongc_apprentice_pdf.py
 
       - name: Inspect existing POWERGRID and ONGC records (read-only)
         env:
