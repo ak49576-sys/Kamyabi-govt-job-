@@ -57,6 +57,18 @@ def triage(notices, today):
     return groups
 
 
+def parse_observed_deadline(value):
+    """Normalize portal-card evidence without treating it as verified."""
+    if not isinstance(value, str):
+        return None
+    for fmt in ('%d-%b-%Y', '%Y-%m-%d'):
+        try:
+            return datetime.strptime(value.strip(), fmt).date().isoformat()
+        except ValueError:
+            pass
+    return None
+
+
 def prepare_review_queue(groups):
     """Structured official candidates, deliberately not submission-ready."""
     queue = []
@@ -67,6 +79,7 @@ def prepare_review_queue(groups):
                 'title_as_observed': notice.get('title', ''),
                 'official_candidate_url': notice.get('notice_url', ''),
                 'observed_deadline_unverified': notice.get('observed_deadline'),
+                'observed_deadline_iso_unverified': parse_observed_deadline(notice.get('observed_deadline')),
                 'triage': priority,
                 'review_reason': notice.get('triage_reason'),
                 'reviewed': False,
