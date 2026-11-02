@@ -74,6 +74,7 @@ def main():
         "source_status": status,
         "official_html_bytes": len(html.encode("utf-8")),
         "raw_advert_prefix_occurrences": html.upper().count("CRPD"),
+        "script_sources": sorted(set(re.findall(r'<script[^>]+src="([^"]+)"', html, flags=re.I)))[:25],
         "text_advert_prefix_occurrences": unescape(re.sub(r"<[^>]+>", " ", html)).upper().count("CRPD"),
         "sbi_candidates": len(report),
         "advertisement_number_matches": sum(
