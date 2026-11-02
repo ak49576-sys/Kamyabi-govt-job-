@@ -1,5 +1,5 @@
 import unittest
-from match_official_notices import match_sbi, find_official_pdf
+from match_official_notices import match_sbi, find_official_pdf, inspect_pdf_text
 from unittest.mock import patch
 
 class MatchTests(unittest.TestCase):
@@ -39,6 +39,16 @@ class MatchTests(unittest.TestCase):
         match = match_sbi([row], html)[0]
         self.assertTrue(match["official_document_reachable"])
         self.assertFalse(match["publishable"])
+
+    def test_pdf_text_checks_advert_and_deadline(self):
+        pdf_text = ("State Bank of India ADV NO CRPD/SCO/2026-27/30 "
+                    "ONLINE REGISTRATION 19.10.2026 TO 09.11.2026")
+        result = inspect_pdf_text(pdf_text, "CRPD/SCO/2026-27/30", "09-11-2026")
+        self.assertTrue(result["advertisement_in_pdf"])
+        self.assertTrue(result["deadline_in_pdf"])
+        wrong = inspect_pdf_text(pdf_text, "CRPD/SCO/2026-27/31", "10-11-2026")
+        self.assertFalse(wrong["advertisement_in_pdf"])
+        self.assertFalse(wrong["deadline_in_pdf"])
 
     def test_other_banks_not_matched(self):
         self.assertEqual(match_sbi([{"recruitmentBoard": "UCO Bank", "advtNo": "CRPD/SCO/2026-27/30"}],
