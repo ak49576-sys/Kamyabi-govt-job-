@@ -3,11 +3,13 @@
     "name": "IBPS",
     "url": "https://www.ibps.in/index.php/crp-updates/",
     "allowed_domains": [
-      "ibps.in"
+      "ibps.in",
+      "cache.ibps.in"
     ],
     "pattern": "recruit|notification|vacanc|crp|corrigendum",
     "fallback_urls": [
-      "https://ibps.in/index.php/crp-updates/"
+      "https://ibps.in/index.php/crp-updates/",
+      "https://www.cache.ibps.in/"
     ]
   },
   {
@@ -52,7 +54,10 @@
       "recruitment.rajasthan.gov.in"
     ],
     "parser": "rajasthan_cards",
-    "pattern": "recruit|contractual|vacanc"
+    "pattern": "recruit|contractual|vacanc",
+    "fallback_urls": [
+      "https://www.recruitment.rajasthan.gov.in/"
+    ]
   },
   {
     "name": "RRB Chandigarh (Railways)",
@@ -96,11 +101,14 @@
   },
   {
     "name": "IndianOil",
-    "url": "https://iocl.com/latest-job-opening",
+    "url": "https://www.iocl.com/latest-job-opening",
     "allowed_domains": [
       "iocl.com"
     ],
-    "pattern": "recruit|vacanc|apprentice|opening|advertisement|\\.pdf$"
+    "pattern": "recruit|vacanc|apprentice|opening|advertisement|\\.pdf$",
+    "fallback_urls": [
+      "https://iocl.com/careers"
+    ]
   },
   {
     "name": "Canara Bank",
@@ -124,7 +132,10 @@
     "allowed_domains": [
       "gailonline.com"
     ],
-    "pattern": "recruit|vacanc|career|trainee|apprentice|consultant|advertisement|\\.pdf$"
+    "pattern": "recruit|vacanc|career|trainee|apprentice|consultant|advertisement|\\.pdf$",
+    "fallback_urls": [
+      "https://www.gailonline.com/Vacancies.html"
+    ]
   },
   {
     "name": "HPCL",
