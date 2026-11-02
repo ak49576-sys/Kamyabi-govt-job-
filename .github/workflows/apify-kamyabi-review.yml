@@ -2,6 +2,16 @@ name: Apify Dataset Review for Kamyabi
 
 on:
   workflow_dispatch:
+    inputs:
+      reviewed_jobs_json:
+        description: 'Optional reviewed=true JSON document with verified jobs (1–100); leave blank for report only'
+        required: false
+        type: string
+      submit_reviewed:
+        description: 'Send validated reviewed jobs to the Kamyabi pending queue (never publishes)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -15,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@v4
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
@@ -90,6 +101,32 @@ jobs:
               f.write('- Jobs submitted or published: **0**\n\n')
               f.write('Download the **apify-kamyabi-review** artifact and verify every item against the recruiting body’s official notification before adding it to a reviewed jobs file.\n')
           PY
+      - name: Validate optionally supplied reviewed jobs
+        if: ${{ inputs.reviewed_jobs_json != '' }}
+        env:
+          REVIEWED_JOBS_JSON: ${{ inputs.reviewed_jobs_json }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          doc = json.loads(os.environ['REVIEWED_JOBS_JSON'])
+          if not isinstance(doc, dict) or doc.get('reviewed') is not True:
+              raise SystemExit('Only explicitly reviewed jobs can be submitted')
+          Path('/tmp/kamyabi-reviewed-jobs.json').write_text(json.dumps(doc))
+          PY
+          python submit_jobs.py --file /tmp/kamyabi-reviewed-jobs.json --output output/reviewed-preview.json
+
+      - name: Submit verified jobs to Kamyabi pending queue
+        if: ${{ inputs.submit_reviewed == true }}
+        env:
+          REVIEWED_JOBS_JSON: ${{ inputs.reviewed_jobs_json }}
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+        run: |
+          test -n "$REVIEWED_JOBS_JSON" || { echo "::error::Provide reviewed_jobs_json before enabling submission"; exit 1; }
+          test -n "$KAMYABI_API_KEY" || { echo "::error::Set the KAMYABI_API_KEY GitHub Actions secret to match GoDaddy IMPORT_API_KEY"; exit 1; }
+          python submit_jobs.py --file /tmp/kamyabi-reviewed-jobs.json --submit --output output/reviewed-submission.json
+          echo 'Validated reviewed jobs were sent to the pending-review API, not published. Check /admin/jobs.' >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload review report
         if: always()
         uses: actions/upload-artifact@v4
