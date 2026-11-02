@@ -50,6 +50,17 @@ class MatchTests(unittest.TestCase):
         self.assertFalse(wrong["advertisement_in_pdf"])
         self.assertFalse(wrong["deadline_in_pdf"])
 
+    def test_vacancy_count_evidence_is_not_automatic_approval(self):
+        text = ("CRPD/SCO/2026-27/30 ONLINE REGISTRATION TO 09.11.2026 "
+                "Total 06 06. B.E. B.Tech MBA PGDM")
+        result = inspect_pdf_text(text, "CRPD/SCO/2026-27/30", "09-11-2026",
+                                  "GM and DGM – 6 Posts", "B.Tech/B.E, MBA/PGDM")
+        self.assertEqual(result["scraped_vacancy_count"], 6)
+        self.assertTrue(result["total_count_evidence_in_pdf"])
+        self.assertIn("MBA", result["qualification_keywords_found"])
+        self.assertFalse(inspect_pdf_text(text, "CRPD/SCO/2026-27/30", "09-11-2026",
+                                         "GM and DGM – 7 Posts")["total_count_evidence_in_pdf"])
+
     def test_other_banks_not_matched(self):
         self.assertEqual(match_sbi([{"recruitmentBoard": "UCO Bank", "advtNo": "CRPD/SCO/2026-27/30"}],
                                    "CRPD/SCO/2026-27/30"), [])
