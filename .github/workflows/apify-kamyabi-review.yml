@@ -29,6 +29,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Test API validation and pending-import safeguards
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
