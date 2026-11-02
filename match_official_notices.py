@@ -97,7 +97,20 @@ def extract_official_pdf_text(url):
         reader = PdfReader(BytesIO(pdf))
         if len(reader.pages) > 50:
             return "", "PDF_TOO_MANY_PAGES"
-        text = "\\n".join(page.extract_text() or "" for page in reader.pages)
+        # Some official vacancy tables are drawn with positioned text. Try both
+        # extraction modes; neither result is sufficient for publication alone.
+        sections = []
+        for page in reader.pages:
+            plain = page.extract_text() or ""
+            sections.append(plain)
+            if "TOTAL" not in plain.upper():
+                try:
+                    layout = page.extract_text(extraction_mode="layout") or ""
+                except Exception:
+                    layout = ""
+                if layout and layout != plain:
+                    sections.append(layout)
+        text = "\\n".join(sections)
         return text, "PDF_TEXT_EXTRACTED"
     except Exception:
         return "", "PDF_TEXT_EXTRACTION_FAILED"
