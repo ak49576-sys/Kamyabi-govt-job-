@@ -43,7 +43,7 @@ def inspect(key, opener=None):
                 if not isinstance(job, dict):
                     continue
                 job_id = job.get('jobId') or job.get('job_id')
-                if job_id in TARGETS:
+                if job_id in TARGETS or ('POWERGRID' in str(job.get('title', '')).upper() and '2027' in str(job.get('title', ''))):
                     found.append({'queried_status': status,
                                   'fields': {k: job[k] for k in FIELDS if k in job}})
             offset += len(rows)
