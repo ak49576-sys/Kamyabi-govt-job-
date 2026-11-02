@@ -10,9 +10,9 @@ from urllib.request import Request, build_opener
 from api_http import NoRedirect
 from pypdf import PdfReader
 
-DATE = re.compile(r'(?<!\\d)(?:[0-3]?\\d[./-][01]?\\d[./-]20\\d{2}|[0-3]?\\d\\s+[A-Za-z]{3,9}\\s+20\\d{2})(?!\\d)', re.I)
+DATE = re.compile(r'(?<!\d)(?:[0-3]?\d[./-][01]?\d[./-]20\d{2}|[0-3]?\d\s+[A-Za-z]{3,9}\s+20\d{2})(?!\d)', re.I)
 CLOSING = re.compile(r'(?:last date|closing date|apply by|applications? (?:close|ends?))', re.I)
-QUALIFICATIONS = re.compile(r'\\b(?:B\\.?TECH|B\\.?E\\.?|MBA|MCA|ITI|DIPLOMA|GRADUATE|12TH|10TH)\\b', re.I)
+QUALIFICATIONS = re.compile(r'\b(?:B\.?TECH|B\.?E\.?|MBA|MCA|ITI|DIPLOMA|GRADUATE|12TH|10TH)\b', re.I)
 
 
 def official_pdf(url, source_domains):
@@ -24,7 +24,7 @@ def official_pdf(url, source_domains):
 
 
 def extract_evidence(text):
-    normalized = re.sub(r'\\s+', ' ', text)
+    normalized = re.sub(r'\s+', ' ', text)
     dates = []
     for match in DATE.finditer(normalized):
         context = normalized[max(0, match.start() - 90):match.start()]
@@ -49,7 +49,7 @@ def fetch_pdf(url, opener=None):
     reader = PdfReader(BytesIO(payload))
     if len(reader.pages) > 35:
         raise ValueError('PDF exceeds page limit')
-    return '\\n'.join(page.extract_text() or '' for page in reader.pages)
+    return '\n'.join(page.extract_text() or '' for page in reader.pages)
 
 
 def review(notices, sources, max_documents=5, fetch=fetch_pdf):
