@@ -22,3 +22,9 @@ This report follows the GitHub Actions priority-notice run 41491391591. Nine lin
 - **2 existing-page correction candidates**: POWERGRID 2027 and ONGC Apprentices 2026.
 - Keep candidate collection, triage, existing reviewed-job publishing, and the admin pending workflow independent. Do not create duplicate advertisements.
 - The public Kamyabi pages were observed through public web retrieval; recheck the database's current record before any correction, since crawled pages may lag the live database.
+
+## Follow-up correction — 2 November 2026
+
+- [One-time ONGC correction run 41496344175](https://github.com/ak49576-sys/Kamyabi-govt-job-/actions/runs/41496344175): four safeguard tests passed. The exact existing `ongc-apprentice-2026` admin row was updated and re-approved; the read-back confirmed **last_date = 2026-11-20**. Its start date was changed to **2026-10-29**, official notification URL to the linked ONGC PDF, and the reported apprentice seat count to **3,047**. These figures were corroborated by current recruitment reports; direct PDF extraction from GitHub remained unavailable.
+- Full pagination across all admin statuses returned **69 approved, 3 pending and 1 rejected** records. No `powergrid-engineer-trainee-2027` ID or POWERGRID 2027 title appeared in those records. Its public page is therefore not safely editable via the present admin-job route; inspect the separate/static site content before altering it.
+- Only the ONGC record was changed. Do not create a second ONGC listing, and do not assume the separate POWERGRID page was corrected.
