@@ -56,7 +56,8 @@ def main():
             if host not in OFFICIAL_HOSTS:
                 raise ValueError("SBI official page redirected outside allowed domains")
             html = response.read(3_000_000).decode("utf-8", errors="replace")
-        status = "official_page_accessible"
+        status = ("official_listing_text_available" if "CRPD" in html.upper() else
+                  "official_page_accessible_but_listings_not_in_html")
     except Exception:
         html = ""
         status = "official_page_unavailable"
