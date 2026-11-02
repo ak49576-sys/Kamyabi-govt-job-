@@ -57,6 +57,39 @@ def triage(notices, today):
     return groups
 
 
+def prepare_review_queue(groups):
+    """Structured official candidates, deliberately not submission-ready."""
+    queue = []
+    for priority in ('priority_review', 'needs_review'):
+        for notice in groups[priority]:
+            queue.append({
+                'source': notice.get('source', ''),
+                'title_as_observed': notice.get('title', ''),
+                'official_candidate_url': notice.get('notice_url', ''),
+                'observed_deadline_unverified': notice.get('observed_deadline'),
+                'triage': priority,
+                'review_reason': notice.get('triage_reason'),
+                'reviewed': False,
+                'publishable': False,
+                'job_id': None,
+                'department': None,
+                'qualification': None,
+                'application_start_date': None,
+                'application_last_date': None,
+                'last_date': None,
+                'official_notification_url': None,
+                'verification_tasks': [
+                    'Open the recruiting body official notification',
+                    'Confirm exact post title, qualification and department',
+                    'Confirm opening date and actual closing date',
+                    'Check job ID and notification URL for duplicates',
+                ],
+            })
+    return {'reviewed': False, 'submission_ready': False,
+            'note': 'Editorial review queue only; not compatible with live submission.',
+            'candidates': queue}
+
+
 def main():
     root = Path('output/official-coverage')
     doc = json.loads((root / 'notices.json').read_text())
@@ -74,6 +107,8 @@ def main():
                 writer.writerow({field: "'" + str(record.get(field, ''))
                                  if str(record.get(field, '')).lstrip().startswith(('=', '+', '-', '@'))
                                  else record.get(field, '') for field in fields})
+    (root / 'official-candidate-review.json').write_text(
+        json.dumps(prepare_review_queue(groups), indent=2), encoding='utf-8')
     summary = {key: len(value) for key, value in groups.items()}
     summary['published'] = 0
     summary['note'] = 'Priority is editorial review only. Application deadlines and notification text are not verified.'
