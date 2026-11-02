@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test API validation and pending-import safeguards
-        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
@@ -131,6 +131,21 @@ jobs:
               f.write('- Jobs submitted or published: **0**\n\n')
               f.write('Download the **apify-kamyabi-review** artifact and verify every item against the recruiting body’s official notification before adding it to a reviewed jobs file.\n')
           PY
+      - name: Match SBI advertisement numbers against official careers page
+        run: |
+          python match_official_notices.py
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('output/sbi-official-match-summary.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\\n## SBI official listing checks (not publication approval)\\n\\n')
+              out.write(f"- Official page status: **{report['source_status']}**\\n")
+              out.write(f"- SBI candidates: **{report['sbi_candidates']}**\\n")
+              out.write(f"- Exact advertisement-number matches: **{report['advertisement_number_matches']}**\\n")
+              out.write('- Fully verified and automatically published: **0**\\n')
+          PY
+
       - name: Preview eligible reviewed repository jobs (no write)
         run: |
           python auto_import.py
