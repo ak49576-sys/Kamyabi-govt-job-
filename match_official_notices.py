@@ -62,11 +62,11 @@ def inspect_pdf_text(text, advert, scraped_deadline, post_name='', qualification
         deadline_match = bool(re.search(pattern, normalized))
     except ValueError:
         pass
-    post_count = re.search(r"(\\d[\\d,]*)\\s+POSTS?\\b", post_name.upper())
+    post_count = re.search(r"(\d[\d,]*)\s+POSTS?\b", post_name.upper())
     claimed = int(post_count.group(1).replace(",", "")) if post_count else None
     count_evidence = bool(
         claimed is not None and re.search(
-            r"\\bTOTAL\\s+0?" + str(claimed) + r"(?:\\s+0?" + str(claimed) + r")?\\b",
+            r"\bTOTAL\s+0?" + str(claimed) + r"(?:\s+0?" + str(claimed) + r")?\b",
             normalized))
     # Keyword presence is editorial evidence, not qualification equivalence.
     tokens = ["B.TECH", "B.E", "MBA", "PGDM", "MCA", "CA", "CFA", "ITI", "12TH", "10TH"]
