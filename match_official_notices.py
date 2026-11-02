@@ -18,7 +18,7 @@ OFFICIAL_HOSTS = {"sbi.bank.in", "sbi.co.in", "bank.sbi"}
 
 def match_sbi(rows, html):
     text = unescape(re.sub(r"<[^>]+>", " ", html))
-    text = re.sub(r"\\s+", " ", text).upper()
+    text = re.sub(r"\s+", " ", text).upper()
     output = []
     for row in rows:
         board = (row.get("recruitmentBoard") or "").strip().lower()
@@ -26,7 +26,7 @@ def match_sbi(rows, html):
         if board not in ("sbi", "state bank of india"):
             continue
         # Never match candidates without a full, specific advertisement number.
-        valid = re.fullmatch(r"CRPD/SCO/20\\d{2}-\\d{2}/\\d{1,3}", advert)
+        valid = re.fullmatch(r"CRPD/SCO/20\d{2}-\d{2}/\d{1,3}", advert)
         found = bool(valid and re.search(r"(?<![A-Z0-9])" + re.escape(advert) + r"(?![A-Z0-9])", text))
         output.append({
             "title": (row.get("postName") or "").strip(),
