@@ -1,9 +1,11 @@
 """Read-only text checks of ONGC's official 2026 apprentice advertisement."""
 import json
 import re
+import subprocess
+import tempfile
+from pathlib import Path
 from io import BytesIO
 from urllib.parse import urlparse
-from urllib.request import Request, urlopen
 
 from pypdf import PdfReader
 
@@ -12,11 +14,25 @@ HOSTS = {'www.ongcindia.com', 'ongcindia.com'}
 
 
 def verify(url=URL):
-    with urlopen(Request(url, headers={'User-Agent': 'KamyabiOfficialNoticeReview/1.0'}), timeout=30) as response:
-        final = urlparse(response.geturl())
-        if final.scheme != 'https' or final.hostname not in HOSTS:
-            raise ValueError('Official PDF redirected outside ONGC')
-        payload = response.read(8_000_001)
+    with tempfile.TemporaryDirectory() as folder:
+        target = Path(folder) / 'notice.pdf'
+        cmd = [
+            'curl', '--ipv4', '--silent', '--show-error', '--location',
+            '--proto', '=https', '--proto-redir', '=https',
+            '--connect-timeout', '10', '--max-time', '35',
+            '--max-filesize', '8000000',
+            '--user-agent', 'KamyabiOfficialNoticeReview/1.0',
+            '--output', str(target), '--write-out', '%{http_code}\\n%{url_effective}',
+            url,
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=40)
+        if result.returncode:
+            raise ValueError('Official PDF fetch failed with curl exit ' + str(result.returncode))
+        status, final_url = result.stdout.split('\\n', 1)
+        final = urlparse(final_url)
+        if status != '200' or final.scheme != 'https' or final.hostname not in HOSTS:
+            raise ValueError('Official PDF returned untrusted redirect or non-200')
+        payload = target.read_bytes()
     if len(payload) > 8_000_000 or not payload.startswith(b'%PDF-'):
         raise ValueError('Official PDF invalid or too large')
     pages = PdfReader(BytesIO(payload)).pages
