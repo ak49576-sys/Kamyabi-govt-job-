@@ -12,6 +12,10 @@ on:
         description: 'Optional reviewed=true JSON document with verified jobs (1–100); leave blank for report only'
         required: false
         type: string
+      reviewed_filename:
+        description: 'Required when submitting from repository files instead of pasted JSON (e.g. reviewed-sbi-sco-nov-2026-jobs.json)'
+        required: false
+        type: string
       submit_reviewed:
         description: 'Stage reviewed JSON input or existing reviewed-*-jobs.json files (never publishes)'
         required: false
@@ -184,14 +188,20 @@ jobs:
         if: ${{ inputs.submit_reviewed == true }}
         env:
           REVIEWED_JOBS_JSON: ${{ inputs.reviewed_jobs_json }}
+          REVIEWED_FILENAME: ${{ inputs.reviewed_filename }}
           KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
         run: |
           test -n "$KAMYABI_API_KEY" || { echo "::error::Set the KAMYABI_API_KEY GitHub Actions secret to match GoDaddy IMPORT_API_KEY"; exit 1; }
           if [ -n "$REVIEWED_JOBS_JSON" ]; then
             python submit_jobs.py --file /tmp/kamyabi-reviewed-jobs.json --submit --output output/reviewed-submission.json
           else
-            echo 'No pasted JSON. Using existing reviewed-*-jobs.json files; raw Apify candidates remain held.' >> "$GITHUB_STEP_SUMMARY"
-            python auto_import.py --submit
+            test -n "$REVIEWED_FILENAME" || { echo "::error::Specify one reviewed_filename to avoid resubmitting all pending records"; exit 1; }
+            case "$REVIEWED_FILENAME" in
+              reviewed-*-jobs.json) ;;
+              *) echo "::error::Invalid reviewed_filename pattern"; exit 1 ;;
+            esac
+            test -f "$REVIEWED_FILENAME" || { echo "::error::Reviewed file not found"; exit 1; }
+            python auto_import.py --submit --files "$REVIEWED_FILENAME"
           fi
           echo 'Only explicitly reviewed jobs were eligible for pending-review submission; no automatic public publication.' >> "$GITHUB_STEP_SUMMARY"
 
