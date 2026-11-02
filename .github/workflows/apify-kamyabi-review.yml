@@ -210,12 +210,16 @@ jobs:
           fi
           echo 'Only explicitly reviewed jobs were eligible for pending-review submission; no automatic public publication.' >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Approve eligible pending jobs (admin key required)
-        if: ${{ github.event_name == 'schedule' || inputs.publish_eligible == true }}
+      - name: Check pending-job access and approve when scheduled
         env:
           KAMYABI_ADMIN_API_KEY: ${{ secrets.KAMYABI_ADMIN_API_KEY }}
+          SHOULD_PUBLISH: ${{ github.event_name == 'schedule' || inputs.publish_eligible == true }}
         run: |
-          python auto_publish.py --publish
+          if [ "$SHOULD_PUBLISH" = "true" ]; then
+            python auto_publish.py --publish
+          else
+            python auto_publish.py
+          fi
           python - <<'PY'
           import json, os
           from pathlib import Path
@@ -225,6 +229,8 @@ jobs:
               out.write(f"- Status: **{result['status']}**\\n")
               out.write(f"- Approved: **{len(result.get('approved', []))}**\\n")
               out.write(f"- Held: **{len(result.get('held', []))}**\\n")
+          if result['status'] != 'ok':
+              raise SystemExit('Admin pending-job preview unavailable; see report, no approvals attempted')
           PY
 
       - name: Upload review report
