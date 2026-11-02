@@ -1,0 +1,105 @@
+[
+  {
+    "name": "IBPS",
+    "url": "https://www.ibps.in/index.php/crp-updates/",
+    "allowed_domains": [
+      "ibps.in"
+    ],
+    "pattern": "recruit|notification|vacanc|crp|corrigendum",
+    "fallback_urls": [
+      "https://ibps.in/index.php/crp-updates/"
+    ]
+  },
+  {
+    "name": "UPSC",
+    "url": "https://www.upsc.gov.in/recruitment/recruitment-advertisement",
+    "allowed_domains": [
+      "upsc.gov.in",
+      "upsconline.nic.in"
+    ],
+    "pattern": "advertisement|recruit|corrigendum|\\.pdf$",
+    "fallback_urls": [
+      "https://upsc.gov.in/recruitment/recruitment-advertisement"
+    ]
+  },
+  {
+    "name": "RPSC",
+    "url": "https://rpsc.rajasthan.gov.in/advertisements",
+    "allowed_domains": [
+      "rpsc.rajasthan.gov.in"
+    ],
+    "pattern": "advertisement|recruit|corrigendum|\\.pdf$|Pie=",
+    "fallback_urls": [
+      "https://rpsc.rajasthan.gov.in/"
+    ]
+  },
+  {
+    "name": "RSSB",
+    "url": "https://rssb.rajasthan.gov.in/advertisements",
+    "allowed_domains": [
+      "rssb.rajasthan.gov.in",
+      "rsmssb.rajasthan.gov.in"
+    ],
+    "pattern": "advertisement|recruit|corrigendum|\\.pdf$",
+    "fallback_urls": [
+      "https://rssb.rajasthan.gov.in/"
+    ]
+  },
+  {
+    "name": "Rajasthan Recruitment Portal",
+    "url": "https://recruitment.rajasthan.gov.in/",
+    "allowed_domains": [
+      "recruitment.rajasthan.gov.in"
+    ],
+    "parser": "rajasthan_cards",
+    "pattern": "recruit|contractual|vacanc"
+  },
+  {
+    "name": "RRB Chandigarh (Railways)",
+    "url": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "allowed_domains": [
+      "rrbcdg.gov.in"
+    ],
+    "pattern": "CEN|employment|recruit|vacanc|notification|ALP|NTPC|\\.pdf$"
+  },
+  {
+    "name": "RBI Opportunities",
+    "url": "https://opportunities.rbi.org.in/Scripts/Vacancies.aspx",
+    "allowed_domains": [
+      "opportunities.rbi.org.in"
+    ],
+    "pattern": "recruit|vacanc|advertisement|grade|officer|assistant|\\.pdf$"
+  },
+  {
+    "name": "Bank of Baroda",
+    "url": "https://bankofbaroda.bank.in/hi-in/career/current-opportunities",
+    "allowed_domains": [
+      "bankofbaroda.bank.in"
+    ],
+    "pattern": "recruit|career|vacanc|advt|apply|\\.pdf$"
+  },
+  {
+    "name": "NTPC",
+    "url": "https://ntpc.co.in/node/266",
+    "allowed_domains": [
+      "ntpc.co.in"
+    ],
+    "pattern": "recruit|advt|career|professional|trainee|\\.pdf$"
+  },
+  {
+    "name": "POWERGRID",
+    "url": "https://www.powergrid.in/en/job-opportunities1",
+    "allowed_domains": [
+      "powergrid.in"
+    ],
+    "pattern": "recruit|engineer|trainee|opportunit|advertisement|\\.pdf$"
+  },
+  {
+    "name": "IndianOil",
+    "url": "https://www.iocl.com/latest-job-opening",
+    "allowed_domains": [
+      "iocl.com"
+    ],
+    "pattern": "recruit|vacanc|apprentice|opening|advertisement|\\.pdf$"
+  }
+]
