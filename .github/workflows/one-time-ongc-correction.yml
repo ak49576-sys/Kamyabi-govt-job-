@@ -1,0 +1,27 @@
+name: One-time ONGC Apprentice 2026 correction
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/one-time-ongc-correction.yml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kamyabi-one-time-ongc-correction
+  cancel-in-progress: false
+
+jobs:
+  correct:
+    if: ${{ github.event.head_commit.message == 'Run one-time ONGC correction with exact record preconditions' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test exact-ID correction safeguards
+        run: python -m unittest -v test_correct_ongc_apprentice.py
+      - name: Correct existing ONGC record and confirm approval
+        env:
+          KAMYABI_ADMIN_API_KEY: ${{ secrets.KAMYABI_ADMIN_API_KEY }}
+        run: python correct_ongc_apprentice.py
