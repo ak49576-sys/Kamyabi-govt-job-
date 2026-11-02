@@ -51,7 +51,7 @@ def pdf_reachable(url):
 
 
 
-def inspect_pdf_text(text, advert, scraped_deadline):
+def inspect_pdf_text(text, advert, scraped_deadline, post_name='', qualification=''):
     normalized = re.sub(r"\s+", " ", text).upper()
     advert_match = bool(re.search(re.escape(advert), normalized))
     deadline_match = False
@@ -62,7 +62,21 @@ def inspect_pdf_text(text, advert, scraped_deadline):
         deadline_match = bool(re.search(pattern, normalized))
     except ValueError:
         pass
-    return {"advertisement_in_pdf": advert_match, "deadline_in_pdf": deadline_match}
+    post_count = re.search(r"(\\d[\\d,]*)\\s+POSTS?\\b", post_name.upper())
+    claimed = int(post_count.group(1).replace(",", "")) if post_count else None
+    count_evidence = bool(
+        claimed is not None and re.search(
+            r"\\bTOTAL\\s+0?" + str(claimed) + r"(?:\\s+0?" + str(claimed) + r")?\\b",
+            normalized))
+    # Keyword presence is editorial evidence, not qualification equivalence.
+    tokens = ["B.TECH", "B.E", "MBA", "PGDM", "MCA", "CA", "CFA", "ITI", "12TH", "10TH"]
+    normalized_compact = re.sub(r"[^A-Z0-9]", "", normalized)
+    matched_tokens = [token for token in tokens
+                      if token in qualification.upper()
+                      and re.sub(r"[^A-Z0-9]", "", token) in normalized_compact]
+    return {"advertisement_in_pdf": advert_match, "deadline_in_pdf": deadline_match,
+            "scraped_vacancy_count": claimed, "total_count_evidence_in_pdf": count_evidence,
+            "qualification_keywords_found": matched_tokens}
 
 
 def extract_official_pdf_text(url):
@@ -105,7 +119,9 @@ def match_sbi(rows, html, official_url=SBI_URL):
         document_reachable = pdf_reachable(official_pdf)
         document_text, pdf_text_status = (extract_official_pdf_text(official_pdf)
                                           if document_reachable else ("", "NO_OFFICIAL_PDF"))
-        checks = inspect_pdf_text(document_text, advert, (row.get("lastDate") or "").strip())
+        checks = inspect_pdf_text(document_text, advert, (row.get("lastDate") or "").strip(),
+                                  (row.get("postName") or "").strip(),
+                                  (row.get("qualification") or "").strip())
         output.append({
             "title": (row.get("postName") or "").strip(),
             "advt_no": advert,
@@ -117,6 +133,9 @@ def match_sbi(rows, html, official_url=SBI_URL):
             "pdf_text_status": pdf_text_status,
             "advertisement_in_pdf": checks["advertisement_in_pdf"],
             "deadline_in_pdf": checks["deadline_in_pdf"],
+            "scraped_vacancy_count": checks["scraped_vacancy_count"],
+            "total_count_evidence_in_pdf": checks["total_count_evidence_in_pdf"],
+            "qualification_keywords_found": ", ".join(checks["qualification_keywords_found"]),
             "verification_status": ("OFFICIAL_PDF_LINK_FOUND_REQUIRES_CONTENT_REVIEW" if document_reachable else
                                     "OFFICIAL_ADVERTISEMENT_NUMBER_MATCH_ONLY" if found else
                                     "NOT_CONFIRMED_ON_OFFICIAL_PAGE"),
@@ -159,7 +178,8 @@ def main():
     report = match_sbi(rows, html, matched_source_url)
     fields = ["title", "advt_no", "scraped_deadline", "aggregator_url",
               "official_listing_url", "official_document_url", "official_document_reachable", "pdf_text_status",
-              "advertisement_in_pdf", "deadline_in_pdf",
+              "advertisement_in_pdf", "deadline_in_pdf", "scraped_vacancy_count",
+              "total_count_evidence_in_pdf", "qualification_keywords_found",
               "verification_status", "publishable", "review_note"]
     with (out / "sbi-official-matches.csv").open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fields)
@@ -182,6 +202,7 @@ def main():
         "pdf_text_statuses": [r["pdf_text_status"] for r in report],
         "advertisement_in_pdf_count": sum(r["advertisement_in_pdf"] for r in report),
         "deadline_in_pdf_count": sum(r["deadline_in_pdf"] for r in report),
+        "vacancy_count_evidence_count": sum(r["total_count_evidence_in_pdf"] for r in report),
         "fully_verified": 0,
         "automatically_submitted": 0,
         "automatically_published": 0,
