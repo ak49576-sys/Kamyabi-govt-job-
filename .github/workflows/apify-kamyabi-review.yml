@@ -45,6 +45,7 @@ jobs:
           python - <<'PY'
           import csv, json, os, sys
           from datetime import datetime
+          from zoneinfo import ZoneInfo
           from pathlib import Path
           src = Path('/tmp/apify-dataset.csv')
           out = Path('output')
@@ -59,6 +60,7 @@ jobs:
           if not rows:
               raise SystemExit('Apify dataset returned zero rows; refusing to treat this as a successful collection.')
           seen = set()
+          today_ist = datetime.now(ZoneInfo('Asia/Kolkata')).date()
           report = []
           for row in rows:
               title = (row.get('postName') or '').strip()
@@ -69,10 +71,21 @@ jobs:
               seen.add(key)
               from urllib.parse import urlparse
               parsed = urlparse(url)
+              raw_deadline = (row.get('lastDate') or '').strip()
+              deadline = None
+              for fmt in ('%d-%m-%Y', '%Y-%m-%d'):
+                  try:
+                      deadline = datetime.strptime(raw_deadline, fmt).date()
+                      break
+                  except ValueError:
+                      pass
+              deadline_status = ('UNKNOWN_DATE' if deadline is None else
+                                 'EXPIRED' if deadline < today_ist else 'OPEN_UNVERIFIED')
               report.append({
                   'title': title,
                   'recruitment_board': (row.get('recruitmentBoard') or '').strip(),
-                  'last_date_as_scraped': (row.get('lastDate') or '').strip(),
+                  'last_date_as_scraped': raw_deadline,
+                  'deadline_status': deadline_status,
                   'candidate_url': url,
                   'candidate_url_host': parsed.hostname or '',
                   'advt_no': (row.get('advtNo') or '').strip(),
@@ -83,6 +96,10 @@ jobs:
                   'publishable': False,
                   'review_note': 'Scraped candidate only. Confirm the vacancy and dates from the recruiting body official notification; do not publish from an aggregator link alone.'
               })
+          report.sort(key=lambda item: (
+              0 if item['deadline_status'] == 'OPEN_UNVERIFIED' else
+              1 if item['deadline_status'] == 'UNKNOWN_DATE' else 2,
+              item['last_date_as_scraped'], item['title']))
           fields = list(report[0].keys())
           with (out / 'apify-review.csv').open('w', encoding='utf-8-sig', newline='') as f:
               writer = csv.DictWriter(f, fieldnames=fields)
@@ -94,10 +111,13 @@ jobs:
               'raw_rows': len(rows),
               'unique_candidate_rows': len(report),
               'duplicates_removed': len(rows) - len(report),
+              'open_unverified': sum(r['deadline_status'] == 'OPEN_UNVERIFIED' for r in report),
+              'expired': sum(r['deadline_status'] == 'EXPIRED' for r in report),
+              'unknown_deadline': sum(r['deadline_status'] == 'UNKNOWN_DATE' for r in report),
               'automatically_submitted_to_kamyabi': 0,
               'automatically_published': 0,
               'review_required_for_all_rows': True,
-              'note': 'This workflow only downloads and prepares a review report. It never sends jobs to Kamyabi.'
+              'note': 'Raw Apify candidates are report-only. Separately reviewed repository records may be submitted on explicit manual request.'
           }
           (out / 'summary.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
@@ -105,6 +125,9 @@ jobs:
               f.write(f"- Raw rows fetched: **{len(rows)}**\n")
               f.write(f"- Unique candidate rows: **{len(report)}**\n")
               f.write(f"- Duplicates removed: **{len(rows)-len(report)}**\n")
+              f.write(f"- Open but unverified: **{sum(r['deadline_status'] == 'OPEN_UNVERIFIED' for r in report)}**\n")
+              f.write(f"- Expired: **{sum(r['deadline_status'] == 'EXPIRED' for r in report)}**\n")
+              f.write(f"- Unknown deadline: **{sum(r['deadline_status'] == 'UNKNOWN_DATE' for r in report)}**\n")
               f.write('- Jobs submitted or published: **0**\n\n')
               f.write('Download the **apify-kamyabi-review** artifact and verify every item against the recruiting body’s official notification before adding it to a reviewed jobs file.\n')
           PY
