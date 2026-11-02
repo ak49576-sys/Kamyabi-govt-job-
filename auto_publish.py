@@ -41,6 +41,14 @@ def field(record, *keys):
 
 
 def eligible(job, pending, today):
+    # Never publish sentinel or implausibly distant closing dates (e.g. 2099-12-31).
+    # Two years is a generous limit for advance recruitment notices.
+    try:
+        deadline = datetime.strptime(job['last_date'], '%Y-%m-%d').date()
+        if deadline.year > today.year + 2:
+            return False, 'placeholder_or_distant_deadline'
+    except (ValueError, TypeError, KeyError):
+        return False, 'invalid_deadline'
     if job['last_date'] < today.isoformat():
         return False, 'expired'
     employer = job.get('recruiting_body')
