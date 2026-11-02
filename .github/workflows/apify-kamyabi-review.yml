@@ -8,7 +8,7 @@ on:
         required: false
         type: string
       submit_reviewed:
-        description: 'Send validated reviewed jobs to the Kamyabi pending queue (never publishes)'
+        description: 'Stage reviewed JSON input or existing reviewed-*-jobs.json files (never publishes)'
         required: false
         default: false
         type: boolean
@@ -122,10 +122,14 @@ jobs:
           REVIEWED_JOBS_JSON: ${{ inputs.reviewed_jobs_json }}
           KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
         run: |
-          test -n "$REVIEWED_JOBS_JSON" || { echo "::error::Provide reviewed_jobs_json before enabling submission"; exit 1; }
           test -n "$KAMYABI_API_KEY" || { echo "::error::Set the KAMYABI_API_KEY GitHub Actions secret to match GoDaddy IMPORT_API_KEY"; exit 1; }
-          python submit_jobs.py --file /tmp/kamyabi-reviewed-jobs.json --submit --output output/reviewed-submission.json
-          echo 'Validated reviewed jobs were sent to the pending-review API, not published. Check /admin/jobs.' >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "$REVIEWED_JOBS_JSON" ]; then
+            python submit_jobs.py --file /tmp/kamyabi-reviewed-jobs.json --submit --output output/reviewed-submission.json
+          else
+            echo 'No pasted JSON. Using existing reviewed-*-jobs.json files; raw Apify candidates remain held.' >> "$GITHUB_STEP_SUMMARY"
+            python auto_import.py --submit
+          fi
+          echo 'Only explicitly reviewed jobs were eligible for pending-review submission; no automatic public publication.' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload review report
         if: always()
