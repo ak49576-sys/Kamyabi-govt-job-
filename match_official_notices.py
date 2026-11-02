@@ -13,6 +13,8 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 SBI_URL = "https://sbi.bank.in/web/careers/current-openings"
+SBI_URLS = [SBI_URL, "https://sbi.bank.in/web/careers/Current-openings",
+            "https://sbi.bank.in/en/web/careers/current-openings"]
 OFFICIAL_HOSTS = {"sbi.bank.in", "sbi.co.in", "bank.sbi"}
 
 
@@ -49,18 +51,27 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     with src.open(encoding="utf-8-sig", newline="") as file:
         rows = list(csv.DictReader(file))
-    try:
-        req = Request(SBI_URL, headers={"User-Agent": "KamyabiNoticeReview/1.0"})
-        with urlopen(req, timeout=30) as response:
-            host = (urlparse(response.geturl()).hostname or "").lower()
-            if host not in OFFICIAL_HOSTS:
-                raise ValueError("SBI official page redirected outside allowed domains")
-            html = response.read(3_000_000).decode("utf-8", errors="replace")
-        status = ("official_listing_text_available" if "CRPD" in html.upper() else
-                  "official_page_accessible_but_listings_not_in_html")
-    except Exception:
-        html = ""
-        status = "official_page_unavailable"
+    html = ""
+    status = "official_page_unavailable"
+    checked_urls = []
+    for source_url in SBI_URLS:
+        try:
+            req = Request(source_url, headers={"User-Agent": "KamyabiNoticeReview/1.0"})
+            with urlopen(req, timeout=20) as response:
+                host = (urlparse(response.geturl()).hostname or "").lower()
+                if host not in OFFICIAL_HOSTS:
+                    raise ValueError("Redirect outside allowed SBI domains")
+                candidate_html = response.read(3_000_000).decode("utf-8", errors="replace")
+            checked_urls.append(source_url)
+            if not html:
+                html = candidate_html
+                status = "official_page_accessible_but_listings_not_in_html"
+            if "CRPD" in candidate_html.upper():
+                html = candidate_html
+                status = "official_listing_text_available"
+                break
+        except Exception:
+            continue
     report = match_sbi(rows, html)
     fields = ["title", "advt_no", "scraped_deadline", "aggregator_url",
               "official_listing_url", "verification_status", "publishable", "review_note"]
@@ -71,6 +82,7 @@ def main():
     summary = {
         "checked_at_utc": datetime.now(timezone.utc).isoformat(),
         "source": SBI_URL,
+        "official_urls_checked": checked_urls,
         "source_status": status,
         "official_html_bytes": len(html.encode("utf-8")),
         "raw_advert_prefix_occurrences": html.upper().count("CRPD"),
