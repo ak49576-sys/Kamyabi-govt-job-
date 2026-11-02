@@ -29,6 +29,18 @@ class ApprovalTests(unittest.TestCase):
         self.assertEqual(eligible(JOB, PENDING, date(2026, 11, 2)),
                          (True, 'basic_checks_passed'))
 
+    def test_placeholder_2099_is_held(self):
+        placeholder = {**JOB, 'last_date': '2099-12-31',
+                       'application_last_date': '2099-12-31'}
+        self.assertEqual(eligible(placeholder, PENDING, date(2026, 11, 2))[1],
+                         'placeholder_or_distant_deadline')
+
+    def test_plausible_future_deadline_remains_eligible(self):
+        upcoming = {**JOB, 'last_date': '2027-04-30',
+                    'application_last_date': '2027-04-30'}
+        self.assertEqual(eligible(upcoming, PENDING, date(2026, 11, 2)),
+                         (True, 'basic_checks_passed'))
+
     def test_expired_is_held(self):
         self.assertEqual(eligible(JOB, PENDING, date(2026, 11, 24))[1], 'expired')
 
