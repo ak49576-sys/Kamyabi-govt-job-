@@ -96,10 +96,26 @@
   },
   {
     "name": "IndianOil",
-    "url": "https://www.iocl.com/latest-job-opening",
+    "url": "https://iocl.com/latest-job-opening",
     "allowed_domains": [
       "iocl.com"
     ],
     "pattern": "recruit|vacanc|apprentice|opening|advertisement|\\.pdf$"
+  },
+  {
+    "name": "Canara Bank",
+    "url": "https://www.canarabank.bank.in/pages/Recruitment",
+    "allowed_domains": [
+      "canarabank.bank.in"
+    ],
+    "pattern": "recruit|apprentice|vacanc|specialist|advertisement|\\.pdf$"
+  },
+  {
+    "name": "ONGC",
+    "url": "https://www.ongcindia.com/web/eng/career/recruitment-notice",
+    "allowed_domains": [
+      "ongcindia.com"
+    ],
+    "pattern": "recruit|apprentice|consultant|advertisement|notice|\\.pdf$"
   }
 ]
