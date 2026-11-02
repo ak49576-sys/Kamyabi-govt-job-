@@ -101,6 +101,23 @@ jobs:
               f.write('- Jobs submitted or published: **0**\n\n')
               f.write('Download the **apify-kamyabi-review** artifact and verify every item against the recruiting body’s official notification before adding it to a reviewed jobs file.\n')
           PY
+      - name: Preview eligible reviewed repository jobs (no write)
+        run: |
+          python auto_import.py
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('output/automatic-import.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\\n## Reviewed repository files (read-only preview)\\n\\n')
+              out.write(f"- Eligible records: **{report.get('eligible', 0)}**\\n")
+              out.write(f"- Expired records: **{len(report.get('expired', []))}**\\n")
+              out.write(f"- Preview status: **{report.get('status', 'unknown')}**\\n")
+              out.write('- This preview does not submit jobs.\\n')
+          if report.get('status') != 'ok':
+              raise SystemExit('Reviewed-job preview failed; investigate before submitting.')
+          PY
+
       - name: Validate optionally supplied reviewed jobs
         if: ${{ inputs.reviewed_jobs_json != '' }}
         env:
