@@ -15,6 +15,7 @@ from submit_jobs import send_jobs, validate_document, valid_date
 PUBLIC_URL = 'https://kamyabi.in/api/v1/jobs'
 SOURCES = {
     'IBPS': {'ibps.in'},
+    'State Bank of India': {'sbi.bank.in', 'sbi.co.in', 'bank.sbi'},
     'RITES Limited': {'rites.com'},
     'Union Public Service Commission': {'upsc.gov.in', 'pib.gov.in', 'upsconline.nic.in'},
     'ISRO — Space Applications Centre': {'isro.gov.in', 'careers.sac.gov.in'},
