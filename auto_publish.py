@@ -100,10 +100,14 @@ def eligible(job, pending, today):
     return True, 'basic_checks_passed'
 
 
-def approve(job_id, key, opener=None):
+def approve(job_id, key, job=None, opener=None):
     opener = opener or build_opener(NoRedirect)
-    body = json.dumps({'job_id': job_id, 'fields': {
-        'urlVerified': True, 'verificationStatus': 'approved'}}).encode()
+    fields = {'urlVerified': True, 'verificationStatus': 'approved'}
+    if job is not None:
+        fields['applicationStartDate'] = job['application_start_date']
+        fields['applicationLastDate'] = job['application_last_date']
+        fields['lastDate'] = job['last_date']
+    body = json.dumps({'job_id': job_id, 'fields': fields}).encode()
     request = Request(ADMIN_UPDATE, data=body, method='PATCH', headers={
         'X-Api-Key': key, 'Content-Type': 'application/json',
         'Accept': 'application/json', 'User-Agent': USER_AGENT})
@@ -137,7 +141,7 @@ def run(root, key='', publish=False, today=None, get_pending=admin_pending, appr
             report['held'].append({'job_id': job['job_id'], 'reason': reason})
             continue
         if publish:
-            approve_job(job['job_id'], key)
+            approve_job(job['job_id'], key, job)
             report['approved'].append(job['job_id'])
         else:
             report.setdefault('eligible_preview', []).append(job['job_id'])
