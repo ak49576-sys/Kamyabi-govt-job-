@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 from review_official_pdfs import extract_evidence, official_pdf, review
 
 
@@ -25,6 +26,23 @@ class OfficialPdfEvidenceTests(unittest.TestCase):
         self.assertEqual(result['published'], 0)
         self.assertFalse(result['documents'][0]['publishable'])
         self.assertEqual(result['documents'][0]['status'], 'text_extracted')
+
+    def test_recent_recruitment_notice_is_reviewed_before_old_link(self):
+        sources = [{'name': 'BHEL', 'allowed_domains': ['bhel.com']}]
+        notices = [
+            {'source': 'BHEL', 'title': 'Result 2024',
+             'notice_url': 'https://bhel.com/old.pdf'},
+            {'source': 'BHEL', 'title': 'Engineer Recruitment 2026',
+             'notice_url': 'https://bhel.com/current.pdf'},
+        ]
+        examined = []
+        def fetch(url):
+            examined.append(url)
+            return 'Closing date 20-Nov-2026'
+        result = review(notices, sources, max_documents=1, fetch=fetch,
+                        today=date(2026, 11, 3))
+        self.assertEqual(examined, ['https://bhel.com/current.pdf'])
+        self.assertFalse(result['submission_ready'])
 
     def test_unavailable_pdf_is_reported_without_import(self):
         sources = [{'name': 'BHEL', 'allowed_domains': ['bhel.com']}]
