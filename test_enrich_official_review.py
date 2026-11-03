@@ -9,10 +9,12 @@ class EvidenceEnrichmentTests(unittest.TestCase):
         pdf = {'documents': [{'official_pdf_url': 'https://bhel.com/notice.pdf',
                               'status': 'text_extracted',
                               'possible_closing_dates': [{'observed': '20/11/2026'}],
+                              'possible_opening_dates': [{'observed': '01/11/2026'}],
                               'qualification_keywords': ['ITI']}]}
         report = enrich(queue, pdf)
         item = report['candidates'][0]
         self.assertTrue(item['pdf_text_extracted'])
+        self.assertEqual(item['possible_opening_dates_unverified'][0]['observed'], '01/11/2026')
         self.assertEqual(item['possible_closing_dates_unverified'][0]['observed'], '20/11/2026')
         self.assertFalse(item['publishable'])
         self.assertFalse(item['reviewed'])
