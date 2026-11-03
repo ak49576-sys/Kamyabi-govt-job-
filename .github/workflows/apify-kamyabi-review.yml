@@ -5,7 +5,7 @@ on:
     - cron: '30 2 * * *' # 08:00 IST; GitHub schedules may be delayed
   push:
     branches: [main]
-    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py']
+    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
@@ -43,7 +43,7 @@ jobs:
       - name: Install pinned PDF text reader
         run: python -m pip install --disable-pip-version-check pypdf==6.21.4
       - name: Test API validation and pending-import safeguards
-        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py test_verify_publications.py
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
@@ -273,6 +273,20 @@ jobs:
               out.write(f"- Held: **{len(result.get('held', []))}**\\n")
           if result['status'] != 'ok':
               raise SystemExit('Admin pending-job preview unavailable; see report, no approvals attempted')
+          PY
+
+      - name: Confirm approved jobs appear in public API
+        if: ${{ github.event_name == 'schedule' || inputs.publish_eligible == true }}
+        run: |
+          python verify_publications.py
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('output/verified-publications.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\\n## Public listing verification\\n\\n')
+              out.write(f"- Newly approved and publicly visible: **{len(report['visible'])}**\\n")
+              out.write(f"- Approved but missing publicly: **{len(report['missing'])}**\\n")
           PY
 
       - name: Verify new ONGC apprentice advertisement (read-only)
