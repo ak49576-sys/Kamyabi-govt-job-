@@ -101,7 +101,8 @@ def main():
             {'source': item.get('source'), 'title': item.get('title_as_observed'),
              'official_candidate_url': item.get('official_candidate_url'),
              'missing_required_fields': item['missing_required_fields'],
-             'review_priority': item['review_priority']}
+             'review_priority': item['review_priority'],
+             'date_suggestions_unverified': item['date_suggestions_unverified']}
             for item in report['candidates'][:30]],
         'note': report['note']}, indent=2))
     print(json.dumps({'candidates': len(report['candidates']),
