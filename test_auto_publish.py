@@ -76,9 +76,9 @@ class ApprovalTests(unittest.TestCase):
         approved = []
         result = run(Path('.'), key='test', publish=True, today=date(2026, 11, 2),
                      get_pending=lambda key: PENDING,
-                     approve_job=lambda job_id, key: approved.append(job_id))
-        self.assertEqual(approved, ['sbi-review-test'])
-        self.assertEqual(result['approved'], approved)
+                     approve_job=lambda job_id, key, job: approved.append((job_id, job)))
+        self.assertEqual(approved, [('sbi-review-test', JOB)])
+        self.assertEqual(result['approved'], ['sbi-review-test'])
 
     @patch('auto_publish.load_queue', return_value=([JOB], []))
     def test_missing_key_never_approves(self, load):
