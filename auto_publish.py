@@ -8,7 +8,7 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 from urllib.request import Request, build_opener
 from zoneinfo import ZoneInfo
 
@@ -16,21 +16,39 @@ from api_http import NoRedirect
 from auto_import import SOURCES, load_queue
 from check_api import USER_AGENT
 
-ADMIN_LIST = 'https://kamyabi.in/api/v1/admin/jobs?status=pending'
+ADMIN_LIST = 'https://kamyabi.in/api/v1/admin/jobs'
 ADMIN_UPDATE = 'https://kamyabi.in/api/v1/admin/jobs/update'
 
 
 def admin_pending(key, opener=None):
+    """Read every pending page before approving anything; fail closed on truncation."""
+    if not key or any(char in key for char in '\\r\\n'):
+        raise ValueError('KAMYABI_ADMIN_API_KEY required for approval')
     opener = opener or build_opener(NoRedirect)
-    request = Request(ADMIN_LIST, headers={
-        'X-Api-Key': key, 'Accept': 'application/json', 'User-Agent': USER_AGENT})
-    with opener.open(request, timeout=30) as response:
-        if response.status != 200 or 'json' not in response.headers.get('Content-Type', '').lower():
-            raise ValueError('Authenticated pending-job API did not return JSON 200')
-        payload = json.loads(response.read(2_000_001))
-    if not isinstance(payload, dict) or not isinstance(payload.get('jobs'), list):
-        raise ValueError('Unknown admin pending-job response; no approval attempted')
-    return payload['jobs']
+    pending, offset = [], 0
+    while True:
+        url = ADMIN_LIST + '?' + urlencode({'status': 'pending', 'limit': 100, 'offset': offset})
+        request = Request(url, headers={
+            'X-Api-Key': key, 'Accept': 'application/json', 'User-Agent': USER_AGENT})
+        with opener.open(request, timeout=30) as response:
+            if response.status != 200 or 'json' not in response.headers.get('Content-Type', '').lower():
+                raise ValueError('Authenticated pending-job API did not return JSON 200')
+            payload = json.loads(response.read(2_000_001))
+        if not isinstance(payload, dict) or not isinstance(payload.get('jobs'), list):
+            raise ValueError('Unknown admin pending-job response; no approval attempted')
+        jobs, total = payload['jobs'], payload.get('total')
+        if not isinstance(total, int) or total < 0 or not all(isinstance(j, dict) for j in jobs):
+            raise ValueError('Malformed pending-job pagination; no approval attempted')
+        pending.extend(jobs)
+        offset += len(jobs)
+        if offset >= total:
+            break
+        if not jobs or offset > 5000:
+            raise ValueError('Incomplete pending-job inventory; no approval attempted')
+    ids = [field(item, 'jobId', 'job_id') for item in pending]
+    if any(not isinstance(job_id, str) or not job_id for job_id in ids) or len(ids) != len(set(ids)):
+        raise ValueError('Invalid or duplicated pending-job IDs; no approval attempted')
+    return pending
 
 
 def field(record, *keys):
