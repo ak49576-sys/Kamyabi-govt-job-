@@ -11,6 +11,12 @@ class OfficialPdfEvidenceTests(unittest.TestCase):
         self.assertFalse(official_pdf('http://bhel.com/jobs/notice.pdf', domains))
         self.assertFalse(official_pdf('https://bhel.com/jobs/html', domains))
 
+    def test_opening_and_closing_are_separate_unverified_evidence(self):
+        evidence = extract_evidence('Online registration starts 02-Nov-2026. Closing date 25-Nov-2026. B.Tech')
+        self.assertEqual(evidence['possible_opening_dates'][0]['observed'], '02-Nov-2026')
+        self.assertEqual(evidence['possible_closing_dates'][0]['observed'], '25-Nov-2026')
+        self.assertFalse(evidence['publication_approved'])
+
     def test_possible_closing_date_is_only_evidence(self):
         evidence = extract_evidence('Graduate Engineer Recruitment. Last date 20/11/2026. Eligibility B.Tech and Diploma.')
         self.assertEqual(evidence['possible_closing_dates'][0]['observed'], '20/11/2026')
