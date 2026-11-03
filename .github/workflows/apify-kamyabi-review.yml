@@ -5,7 +5,7 @@ on:
     - cron: '30 2 * * *' # 08:00 IST; GitHub schedules may be delayed
   push:
     branches: [main]
-    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py']
+    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
@@ -43,7 +43,7 @@ jobs:
       - name: Install pinned PDF text reader
         run: python -m pip install --disable-pip-version-check pypdf==6.21.4
       - name: Test API validation and pending-import safeguards
-        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
@@ -196,6 +196,24 @@ jobs:
               out.write('- This preview does not submit jobs.\n')
           if report.get('status') != 'ok':
               raise SystemExit('Reviewed-job preview failed; investigate before submitting.')
+          PY
+
+      - name: Stage newly reviewed jobs missing from Kamyabi
+        if: ${{ github.event_name == 'schedule' }}
+        env:
+          KAMYABI_API_KEY: ${{ secrets.KAMYABI_API_KEY }}
+          KAMYABI_ADMIN_API_KEY: ${{ secrets.KAMYABI_ADMIN_API_KEY }}
+        run: |
+          python stage_missing_reviewed.py
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('output/reviewed-staging.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\\n## Automatic reviewed-job staging\\n\\n')
+              out.write(f"- New jobs staged: **{report['submitted']}**\\n")
+              out.write(f"- Already in admin: **{len(report['already_in_admin'])}**\\n")
+              out.write(f"- Duplicate notices held: **{len(report['held'])}**\\n")
           PY
 
       - name: Validate optionally supplied reviewed jobs
