@@ -15,6 +15,7 @@ from pypdf import PdfReader
 
 DATE = re.compile(r'(?<!\d)(?:[0-3]?\d[./-][01]?\d[./-]20\d{2}|[0-3]?\d\s+[A-Za-z]{3,9}\s+20\d{2})(?!\d)', re.I)
 CLOSING = re.compile(r'(?:last date|closing date|apply by|applications? (?:close|ends?))', re.I)
+OPENING_DATE = re.compile(r'(?:opening date|start(?:ing)? date|commencement(?: date)?|applications? (?:open|begin|start)|online registration (?:starts?|begins?))', re.I)
 QUALIFICATIONS = re.compile(r'\b(?:B\.?TECH|B\.?E\.?|MBA|MCA|ITI|DIPLOMA|GRADUATE|12TH|10TH)\b', re.I)
 
 
@@ -28,15 +29,24 @@ def official_pdf(url, source_domains):
 
 def extract_evidence(text):
     normalized = re.sub(r'\s+', ' ', text)
-    dates = []
+    dates, opening = [], []
     for match in DATE.finditer(normalized):
         context = normalized[max(0, match.start() - 90):match.start()]
-        if CLOSING.search(context):
-            dates.append({'observed': match.group(), 'context': context[-80:]})
-        if len(dates) >= 12:
+        # The nearest label wins; never assign one date to both start and end.
+        closing_labels = list(CLOSING.finditer(context))
+        opening_labels = list(OPENING_DATE.finditer(context))
+        last_close = closing_labels[-1].end() if closing_labels else -1
+        last_open = opening_labels[-1].end() if opening_labels else -1
+        candidate = {'observed': match.group(), 'context': context[-80:]}
+        if last_close > last_open and len(dates) < 12:
+            dates.append(candidate)
+        elif last_open > last_close and len(opening) < 12:
+            opening.append(candidate)
+        if len(dates) >= 12 and len(opening) >= 12:
             break
     qualifications = sorted(set(token.upper() for token in QUALIFICATIONS.findall(normalized)))
-    return {'possible_closing_dates': dates, 'qualification_keywords': qualifications,
+    return {'possible_closing_dates': dates, 'possible_opening_dates': opening,
+            'qualification_keywords': qualifications,
             'vacancy_count_verified': False, 'publication_approved': False}
 
 
