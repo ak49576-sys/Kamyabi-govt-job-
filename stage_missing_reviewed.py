@@ -54,6 +54,8 @@ def value(row, snake, camel):
 
 
 def stage_missing(jobs, existing, key, send=send_jobs):
+    if any(not isinstance(value(row, 'job_id', 'jobId'), str) or not value(row, 'job_id', 'jobId') for row in existing):
+        raise ValueError('Admin inventory contained a job without an ID; no staging attempted')
     ids = {value(row, 'job_id', 'jobId') for row in existing}
     urls = {value(row, 'official_notification_url', 'officialNotificationUrl')
             for row in existing if value(row, 'official_notification_url', 'officialNotificationUrl')}
@@ -77,8 +79,8 @@ def stage_missing(jobs, existing, key, send=send_jobs):
             response = send(missing[start:start + 100], key)
             if response.get('inserted', 0) + response.get('updated', 0) + response.get('skipped', 0) != len(missing[start:start + 100]):
                 raise ValueError('Unexpected staging response; check admin before retry')
-            if response.get('updated', 0):
-                raise ValueError('Existing records were unexpectedly updated; inspect before retry')
+            if response.get('updated', 0) or response.get('skipped', 0):
+                raise ValueError('Staging did not insert every new ID; inspect admin before retry')
             report['submitted'] += response.get('inserted', 0)
     return report
 
