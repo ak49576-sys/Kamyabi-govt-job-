@@ -1,9 +1,11 @@
 import unittest
+import json
+from io import BytesIO
 from datetime import date
 from pathlib import Path
 from unittest.mock import patch
 
-from auto_publish import eligible, run
+from auto_publish import admin_pending, eligible, run
 
 
 JOB = {
@@ -83,6 +85,60 @@ class ApprovalTests(unittest.TestCase):
         result = run(Path('.'), key='', publish=True, today=date(2026, 11, 2))
         self.assertEqual(result['status'], 'configuration_required')
         self.assertEqual(result['approved'], [])
+
+
+class FakeResponse:
+    status = 200
+    headers = {'Content-Type': 'application/json'}
+
+    def __init__(self, payload):
+        self.body = BytesIO(json.dumps(payload).encode())
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return False
+
+    def read(self, size):
+        return self.body.read(size)
+
+
+class FakeOpener:
+    def __init__(self, pages):
+        self.pages = iter(pages)
+        self.urls = []
+
+    def open(self, request, timeout):
+        self.urls.append(request.full_url)
+        return FakeResponse(next(self.pages))
+
+
+class PendingInventoryTests(unittest.TestCase):
+    def test_multiple_pages_are_read_before_approval(self):
+        opener = FakeOpener([
+            {'total': 2, 'jobs': [{'jobId': 'one'}]},
+            {'total': 2, 'jobs': [{'jobId': 'two'}]},
+        ])
+        rows = admin_pending('key', opener)
+        self.assertEqual([r['jobId'] for r in rows], ['one', 'two'])
+        self.assertIn('offset=1', opener.urls[1])
+
+    def test_missing_page_fails_closed(self):
+        opener = FakeOpener([{'total': 2, 'jobs': [{'jobId': 'one'}]},
+                             {'total': 2, 'jobs': []}])
+        with self.assertRaises(ValueError):
+            admin_pending('key', opener)
+
+    def test_duplicate_ids_fail_closed(self):
+        opener = FakeOpener([{'total': 2, 'jobs': [
+            {'jobId': 'same'}, {'jobId': 'same'}]}])
+        with self.assertRaises(ValueError):
+            admin_pending('key', opener)
+
+    def test_missing_total_fails_closed(self):
+        with self.assertRaises(ValueError):
+            admin_pending('key', FakeOpener([{'jobs': [{'jobId': 'one'}]}]))
 
 
 if __name__ == '__main__':
