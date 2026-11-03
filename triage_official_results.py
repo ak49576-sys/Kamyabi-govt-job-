@@ -10,12 +10,12 @@ from pathlib import Path
 from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
-RESULT = re.compile(r'\\b(result(?:s)?|merit\\s+list|shortlist(?:ed|ing)?|'
-                    r'provisionally\\s+selected|final\\s+selection)\\b', re.I)
-NOT_RESULT = re.compile(r'\\b(answer\\s+keys?|admit\\s+cards?|exam\\s+schedule|'
-                        r'vacanc(?:y|ies)|application\\s+status|objection|'
-                        r'document\\s+verification|response\\s+sheets?)\\b', re.I)
-YEAR = re.compile(r'(?<!\\d)20\\d{2}(?!\\d)')
+RESULT = re.compile(r'\b(result(?:s)?|merit\s+list|shortlist(?:ed|ing)?|'
+                    r'provisionally\s+selected|final\s+selection)\b', re.I)
+NOT_RESULT = re.compile(r'\b(answer\s+keys?|admit\s+cards?|exam\s+schedule|'
+                        r'vacanc(?:y|ies)|application\s+status|objection|'
+                        r'document\s+verification|response\s+sheets?)\b', re.I)
+YEAR = re.compile(r'(?<!\d)20\d{2}(?!\d)')
 
 
 def classify(notice, current_year):
