@@ -3,7 +3,41 @@
 These drafts are not accepted by the reviewed-job submission API.
 """
 import json
+from datetime import datetime
 from pathlib import Path
+
+
+def normalized_unique_date(evidence):
+    """Return one ISO date only when all observed dates agree."""
+    parsed = set()
+    for entry in evidence:
+        raw = entry.get('observed') if isinstance(entry, dict) else None
+        if not isinstance(raw, str):
+            return None
+        value = raw.strip()
+        date_value = None
+        for fmt in ('%Y-%m-%d', '%d-%m-%Y', '%d/%m/%Y', '%d.%m.%Y',
+                    '%d-%b-%Y', '%d-%B-%Y', '%d %b %Y', '%d %B %Y'):
+            try:
+                date_value = datetime.strptime(value, fmt).date()
+                break
+            except ValueError:
+                pass
+        if date_value is None:
+            return None
+        parsed.add(date_value)
+    return next(iter(parsed)).isoformat() if len(parsed) == 1 else None
+
+
+def date_suggestions(item):
+    """Display suggestions but never promote observed dates into verified fields."""
+    opening = normalized_unique_date(item.get('possible_opening_dates_unverified', []))
+    closing = normalized_unique_date(item.get('possible_closing_dates_unverified', []))
+    if opening and closing and opening <= closing:
+        return {'application_start_date': opening, 'application_last_date': closing,
+                'status': 'coherent_unverified_pdf_evidence'}
+    return {'application_start_date': None, 'application_last_date': None,
+            'status': 'missing_ambiguous_or_inconsistent'}
 
 
 def enrich(queue, pdf_report):
@@ -26,6 +60,7 @@ def enrich(queue, pdf_report):
             item['possible_opening_dates_unverified'] = []
             item['qualification_keywords_unverified'] = []
             item['source_evidence'] = 'official_listing_link_only'
+        item['date_suggestions_unverified'] = date_suggestions(item)
         # These observations are leads, never verified recruitment fields.
         # Report exactly what an editor must confirm before import.
         required = ('job_id', 'department', 'qualification',
