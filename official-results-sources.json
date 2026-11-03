@@ -1,28 +1,30 @@
 [
   {
     "name": "UPSC Written Results",
-    "url": "https://www.upsc.gov.in/exams-related-info/written-result",
+    "url": "https://cms.upsc.gov.in/results/examination-written-results/",
     "allowed_domains": [
       "upsc.gov.in",
       "cms.upsc.gov.in"
     ],
-    "pattern": "result|written|merit|final|\\.pdf$"
+    "pattern": "result|written|merit|final|\\.pdf$",
+    "fallback_urls": [
+      "https://cms.upsc.gov.in/results/examination-final-results/"
+    ]
   },
   {
     "name": "SSC Results Notice Board",
-    "url": "https://ssc.gov.in/",
+    "url": "https://sscnr.nic.in/newlook/site/Whatsnew.html",
     "allowed_domains": [
-      "ssc.gov.in"
+      "sscnr.nic.in"
     ],
-    "pattern": "result|declaration|shortlist|merit|marks|final"
+    "pattern": "result|merit|final|shortlist|selection"
   },
   {
     "name": "Rajasthan State Recruitment Results",
-    "url": "https://recruitment.rajasthan.gov.in/",
+    "url": "https://rpsc.rajasthan.gov.in/",
     "allowed_domains": [
-      "recruitment.rajasthan.gov.in",
-      "rajasthan.gov.in"
+      "rpsc.rajasthan.gov.in"
     ],
-    "pattern": "result|merit|selection|score|final"
+    "pattern": "result|merit|final|selection"
   }
 ]
