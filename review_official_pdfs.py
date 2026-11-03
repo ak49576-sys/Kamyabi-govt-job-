@@ -4,6 +4,9 @@ import json
 import re
 from io import BytesIO
 from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from triage_official_notices import classify
 from urllib.parse import urlparse
 from urllib.request import Request, build_opener
 
@@ -52,11 +55,17 @@ def fetch_pdf(url, opener=None):
     return '\n'.join(page.extract_text() or '' for page in reader.pages)
 
 
-def review(notices, sources, max_documents=5, fetch=fetch_pdf):
+def review(notices, sources, max_documents=5, fetch=fetch_pdf, today=None):
     allowed = {x['name']: set(x['allowed_domains']) for x in sources}
     output = []
     seen = set()
-    for notice in notices:
+    today = today or datetime.now(ZoneInfo('Asia/Kolkata')).date()
+    # Give recent recruitment adverts the scarce PDF budget before older or
+    # ambiguous links. Still preserve less-clear notices for possible review.
+    ranked = sorted((n for n in notices if isinstance(n, dict)),
+                    key=lambda n: (0 if classify(n, today)[0] == 'priority_review'
+                                   else 1 if classify(n, today)[0] == 'needs_review' else 2))
+    for notice in ranked:
         source = notice.get('source')
         url = notice.get('notice_url', '')
         if source not in allowed or not official_pdf(url, allowed[source]) or url in seen:
