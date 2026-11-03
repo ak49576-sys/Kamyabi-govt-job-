@@ -13,7 +13,7 @@ from urllib.request import Request, build_opener
 from api_http import NoRedirect
 from pypdf import PdfReader
 
-DATE = re.compile(r'(?<!\d)(?:[0-3]?\d[./-][01]?\d[./-]20\d{2}|[0-3]?\d\s+[A-Za-z]{3,9}\s+20\d{2})(?!\d)', re.I)
+DATE = re.compile(r'(?<!\d)(?:[0-3]?\d[./-][01]?\d[./-]20\d{2}|[0-3]?\d[\s./-]+[A-Za-z]{3,9}[\s,./-]+20\d{2})(?!\d)', re.I)
 CLOSING = re.compile(r'(?:last date|closing date|apply by|applications? (?:close|ends?))', re.I)
 OPENING_DATE = re.compile(r'(?:opening date|start(?:ing)? date|commencement(?: date)?|applications? (?:open|begin|start)|online registration (?:starts?|begins?))', re.I)
 QUALIFICATIONS = re.compile(r'\b(?:B\.?TECH|B\.?E\.?|MBA|MCA|ITI|DIPLOMA|GRADUATE|12TH|10TH)\b', re.I)
