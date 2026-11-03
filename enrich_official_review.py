@@ -17,11 +17,13 @@ def enrich(queue, pdf_report):
         if document:
             item['pdf_text_extracted'] = True
             item['possible_closing_dates_unverified'] = document.get('possible_closing_dates', [])
+            item['possible_opening_dates_unverified'] = document.get('possible_opening_dates', [])
             item['qualification_keywords_unverified'] = document.get('qualification_keywords', [])
             item['source_evidence'] = 'official_pdf_text'
         else:
             item['pdf_text_extracted'] = False
             item['possible_closing_dates_unverified'] = []
+            item['possible_opening_dates_unverified'] = []
             item['qualification_keywords_unverified'] = []
             item['source_evidence'] = 'official_listing_link_only'
         # These observations are leads, never verified recruitment fields.
