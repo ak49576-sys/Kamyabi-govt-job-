@@ -1,8 +1,23 @@
 import unittest
-from enrich_official_review import enrich
+from enrich_official_review import enrich, date_suggestions
 
 
 class EvidenceEnrichmentTests(unittest.TestCase):
+    def test_coherent_dates_are_suggestions_only(self):
+        item = {'possible_opening_dates_unverified': [{'observed': '02-Nov-2026'}],
+                'possible_closing_dates_unverified': [{'observed': '25/11/2026'}]}
+        dates = date_suggestions(item)
+        self.assertEqual(dates['application_start_date'], '2026-11-02')
+        self.assertEqual(dates['application_last_date'], '2026-11-25')
+        self.assertIn('unverified', dates['status'])
+
+    def test_conflicting_or_inverted_dates_are_held(self):
+        item = {'possible_opening_dates_unverified': [{'observed': '26-Nov-2026'}],
+                'possible_closing_dates_unverified': [{'observed': '25-Nov-2026'}]}
+        self.assertIsNone(date_suggestions(item)['application_last_date'])
+        item['possible_opening_dates_unverified'].append({'observed': '01-Nov-2026'})
+        self.assertIsNone(date_suggestions(item)['application_start_date'])
+
     def test_pdf_evidence_is_only_unverified(self):
         queue = {'candidates': [{'source': 'BHEL', 'official_candidate_url': 'https://bhel.com/notice.pdf',
                                  'reviewed': False, 'publishable': False}]}
