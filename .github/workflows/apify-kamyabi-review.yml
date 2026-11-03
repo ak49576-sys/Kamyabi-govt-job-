@@ -5,7 +5,7 @@ on:
     - cron: '30 2,6,10,14 * * *' # 08:00, 12:00, 16:00, 20:00 IST; GitHub schedules may be delayed
   push:
     branches: [main]
-    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py', 'enrich_official_review.py', 'test_enrich_official_review.py', 'audit_public_jobs.py', 'test_audit_public_jobs.py', 'reviewed-*-jobs.json']
+    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'official-results-sources.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py', 'enrich_official_review.py', 'test_enrich_official_review.py', 'audit_public_jobs.py', 'test_audit_public_jobs.py', 'reviewed-*-jobs.json']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
@@ -180,6 +180,22 @@ jobs:
               out.write(f"- Priority review: **{triage['priority_review']}**; other review: **{triage['needs_review']}**; excluded historical/results: **{triage['excluded']}**\\n")
               out.write(f"- Official PDFs examined: **{len(pdf.get('documents', []))}**; text extracted: **{sum(d.get('status') == 'text_extracted' for d in pdf.get('documents', []))}**\n")
               out.write('- Unreachable sources and missing notification details stay on hold.\\n')
+          PY
+
+      - name: Discover official exam results (review report only)
+        run: |
+          mkdir -p output/official-results
+          python monitor.py --sources official-results-sources.json --output output/official-results || echo "::warning::Some official results pages could not be parsed; see report"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('output/official-results/report.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as out:
+              out.write('\\n## Official exam results discovery (read-only)\\n\\n')
+              out.write(f"- Result-related candidate links: **{report['candidate_records']}**\\n")
+              for row in report['sources']:
+                  out.write(f"- {row['source']}: **{row['status']}**, {row['candidate_records']} candidates\\n")
+              out.write('- These are unverified result links, not confirmed new results. No result was published.\\n')
           PY
 
       - name: Preview eligible reviewed repository jobs (no write)
