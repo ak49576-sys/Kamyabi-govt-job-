@@ -46,6 +46,17 @@ class StageReviewedTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             stage_missing([JOB], [], 'key', send)
 
+    def test_skipped_new_job_is_not_reported_as_success(self):
+        send = Mock(return_value={'inserted': 0, 'updated': 0, 'skipped': 1})
+        with self.assertRaises(ValueError):
+            stage_missing([JOB], [], 'key', send)
+
+    def test_malformed_admin_record_blocks_staging(self):
+        send = Mock()
+        with self.assertRaises(ValueError):
+            stage_missing([JOB], [{'officialNotificationUrl': 'https://sbi.bank.in/other.pdf'}], 'key', send)
+        send.assert_not_called()
+
     def test_unavailable_admin_key_blocks_staging(self):
         with self.assertRaises(ValueError):
             admin_inventory('')
