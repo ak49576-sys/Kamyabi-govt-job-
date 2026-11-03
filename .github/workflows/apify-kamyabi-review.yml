@@ -5,7 +5,7 @@ on:
     - cron: '30 2 * * *' # 08:00 IST; GitHub schedules may be delayed
   push:
     branches: [main]
-    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py']
+    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py', 'enrich_official_review.py', 'test_enrich_official_review.py']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
@@ -43,7 +43,7 @@ jobs:
       - name: Install pinned PDF text reader
         run: python -m pip install --disable-pip-version-check pypdf==6.21.4
       - name: Test API validation and pending-import safeguards
-        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py test_verify_publications.py
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py test_verify_publications.py test_enrich_official_review.py
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
@@ -163,6 +163,7 @@ jobs:
           python monitor.py --sources official-sources-expanded.json --output output/official-coverage || echo "::warning::Some official recruitment sources could not be reached; see coverage report"
           python triage_official_notices.py
           python review_official_pdfs.py
+          python enrich_official_review.py
           python source_validation.py --source ssc --output output/ssc || echo "::warning::SSC official API unavailable; see report"
           python - <<'PY'
           import json, os
