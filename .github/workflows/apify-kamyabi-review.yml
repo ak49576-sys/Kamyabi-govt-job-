@@ -5,7 +5,7 @@ on:
     - cron: '30 2 * * *' # 08:00 IST; GitHub schedules may be delayed
   push:
     branches: [main]
-    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py', 'enrich_official_review.py', 'test_enrich_official_review.py']
+    paths: ['.github/workflows/apify-kamyabi-review.yml', 'match_official_notices.py', 'test_match_official_notices.py', 'auto_publish.py', 'test_auto_publish.py', 'official-sources-expanded.json', 'auto_import.py', 'source_validation.py', 'monitor.py', 'triage_official_notices.py', 'test_triage_official_notices.py', 'inspect_existing_job_dates.py', 'verify_ongc_apprentice_pdf.py', 'review_official_pdfs.py', 'test_review_official_pdfs.py', 'stage_missing_reviewed.py', 'test_stage_missing_reviewed.py', 'verify_publications.py', 'test_verify_publications.py', 'enrich_official_review.py', 'test_enrich_official_review.py', 'audit_public_jobs.py', 'test_audit_public_jobs.py']
   workflow_dispatch:
     inputs:
       reviewed_jobs_json:
@@ -43,7 +43,7 @@ jobs:
       - name: Install pinned PDF text reader
         run: python -m pip install --disable-pip-version-check pypdf==6.21.4
       - name: Test API validation and pending-import safeguards
-        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py test_verify_publications.py test_enrich_official_review.py
+        run: python -m unittest -v test_submit_jobs.py test_auto_import.py test_check_api.py test_match_official_notices.py test_auto_publish.py test_monitor.py test_source_validation.py test_triage_official_notices.py test_review_official_pdfs.py test_stage_missing_reviewed.py test_verify_publications.py test_enrich_official_review.py test_audit_public_jobs.py
       - name: Fetch Apify CSV and create review report
         env:
           APIFY_DATASET_URL: ${{ secrets.APIFY_DATASET_URL }}
@@ -297,6 +297,22 @@ jobs:
         env:
           KAMYABI_ADMIN_API_KEY: ${{ secrets.KAMYABI_ADMIN_API_KEY }}
         run: python inspect_existing_job_dates.py
+
+      - name: Audit live public jobs for expired dates and broken metadata
+        run: |
+          python audit_public_jobs.py || echo "::warning::Public-job quality audit unavailable; inspect report"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path('output/job-quality/public-job-audit.json')
+          if path.exists():
+              report = json.loads(path.read_text())
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+                  out.write('\\n## Public vacancy quality audit (read-only)\\n\\n')
+                  out.write(f"- Public records checked: **{report['public_job_records']}**\\n")
+                  for issue, count in report['issue_counts'].items():
+                      out.write(f"- {issue}: **{count}**\\n")
+          PY
 
       - name: Upload review report
         if: always()
