@@ -314,6 +314,61 @@ jobs:
                       out.write(f"- {issue}: **{count}**\\n")
           PY
 
+      - name: Summarize actual import and publication results
+        if: always()
+        env:
+          RUN_EVENT: ${{ github.event_name }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          def read(name):
+              path = Path('output') / name
+              try:
+                  return json.loads(path.read_text()) if path.exists() else None
+              except (OSError, ValueError):
+                  return None
+
+          apify = read('summary.json') or {}
+          staging = read('reviewed-staging.json')
+          publication = read('automatic-publishing.json')
+          verification = read('verified-publications.json')
+          draft = read('official-coverage/evidence-enriched-review.json') or {}
+          event = os.environ.get('RUN_EVENT', '')
+          report = {
+              'event': event,
+              'raw_apify_candidates': apify.get('unique_candidate_rows', 0),
+              'official_notice_drafts_needing_review': len(draft.get('candidates', [])),
+              'new_jobs_staged': staging.get('submitted') if staging else None,
+              'staging_status': staging.get('status') if staging else 'not_run',
+              'jobs_approved': len(publication.get('approved', [])) if publication else None,
+              'approval_status': publication.get('status') if publication else 'not_run',
+              'approved_and_publicly_visible': len(verification.get('visible', [])) if verification else None,
+              'publication_verification_status': 'completed' if verification else 'not_run',
+          }
+          path = Path('output/final-daily-outcome.json')
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(report, indent=2))
+          def shown(value):
+              return 'not run' if value is None else str(value)
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\\n## Final vacancy import outcome\\n\\n')
+              out.write(f"- Workflow event: **{event}**\\n")
+              out.write(f"- Raw Apify candidates (not verified): **{report['raw_apify_candidates']}**\\n")
+              out.write(f"- Official notice drafts awaiting fact review: **{report['official_notice_drafts_needing_review']}**\\n")
+              out.write(f"- New reviewed jobs staged: **{shown(report['new_jobs_staged'])}** ({report['staging_status']})\\n")
+              out.write(f"- Jobs approved: **{shown(report['jobs_approved'])}** ({report['approval_status']})\\n")
+              out.write(f"- Newly approved jobs confirmed public: **{shown(report['approved_and_publicly_visible'])}**\\n")
+              if event != 'schedule':
+                  out.write('- This was not the daily scheduled run; automatic staging and public confirmation may be skipped.\\n')
+              elif report['new_jobs_staged'] == 0:
+                  out.write('- No new reviewed repository vacancies needed staging; raw notice collection does not create publishable records.\\n')
+              if report['staging_status'] == 'error' or report['approval_status'] not in ('ok', 'not_run'):
+                  out.write('- **Attention:** an import/approval stage needs investigation; see the corresponding report.\\n')
+          print(json.dumps(report, indent=2))
+          PY
+
       - name: Upload review report
         if: always()
         uses: actions/upload-artifact@v4
