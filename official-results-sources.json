@@ -1,0 +1,28 @@
+[
+  {
+    "name": "UPSC Written Results",
+    "url": "https://www.upsc.gov.in/exams-related-info/written-result",
+    "allowed_domains": [
+      "upsc.gov.in",
+      "cms.upsc.gov.in"
+    ],
+    "pattern": "result|written|merit|final|\\.pdf$"
+  },
+  {
+    "name": "SSC Results Notice Board",
+    "url": "https://ssc.gov.in/",
+    "allowed_domains": [
+      "ssc.gov.in"
+    ],
+    "pattern": "result|declaration|shortlist|merit|marks|final"
+  },
+  {
+    "name": "Rajasthan State Recruitment Results",
+    "url": "https://recruitment.rajasthan.gov.in/",
+    "allowed_domains": [
+      "recruitment.rajasthan.gov.in",
+      "rajasthan.gov.in"
+    ],
+    "pattern": "result|merit|selection|score|final"
+  }
+]
