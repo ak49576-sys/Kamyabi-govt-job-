@@ -19,6 +19,21 @@ class EvidenceEnrichmentTests(unittest.TestCase):
         self.assertIsNone(item['job_id'])
         self.assertFalse(report['submission_ready'])
 
+    def test_prioritize_pdf_dates_and_report_all_missing_fields(self):
+        queue = {'candidates': [
+            {'source': 'BHEL', 'official_candidate_url': 'https://bhel.com/unknown.pdf'},
+            {'source': 'BHEL', 'official_candidate_url': 'https://bhel.com/current.pdf'}]}
+        pdf = {'documents': [{'official_pdf_url': 'https://bhel.com/current.pdf',
+                              'status': 'text_extracted',
+                              'possible_closing_dates': [{'observed': '25-Nov-2026'}]}]}
+        report = enrich(queue, pdf)
+        self.assertEqual(report['candidates'][0]['official_candidate_url'],
+                         'https://bhel.com/current.pdf')
+        self.assertEqual(report['ready_for_import'], 0)
+        self.assertEqual(report['missing_field_counts']['qualification'], 2)
+        self.assertIn('application_start_date', report['candidates'][0]['missing_required_fields'])
+        self.assertFalse(report['submission_ready'])
+
     def test_missing_or_unavailable_pdf_cannot_create_facts(self):
         queue = {'candidates': [{'official_candidate_url': 'https://bhel.com/notice.pdf'}]}
         pdf = {'documents': [{'official_pdf_url': 'https://bhel.com/notice.pdf', 'status': 'unavailable',
