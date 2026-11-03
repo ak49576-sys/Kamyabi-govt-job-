@@ -60,5 +60,29 @@ class EvidenceEnrichmentTests(unittest.TestCase):
         self.assertFalse(item['pdf_text_extracted'])
 
 
+    def test_current_pdf_dates_rank_ahead_of_expired_and_ambiguous(self):
+        from datetime import date
+        queue = {'candidates': [
+            {'official_candidate_url': 'https://bhel.com/expired.pdf'},
+            {'official_candidate_url': 'https://bhel.com/current.pdf'},
+            {'official_candidate_url': 'https://bhel.com/unknown.pdf'}]}
+        pdf = {'documents': [
+            {'official_pdf_url': 'https://bhel.com/expired.pdf',
+             'status': 'text_extracted',
+             'possible_opening_dates': [{'observed': '01-Nov-2025'}],
+             'possible_closing_dates': [{'observed': '15-Nov-2025'}]},
+            {'official_pdf_url': 'https://bhel.com/current.pdf',
+             'status': 'text_extracted',
+             'possible_opening_dates': [{'observed': '01-Nov-2026'}],
+             'possible_closing_dates': [{'observed': '20-Nov-2026'}]}]}
+        report = enrich(queue, pdf, today=date(2026, 11, 3))
+        ordered = report['candidates']
+        self.assertEqual(ordered[0]['official_candidate_url'], 'https://bhel.com/current.pdf')
+        self.assertEqual(ordered[-1]['priority_reason'], 'pdf_deadline_expired')
+        self.assertEqual(report['current_coherent_pdf_date_candidates'], 1)
+        self.assertEqual(report['expired_date_candidates_held'], 1)
+        self.assertFalse(report['submission_ready'])
+
+
 if __name__ == '__main__':
     unittest.main()
