@@ -4,6 +4,7 @@ These drafts are not accepted by the reviewed-job submission API.
 """
 import json
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 
@@ -40,7 +41,8 @@ def date_suggestions(item):
             'status': 'missing_ambiguous_or_inconsistent'}
 
 
-def enrich(queue, pdf_report):
+def enrich(queue, pdf_report, today=None):
+    today = today or datetime.now(ZoneInfo('Asia/Kolkata')).date()
     documents = {row['official_pdf_url']: row for row in pdf_report.get('documents', [])
                  if isinstance(row, dict) and row.get('status') == 'text_extracted'}
     candidates = []
@@ -70,11 +72,24 @@ def enrich(queue, pdf_report):
         item['missing_required_fields'] = missing
         for field in missing:
             missing_counts[field] = missing_counts.get(field, 0) + 1
-        item['review_priority'] = (
-            0 if item.get('pdf_text_extracted') and item.get('possible_closing_dates_unverified')
-            else 1 if item.get('pdf_text_extracted')
-            else 2 if item.get('observed_deadline_iso_unverified')
-            else 3)
+        suggested = item['date_suggestions_unverified']
+        closing = suggested.get('application_last_date')
+        observed = item.get('observed_deadline_iso_unverified')
+        # Prefer coherent, still-open PDF evidence; an old PDF date is not a live job.
+        if closing and closing < today.isoformat():
+            item['review_priority'], item['priority_reason'] = 5, 'pdf_deadline_expired'
+        elif closing:
+            item['review_priority'], item['priority_reason'] = 0, 'coherent_current_pdf_dates'
+        elif observed and observed < today.isoformat():
+            item['review_priority'], item['priority_reason'] = 5, 'listing_deadline_expired'
+        elif item.get('pdf_text_extracted') and item.get('possible_closing_dates_unverified'):
+            item['review_priority'], item['priority_reason'] = 1, 'pdf_deadline_requires_confirmation'
+        elif item.get('pdf_text_extracted'):
+            item['review_priority'], item['priority_reason'] = 2, 'pdf_text_requires_dates'
+        elif observed:
+            item['review_priority'], item['priority_reason'] = 3, 'listing_deadline_unverified'
+        else:
+            item['review_priority'], item['priority_reason'] = 4, 'missing_deadline_evidence'
         item['reviewed'] = False
         item['publishable'] = False
         item['job_id'] = None
@@ -84,6 +99,8 @@ def enrich(queue, pdf_report):
             'candidates': candidates,
             'with_pdf_text': sum(x['pdf_text_extracted'] for x in candidates),
             'ready_for_import': 0,
+            'current_coherent_pdf_date_candidates': sum(x['review_priority'] == 0 for x in candidates),
+            'expired_date_candidates_held': sum(x['review_priority'] == 5 for x in candidates),
             'missing_field_counts': missing_counts,
             'note': 'Official links and PDF snippets are review evidence. Every listed field needs confirmation before import.'}
 
@@ -96,12 +113,15 @@ def main():
     (folder / 'evidence-enriched-review.json').write_text(json.dumps(report, indent=2))
     (folder / 'import-readiness.json').write_text(json.dumps({
         'ready_for_import': report['ready_for_import'],
+        'current_coherent_pdf_date_candidates': report['current_coherent_pdf_date_candidates'],
+        'expired_date_candidates_held': report['expired_date_candidates_held'],
         'missing_field_counts': report['missing_field_counts'],
         'priority_review': [
             {'source': item.get('source'), 'title': item.get('title_as_observed'),
              'official_candidate_url': item.get('official_candidate_url'),
              'missing_required_fields': item['missing_required_fields'],
              'review_priority': item['review_priority'],
+             'priority_reason': item['priority_reason'],
              'date_suggestions_unverified': item['date_suggestions_unverified']}
             for item in report['candidates'][:30]],
         'note': report['note']}, indent=2))
