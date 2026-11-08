@@ -1,0 +1,33 @@
+{
+  "reviewed": true,
+  "jobs": [
+    {
+      "job_id": "opsc-aee-758-2026-advt-13",
+      "title": "OPSC Assistant Executive Engineer (Civil & Mechanical) 2026 – 758 Posts",
+      "department": "Odisha Public Service Commission",
+      "qualification": "Bachelor's degree in Civil or Mechanical Engineering and valid GATE 2024/2025/2026 score, subject to advertisement",
+      "state_or_central": "Odisha",
+      "last_date": "2026-11-11",
+      "source_url": "https://www.opsc.gov.in/Public/OPSC/Default.aspx",
+      "official_notification_url": "https://www.opsc.gov.in/Public/OPSC/Default.aspx",
+      "recruiting_body": "OPSC",
+      "application_start_date": "2026-10-22",
+      "application_last_date": "2026-11-11",
+      "vacancy_count": 758
+    },
+    {
+      "job_id": "dvc-bpscl-mt-18-2026-advt-07",
+      "title": "DVC BPSCL Management Trainee (Technical) 2026 – 18 Posts",
+      "department": "Damodar Valley Corporation / Bokaro Power Supply Company Limited",
+      "qualification": "Full-time Engineering degree in Mechanical, Electrical, Civil or C&I with valid GATE-2025 score",
+      "state_or_central": "Central PSU",
+      "last_date": "2026-12-06",
+      "source_url": "https://www.dvc.gov.in",
+      "official_notification_url": "https://www.dvc.gov.in/storage/app/notice_qr/notice_581d946b281235ef94f3db2fdeb55f2ec7f.pdf",
+      "recruiting_body": "DVC",
+      "application_start_date": "2026-11-06",
+      "application_last_date": "2026-12-06",
+      "vacancy_count": 18
+    }
+  ]
+}
