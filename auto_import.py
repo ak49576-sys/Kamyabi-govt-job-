@@ -35,6 +35,10 @@ SOURCES = {
     'RITES Limited': {'rites.com'},
     'Union Public Service Commission': {'upsc.gov.in', 'pib.gov.in', 'upsconline.nic.in'},
     'ISRO — Space Applications Centre': {'isro.gov.in', 'careers.sac.gov.in'},
+    'ISRO': {'apps.shar.gov.in'},
+    'KEA': {'cetonline.karnataka.gov.in'},
+    'CMAAA': {'niyukti.assam.gov.in'},
+    'UPPSC': {'uppsc.up.nic.in', 'uppsc.pariksha.nic.in'},
     'Supreme Court of India': {'sci.gov.in', 'cdnbbsr.s3waas.gov.in'},
 }
 
