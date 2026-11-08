@@ -1,0 +1,61 @@
+{
+  "reviewed": true,
+  "jobs": [
+    {
+      "job_id": "sdsc-shar-apprenticeship-2026-400",
+      "title": "ISRO SDSC SHAR Apprenticeship 2026 – 400 Seats",
+      "department": "Satish Dhawan Space Centre SHAR, Department of Space",
+      "qualification": "Graduate Engineering/Non-Engineering, Diploma, ITI or eligible vocational qualification by trade; see official PDF",
+      "state_or_central": "Central",
+      "last_date": "2026-11-26",
+      "source_url": "https://apps.shar.gov.in/sdscshar/result1.jsp",
+      "official_notification_url": "https://apps.shar.gov.in/sdscshar/apprentice/Apprenticeship2026.pdf",
+      "recruiting_body": "ISRO",
+      "application_start_date": "2026-11-06",
+      "application_last_date": "2026-11-26",
+      "vacancy_count": 400
+    },
+    {
+      "job_id": "kea-wcd-female-supervisor-2026-171",
+      "title": "KEA Karnataka WCD Female Supervisor Recruitment 2026 – 171 Posts (KK 30 + RPC 141)",
+      "department": "Karnataka Examinations Authority / Women and Child Development Department",
+      "qualification": "Bachelor's in Home Science, Social Work, Sociology or B.Sc Home Science/Community Science; women candidates",
+      "state_or_central": "Karnataka",
+      "last_date": "2026-11-28",
+      "source_url": "https://cetonline.karnataka.gov.in/kea/",
+      "official_notification_url": "https://www.cetonline.karnataka.gov.in/keawebentry456/wcwdrpc2026/rpc_detailednoticationkannada.pdf",
+      "recruiting_body": "KEA",
+      "application_start_date": "2026-11-03",
+      "application_last_date": "2026-11-28",
+      "vacancy_count": 171
+    },
+    {
+      "job_id": "assam-cmaaa-chief-ministers-fellow-2026-256",
+      "title": "Assam Chief Minister's Fellow Recruitment 2026 – 256 Positions",
+      "department": "CMAAA Society, Industries, Commerce & Public Enterprise Department, Assam",
+      "qualification": "MBA or equivalent, or master's degree in Social Sciences, Public Policy or Development Studies; see notification",
+      "state_or_central": "Assam",
+      "last_date": "2026-11-14",
+      "source_url": "https://niyukti.assam.gov.in/R00007",
+      "official_notification_url": "https://niyukti.assam.gov.in/R00007",
+      "recruiting_body": "CMAAA",
+      "application_start_date": "2026-11-01",
+      "application_last_date": "2026-11-14",
+      "vacancy_count": 256
+    },
+    {
+      "job_id": "uppsc-miscellaneous-a5-e1-2026-25",
+      "title": "UPPSC Assistant Architect Planner, Sports Officer & Programmer Grade-II 2026 – 25 Posts",
+      "department": "Uttar Pradesh Public Service Commission",
+      "qualification": "Post-specific qualifications; see official Advt. A-5/E-1/2026. Vacancy count subject to official detailed notice",
+      "state_or_central": "Uttar Pradesh",
+      "last_date": "2026-12-04",
+      "source_url": "https://uppsc.up.nic.in/OuterPages/NoticeAlert.aspx?ID=A",
+      "official_notification_url": "https://uppsc.pariksha.nic.in/CandidatePages/Notifications.aspx",
+      "recruiting_body": "UPPSC",
+      "application_start_date": "2026-11-04",
+      "application_last_date": "2026-12-04",
+      "vacancy_count": 25
+    }
+  ]
+}
