@@ -39,6 +39,8 @@ SOURCES = {
     'KEA': {'cetonline.karnataka.gov.in'},
     'CMAAA': {'niyukti.assam.gov.in'},
     'UPPSC': {'uppsc.up.nic.in', 'uppsc.pariksha.nic.in'},
+    'OPSC': {'opsc.gov.in'},
+    'DVC': {'dvc.gov.in'},
     'Supreme Court of India': {'sci.gov.in', 'cdnbbsr.s3waas.gov.in'},
 }
 
