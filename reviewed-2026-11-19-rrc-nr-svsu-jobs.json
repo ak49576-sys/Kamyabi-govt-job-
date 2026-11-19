@@ -1,0 +1,35 @@
+{
+  "reviewed": true,
+  "reviewed_at": "2026-11-19",
+  "review_note": "Checked official notification PDFs read directly on 2026-11-19: RRC Northern Railway Act Apprentice (No. RRC/NR/03/2026/Act Apprentice, dated 06/11/2026; apply 11/11/2026 to 11/12/2026, i.e. 11 Dec 2026) and Shri Vishwakarma Skill University Skill Instructor advertisement (Ref SVSU/2026/Estt./3487 dated 30.10.2026; 31.10.2026 to 23.11.2026). Vacancy counts are marked provisional/tentative in both notices. Submit to pending review.",
+  "jobs": [
+    {
+      "job_id": "rrc-nr-act-apprentice-2026-4651",
+      "title": "RRC Northern Railway Act Apprentice Recruitment 2026 – 4651 Vacancies",
+      "department": "Railway Recruitment Cell, Northern Railway, Lajpat Nagar, New Delhi",
+      "qualification": "Class 10 (SSC/Matriculation) with at least 50% aggregate marks plus ITI pass in the relevant trade (NCVT/SCVT). Age 15 to under 24 years as on 11 Dec 2026, with relaxation for SC/ST, OBC and PwBD. Refer to the official notification for trades and cluster-wise vacancies.",
+      "state_or_central": "Central",
+      "last_date": "2026-12-11",
+      "source_url": "https://rrcnr.org/",
+      "official_notification_url": "https://rrcnr.org/downloads/Notification_Act_Appretice_2026.pdf",
+      "recruiting_body": "Railway Recruitment Cell, Northern Railway",
+      "application_start_date": "2026-11-11",
+      "application_last_date": "2026-12-11",
+      "vacancy_count": 4651
+    },
+    {
+      "job_id": "svsu-skill-instructor-2026-45",
+      "title": "Shri Vishwakarma Skill University (SVSU) Skill Instructor Recruitment 2026 – 45 Posts",
+      "department": "Shri Vishwakarma Skill University, Haryana",
+      "qualification": "Trade-wise: generally Master's, Bachelor's, B.Voc or first-class diploma in the relevant discipline with at least 55% marks, plus experience as specified for the trade; council registration for Nursing, Pharmacy and Physiotherapy. Indian citizen aged 18 to 42 with Hindi/Sanskrit knowledge up to matric level. See the official advertisement for each trade.",
+      "state_or_central": "State",
+      "last_date": "2026-11-23",
+      "source_url": "https://svsu.ac.in/careers-notices.php",
+      "official_notification_url": "https://svsu.ac.in/wp-content/uploads/2026/10/Advt%20for%20Skill%20Instructor.pdf",
+      "recruiting_body": "Shri Vishwakarma Skill University",
+      "application_start_date": "2026-10-31",
+      "application_last_date": "2026-11-23",
+      "vacancy_count": 45
+    }
+  ]
+}
