@@ -1,0 +1,42 @@
+name: Check public jobs (read-only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_ids:
+        description: Comma-separated job_ids to look for in the public jobs API
+        required: true
+        default: rrc-nr-act-apprentice-2026-4651,svsu-skill-instructor-2026-45
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Look up job IDs in the public API (no writes)
+        env:
+          JOB_IDS: ${{ inputs.job_ids }}
+        run: |
+          python - <<'PY'
+          import os
+          from audit_public_jobs import read_public, field
+          wanted = [x.strip() for x in os.environ['JOB_IDS'].split(',') if x.strip()]
+          jobs = read_public()
+          by_id = {field(j, 'job_id', 'jobId'): j for j in jobs}
+          lines = [f'Public API returned {len(jobs)} jobs.']
+          for job_id in wanted:
+              row = by_id.get(job_id)
+              if row is None:
+                  lines.append(f'- {job_id}: NOT in public API')
+              else:
+                  lines.append(f"- {job_id}: PRESENT; title={row.get('title')!r}; last_date={field(row, 'last_date', 'lastDate')!r}")
+          print('\n'.join(lines))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('## Public jobs check\n\n' + '\n'.join(lines) + '\n')
+          PY
