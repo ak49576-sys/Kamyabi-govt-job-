@@ -42,6 +42,8 @@ SOURCES = {
     'OPSC': {'opsc.gov.in'},
     'DVC': {'dvc.gov.in'},
     'Supreme Court of India': {'sci.gov.in', 'cdnbbsr.s3waas.gov.in'},
+    'Railway Recruitment Cell, Northern Railway': {'rrcnr.org'},
+    'Shri Vishwakarma Skill University': {'svsu.ac.in'},
 }
 
 def load_queue(root, today, filenames=None):
