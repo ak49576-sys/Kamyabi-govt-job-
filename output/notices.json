@@ -1,0 +1,1840 @@
+{
+  "checked_at": "2026-11-21T01:46:33.379373+00:00",
+  "notices": [
+    {
+      "notice_id": "39320e006db49d64c036a4ab",
+      "source": "IBPS",
+      "title": "16 Nov 26 Provisional Allotment under Reserve List for CRP-PO/MTs-XV",
+      "notice_url": "https://www.ibps.in/index.php/management-trainees-xv/",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "2554e277e56fe957df6f45e4",
+      "source": "IBPS",
+      "title": "16 Nov 26 Provisional Allotment under Reserve List for CRP-SPL-XV",
+      "notice_url": "https://www.ibps.in/index.php/specialist-officers-xv/",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "965d0ea80c9d8440974b0e72",
+      "source": "IBPS",
+      "title": "01 Jul 26 Notification for Common Recruitment Process for CRP- PO/MTs-XVI",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "555f1be565b8bcdcf877f77d",
+      "source": "IBPS",
+      "title": "01 Jul 26 Notification for Common Recruitment Process for CRP- SPL-XVI",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "3a60d90d019c4c9fa7df08a8",
+      "source": "IBPS",
+      "title": "30 Jun 26 Window Notification for CRP-PO/MTs -XVI and SPL-XVI",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/PO_SPL_Combined_Window_CRP-XVI.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1a3ff01d883d60cd51ca1e82",
+      "source": "IBPS",
+      "title": "27 Apr 26 Notification on Fraudulent Websites Resembling IBPS",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/IBPS-Notification-Fraud-Websites-27April26.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4f1d1673d0a9224ffb1bf9e0",
+      "source": "IBPS",
+      "title": "03 Feb 26 Notification Regarding Revised Advisory and Standard Operating Procedure (SOP) to handle the cases of PwBD",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/Revised-Advisory-and-Standard-Operating-Procedure-SOP-to-handle-the-cases-of-PwBD-candidates.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "0e8fabe458149b9ba46c3eb7",
+      "source": "IBPS",
+      "title": "27 Jan 26 Notification Regarding ISO 9001:2015 Certification",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/Final-ISO-IBPS-Notification-27Jan26.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "0f9199bb02afa024adab3e80",
+      "source": "IBPS",
+      "title": "16 Jan 26 Tentative Calendar of CRP (PSBs & RRBs) Online Examinations",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "0e9c911f69acfdee34778c5e",
+      "source": "IBPS",
+      "title": "15 Jan 26 Notice dated 15.01.2026 in connection with CRP-PO/MT-XIV",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/PO-MT-XIV-Notice-15.1.2026.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "30ffa3a83d4496999b45f7e1",
+      "source": "IBPS",
+      "title": "15 Jan 26 Notice dated 15.01.2026 in connection with CRP-SPL-XIV",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/SPL-XIV-Notice-15.1.2026.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "265672762f87fab530d8847d",
+      "source": "IBPS",
+      "title": "15 Nov 25 Corrigendum dated 14.11.2025 in connection with CRP-CSA-XV",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/Corrigendum-CRP-CSA-XV_Vacancy_update2_14.11.25.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "934bca9287e8ff06a6730897",
+      "source": "IBPS",
+      "title": "15 Nov 25 Updated Vacancies as on 14.11.2025 for Common Recruitment Process for CRP-CSA-XV",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/CRP-CSA_XV_BANKWISE_STATEWISE_VACANCY_14.11.2025.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "390b1fc88b9546a3d6ebd5ca",
+      "source": "IBPS",
+      "title": "28 Oct 25 Updated Vacancies as on 27.10.2025 for Common Recruitment Process for CRP-CSA-XV",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/CRP-CSA_XV_BANKWISE_STATEWISE_VACANCY_27.10.25.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e35531022f250e8c7b0de92b",
+      "source": "IBPS",
+      "title": "04 Nov 24 Corrigendum Regarding CRP-Clerks-XIV",
+      "notice_url": "https://www.ibps.in/wp-content/uploads/Corrigendum-CRP-Clerks-XIV-28-10-2024.pdf",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "677e5e372b88e4982686d45e",
+      "source": "IBPS",
+      "title": "RECRUITMENT EXAMS",
+      "notice_url": "https://www.ibps.in/index.php/recruitment/",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "779853b812e2fd5371d8cd1e",
+      "source": "IBPS",
+      "title": "CRP RRB",
+      "notice_url": "https://www.ibps.in/index.php/regional-rural-bank",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4e6f8df0c962164997693e12",
+      "source": "IBPS",
+      "title": "CRP Clerical cadre",
+      "notice_url": "https://www.ibps.in/index.php/clerical-cadre",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "93608ec97da3666009a7ff9c",
+      "source": "IBPS",
+      "title": "CRP - PO/MTs",
+      "notice_url": "https://www.ibps.in/index.php/management-trainees",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d798608015797750e106687a",
+      "source": "IBPS",
+      "title": "CRP Specialist Officer",
+      "notice_url": "https://www.ibps.in/index.php/specialist-officers",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4b627a7f458525ebe51eabd9",
+      "source": "IBPS",
+      "title": "Personnel Selection Services for Recruitment, Promotion and Placement",
+      "notice_url": "https://www.ibps.in/index.php/services",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9b2f32aaa037b8ee6bb49de3",
+      "source": "IBPS",
+      "title": "CRP PO/MT",
+      "notice_url": "https://www.ibps.in/index.php/management-trainees/",
+      "source_url": "https://www.ibps.in/index.php/crp-updates/",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9867ccda5b8fef819138089f",
+      "source": "RPSC",
+      "title": "RTI",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/Others/RPSC_RTI.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "7c9a1ea6adc127fa27812096",
+      "source": "RPSC",
+      "title": "FAQ",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/InformationForCandidates/FAQ.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "66a9d50ff2d176413ae43ff3",
+      "source": "RPSC",
+      "title": "Recruitment Advertisements",
+      "notice_url": "https://rpsc.rajasthan.gov.in/viewcommon?Slice=RA",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "79f52d343890ff245cd5cb50",
+      "source": "RPSC",
+      "title": "Computer Based Recruitment Test (CBRT)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/cbrt",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "b6f221e7ec7e5467dfefa8d3",
+      "source": "RPSC",
+      "title": "OTR/Apply Online (Recruitment Portal)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/applyonline",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "b64beab3efc52e966267a9e6",
+      "source": "RPSC",
+      "title": "RPSC Innovations",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Others/innovations.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "fa37ed458a4f4fcec02f7c6b",
+      "source": "RPSC",
+      "title": "20/11/2026 Press Note Regarding Interview Dates for Asst. Prof. (College Education) - 2025 (GPEM)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/11E8C263-D664-4759-8157-953E737D7938.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "eecd0843082f84b075cda633",
+      "source": "RPSC",
+      "title": "20/11/2026 Press Note Regarding Interview Dates for Deputy Commandant - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/122B4263-FE73-4A2F-A836-EC0D2BF09A3E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "911b48a892805d369ece9839",
+      "source": "RPSC",
+      "title": "20/11/2026 Press Note regarding Interview Dates for Librarian (Sanskrit College Education) - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/0B4ADD2F-5796-4420-9560-2ACFC12297EE.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "92aaf726587f5000500265ae",
+      "source": "RPSC",
+      "title": "20/11/2026 Press Note Regarding Interview Dates for Vice Principal / Superintendent ITI - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/61EF76C1-4AE7-428D-93CE-D725F2B430A7.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1f37a3029d40ce903e71dba2",
+      "source": "RPSC",
+      "title": "20/11/2026 Press Note Regarding Interview Dates for Sub Inspector Comb. Comp. Exam - 2025 (Fourth Phase)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/14C455A6-ACCD-4E43-AB41-7F84A772D3AC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "43b95d733099895b27cf4bef",
+      "source": "RPSC",
+      "title": "20/11/2026 Revised Result Preamble and Cutoff Marks (Qualified for Interview) for Asst. Prof. (Sanskrit College Edu.) - 2024 (English)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/AD3C904323A4425FB9EBB4B9A1472E4A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "7c7259f06372802e989dc458",
+      "source": "RPSC",
+      "title": "19/11/2026 Result Preamble (Qualified for Interview) for Asst. Professor (Medical Edu.) - 2021 (Skin And V.D.)(Broad Speciality)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/41794E1A41244144B1116E54837C114D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e47bc192ff291bb5909b66ac",
+      "source": "RPSC",
+      "title": "19/11/2026 Result Preamble (Qualified for Interview) for Asst. Professor (Medical Edu.) - 2021 (Emergency Medicine)(Broad Speciality)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DCBF9E3A650746F7A905D2DC82670235.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c5a01cff9555d65e02ac91f7",
+      "source": "RPSC",
+      "title": "19/11/2026 Result Preamble (Qualified for Interview) for Asst. Professor (Medical Edu.) - 2021 (Geriatric Medicine) (Broad Speciality)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/9BD1A534C46F45F9B4CCDFE0B222D4AC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "479383923a39a192d24259d6",
+      "source": "RPSC",
+      "title": "18/11/2026 Press Note Regarding Online Detailed Application Form for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (5 Subjects)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/ED9EEFC1-B974-42D1-B48A-43B54E6A6E40.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c6d55cbbd8ba756c54598b5c",
+      "source": "RPSC",
+      "title": "18/11/2026 Press Note Regarding Online Detailed Application Form for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Social Science, Hindi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/D49CB5CA-E746-416C-8C20-6B4BFD44D3D2.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "15e2ca8bcb30b3aa4109008c",
+      "source": "RPSC",
+      "title": "17/11/2026 Additional Provisional List for Eligibility Checking for Agriculture Dept. Exam - 2024 (Agriculture Research Officer (Agriculture Botany))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/088BC0AEC1FD4A17BAD51F513827C864.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "be2c7c1ba74ed50ace853d15",
+      "source": "RPSC",
+      "title": "17/11/2026 Result Preamble for Asst. Prof. (Sanskrit College Edu.) - 2024 (Rigved)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DCE8738CB80A4A07BFB545B20F673126.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4c9ff48e3e80b3298e81e538",
+      "source": "RPSC",
+      "title": "17/11/2026 Result Preamble for Asst. Prof. (Sanskrit College Edu.) - 2024 (Jyotish Falit)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/EE669B0807B3478C80EDF245F17F2105.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cff569ab4c1bbd0d7b07ec3e",
+      "source": "RPSC",
+      "title": "17/11/2026 Question Paper for Protection Officer - 2025 (Paper-II) (Social Work)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/1A5AEE48-A423-4A4E-A357-327F8E88916A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "09b8efc6c96cee6b64c4d877",
+      "source": "RPSC",
+      "title": "17/11/2026 Question Paper for Protection Officer - 2025 (Paper-II) (Law)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/D39C13A8-504D-4F14-B40E-2AF4F6EA3EC6.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8515aad0a75cbb18db39ea2b",
+      "source": "RPSC",
+      "title": "17/11/2026 Question Paper for Protection Officer - 2025 (Paper-I) (G.K)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/39AEEF32-2A94-4AF7-BCD1-1F4B2EB5D1FE.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "52232b507ad24a3cf6d4781e",
+      "source": "RPSC",
+      "title": "16/11/2026 Additional Provisional List for Eligibility Checking for Asst. Testing Officer - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/1260ACB959804E5BAF6E46A73EC33DEC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "5b3fe174ef59554ebf6fb744",
+      "source": "RPSC",
+      "title": "13/11/2026 Result Preamble for Asst. Prof. (Sanskrit College Edu.) - 2024 (Jyotish Ganit)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/CBBD3EFF6FF24E399012FCFAFFBB358D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "798f081bc8fcd8338c27786e",
+      "source": "RPSC",
+      "title": "13/11/2026 Result Preamble for Asst. Prof. (Sanskrit College Edu.) - 2024 (Yajurved)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/5C420176D46C456BA7FE7D465884A888.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f1d77dbf49e10967313fcba7",
+      "source": "RPSC",
+      "title": "13/11/2026 Result Preamble for Asst. Prof. (Sanskrit College Edu.) - 2024 (Dharm Shastra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/872DAAC5335C4372AE9B2DF500EBCBFA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "71366f0d7b39be5c029afa27",
+      "source": "RPSC",
+      "title": "13/11/2026 Revised Result Preamble (Qualified for Interview) for Asst. Prof. (Sanskrit College Edu.) - 2024 (Samanya Darsan)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/2D94C1385DBC41F2B9048E94BB2386BC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8f62af30015ea7655cae893a",
+      "source": "RPSC",
+      "title": "13/11/2026 Pickup List Against Non-Joiners for Asst. Agriculture Officer (Non-TSP) - 2018",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/FFA19144D83E4A7287075F0237827C47.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "00c0d4a0a98567855387c797",
+      "source": "RPSC",
+      "title": "06/11/2026 Result Preamble against rejected/vacant candidates for Asst. Prof., Librarian And Pti (College Edu.) Exam - 2023 (Accounts And Business Statistics (Abst))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/D403378A0E004EACBA07ECAB46459F69.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "957e2ce8f754aeb450f1684a",
+      "source": "RPSC",
+      "title": "06/11/2026 Result Preamble for Asst. Prof., Librarian And Pti (College Edu.) Exam - 2023 (Librarian)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/B20342CF1F5B4540A2954F535F712C10.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "af7b7b3acfa1c6aa516e6b6f",
+      "source": "RPSC",
+      "title": "06/11/2026 Press Note regarding Online Objection on Model Answer Key for Sr. Scientific Officer (Home Dept.) Comp. Exam - 2026 (02 Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/16BBF4AE-211C-4AE8-8706-5F2F26536D1C.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e0ec7aea51ed9e241a829b12",
+      "source": "RPSC",
+      "title": "06/11/2026 Press Note regarding Online Objection on Model Answer Key for Asst. Director And Sr. Scientific Officer (Home Dept.) Comp. Exam - 2025 (03 Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/0D5F478E-0167-4213-ADC2-769D4B4A367F.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "7a27ab942721d49c54bf3800",
+      "source": "RPSC",
+      "title": "06/11/2026 Model Answer Key for Sr. Scientific Officer (Home Dept.) Comp. Exam- 2026 - Toxicology Division",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/27091562-068C-48B0-953A-A0AD9A838A58.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8b40e4581c7d5f2dec6b22ea",
+      "source": "RPSC",
+      "title": "06/11/2026 Model Answer Key for Sr. Scientific Officer (Home Dept.) Comp. Exam- 2026 - Physics Division",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/61F04676-A43A-4C07-9514-F48986619E4D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4129feb2181c016a57e36f23",
+      "source": "RPSC",
+      "title": "06/11/2026 Model Answer Key for Sr. Scientific Officer (Home Dept.) Comp. Exam- 2025 - Narcotics Division",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/CE66A070-D792-4B84-B7BF-25DC2BC70188.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "a5800f810b7a715aa22be360",
+      "source": "RPSC",
+      "title": "06/11/2026 Model Answer Key for Sr. Scientific Officer (Home Dept.) Comp. Exam- 2025 - Chemistry Division",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/BC677D55-978A-4F3E-BD38-1D222898DB0E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ce2080d349791ded6dd9a800",
+      "source": "RPSC",
+      "title": "06/11/2026 Model Answer Key for Asst. Director (Home Dept.) Comp. Exam- 2025 -DNA Division",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/DCAC0669-EA44-4265-A400-945D5B3F321D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8c6d530828941e6db7dee694",
+      "source": "RPSC",
+      "title": "05/11/2026 Press Note Regarding Corrigendum No. 16/2026-27 for Asst. Prof. (College Education) Exam- 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/84A388F2-0589-4C83-AF23-CB7C5D703AC7.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "efb5cd4b007fff3ae53f4ca8",
+      "source": "RPSC",
+      "title": "05/11/2026 Corrigendum No. 16/2026-27 for Asst. Prof. (College Education) Exam- 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/3BEAC790A0D94DAEB741C0AA8F026DE8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "3b43bf55e0bdbe09fa9acf67",
+      "source": "RPSC",
+      "title": "05/11/2026 Press Note Regarding Exam District Information and Admit Card for Protection Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/20D762A0-0656-46C5-95E2-8AC965EAE696.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "109a324906f3f4bc2b79ffe4",
+      "source": "RPSC",
+      "title": "04/11/2026 Revised Result Preamble (Qualified for Interview) for Asst. Prof. (Sanskrit College Edu.) - 2024 (Yoga Vigyan)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/56B7C4004B204732AF20071848986BEB.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d0ecb7d078e2f98207a991fe",
+      "source": "RPSC",
+      "title": "04/11/2026 Result Preamble for Asst. Prof. (Sanskrit College Edu.) - 2024 (Bhasha Vigyan)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/89A0BD240C2548D2BF9B518F580EE0E1.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "50422a74412cf7d7704348c5",
+      "source": "RPSC",
+      "title": "04/11/2026 Result Preamble of 01 candidate for Programmer - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/E47628A56C9D4F84851D861501590461.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "66d4c90728b1fd2ef6a5888f",
+      "source": "RPSC",
+      "title": "02/11/2026 Pickup List Against Non-Joiners for Asst. Agriculture Officer (Non-TSP) - 2018",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/536641618DFE4B6FA98FC92DE6F22F7E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "5989cc356872a2bd2d8d7740",
+      "source": "RPSC",
+      "title": "30/10/2026 Press Note Regarding Online Detailed Application Form for Statistical Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/CB8A9E73-9C77-4524-A660-F4590BD6F5C6.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "47659cf1ba7129453fbe94ba",
+      "source": "RPSC",
+      "title": "29/10/2026 Result Preamble for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Gujarati)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/C9F3F4CC860845C997938B802C4FAC0F.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ab33ac1e9c6697dd79e9eb97",
+      "source": "RPSC",
+      "title": "29/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Punjabi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/A2F009A5F8524EE68768C021B2A30091.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "b0f9c36b94187fd7ff3ed1f6",
+      "source": "RPSC",
+      "title": "29/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Punjabi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/8A702B7E31474798A3DCFB7469B8C14E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f190c4c45b04b7e9509bce77",
+      "source": "RPSC",
+      "title": "29/10/2026 Press Note Regarding Online Detailed Application Form for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Social Science, Hindi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/A76535B3-2C73-48C5-99CE-ED10D167944E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e2bd01e2ee406239a583843d",
+      "source": "RPSC",
+      "title": "28/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Mathematics)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/4AD503915DB84384BB2391C863ED4C90.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f7361d8009201d332e0264d6",
+      "source": "RPSC",
+      "title": "28/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Mathematics)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/E5EFDDEF7BA64669A9581EFEEC8CD66A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d70955b655bb2f29756c6050",
+      "source": "RPSC",
+      "title": "28/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Sindhi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/D448285D8B354D708148013BF90C803B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ca228a03f2465ee06829eca6",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Swasthvritta)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/8F246B4170C24D3D850CD9E14AD83BA2.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4565504429248e5c7413e13e",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Shalakya Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/6EBAEAE80FF7472BAF4F59248337C718.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8513875c3746390531ae6cae",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Samhita (Maulik Siddhant))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/8FB8CF472F684AAF9234BF92D19E61DC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "5372970693aa71b82f21d7b7",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Prasooti Tantra And Stree Roga)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DC1EF1D976A44DDE83C434A5F49683C3.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e97cda0c625894f959f2221d",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Panchkarma)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/349B44EF74AF49AE8ABA16F40EFE9A6A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "984f171b337086b8823cf069",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Kayachikitsa)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/29C9A8DE1CCA460FA8DA0F862F483FEC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "dccfca65ee510176d6dc4536",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Kaumarbhritya)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/61F2AFA092E3466685607FEFBB2F6925.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9b2c11a1339804c74cfaca3c",
+      "source": "RPSC",
+      "title": "28/10/2026 Main Merit List for Lecturer (Ayurved Dept.) - 2025 (Agad Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/7BFA12ADC3B9465089F8ECC415D34B5F.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cd11d8b3171710ead8c4a46b",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Kayachikitsa)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/08C163C1-8CAB-4826-A7E6-850125FD4C59.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "0272b8756be704314e873612",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Swasthvritta)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/3A8E1556-1728-4305-85B3-51DF798F7861.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "85fbc6a57dbe0a32955f2dbf",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Shalakya Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/5FF292EC-4BEA-449A-BA38-F4574743D04D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d5c3a3edbde17a75ba8d505c",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Panchkarma)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/27EB8308-310B-4203-8834-89CF78A20AE7.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "dde92f20af341fa60a93c531",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Kaumarbhritya)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/D7728C7E-ECC8-4352-908A-6A908BC563E3.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e2a5c58d07401126ca0453a4",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Samhita (Maulik Siddhant))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/92ADD780-8613-464A-9F34-2FB53FA174A6.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "2f0dc796692677607f258e2f",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Prasooti Tantra And Stree Roga)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/AD471DFF-8865-438B-8E7C-EA0832B5DEEF.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cf14195538b43d4608664aa1",
+      "source": "RPSC",
+      "title": "28/10/2026 Final Answer Key for Lecturer (Ayurved Dept.) Exam-2025 (Agad Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/D3AC6CDA-1AA8-4EBC-A1E2-CE5886BFE14E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1a261eea1948da846b1106cd",
+      "source": "RPSC",
+      "title": "27/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Urdu)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/3274CA3402EA44DEB703B253B96F3F5F.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "a8212f9380a4c5d9f376d8e7",
+      "source": "RPSC",
+      "title": "27/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Urdu)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/4A77F800E0DC428C90DAF29D0DB8D66E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "a398c30560362c2db697da3f",
+      "source": "RPSC",
+      "title": "27/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (English)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/6A2D78D6754F432081F2A372ACD862F2.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "75f1656fdb56f89cdaa4e2ec",
+      "source": "RPSC",
+      "title": "27/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (English)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/3F3842490A504271AFAD8E7D2C11DABE.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "79b6873c656c01df6e8490c6",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Kayachikitsa)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/D0B6334708F34347B13F1574BB22EBF8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4279638ea15c8dd381a7bbe1",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Kayachikitsa)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/8ECD64127A7D4719BBA09C0A9B9443A9.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "45d3f65dc93d616bb2461d7e",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Swasthvritta)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/029FCA19364C47ABA1F99CF0D30B32A8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "a35951bd7da6b6ccb9429fce",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Swasthvritta)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/F3C5489D2679403687EFB3AD5EE7DE16.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "97d04abe7751f16946d3802e",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Shalakya Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/2EC73F4201004515A26AF0016444C75E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1186b8b82198a1ad60ad5801",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Shalakya Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/9DECD155F4D4498BB0FCE14CD246A372.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "06afbca43c6912c99c4ef834",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Panchkarma)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/820DDF20D928490787E22E9F74690831.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "19e7f020b8aae88cd30faeef",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Panchkarma)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/CD5DCB72FDE24FB0B96E0D4AD8B94A1C.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "6de0c5ac5cea7ad181ea6d01",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Kaumarbhritya)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/FDEC4FB0EB5349DDAC7963E70E9FC4A5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d575da97e35f490bcc151848",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Kaumarbhritya)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/73AD9A7EEF8A4105A2D67D960173A6C4.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "97d7728578ff3cf099762f6d",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Samhita (Maulik Siddhant))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/372128AD05DF4117BBD6E6443D3413AB.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d38f710887cc7597463c002a",
+      "source": "RPSC",
+      "title": "26/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Samhita (Maulik Siddhant))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/BFF0ACA3E1BC47C79FEB87A99BC3F284.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "a57185882960c784841a467a",
+      "source": "RPSC",
+      "title": "23/10/2026 Result Preamble for Raj. State And Sub. Services Comb. Comp. Exam - 2023",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/B5EB37F4A8524D638793903E0A809AF1.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "39a24b35373d4cf03603d39a",
+      "source": "RPSC",
+      "title": "23/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Prasooti Tantra And Stree Roga)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/281CAAC0ACEF449CB80B005BEC4F3994.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "344c5246b19f39b8619daf36",
+      "source": "RPSC",
+      "title": "23/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Prasooti Tantra And Stree Roga)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/0D2997246E944AA4BC69CFB977A18932.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "fb224346d638b7c4bc50db82",
+      "source": "RPSC",
+      "title": "23/10/2026 Result Preamble and Cutoff Marks (Main List) for Lecturer (Ayurved Dept.) - 2025 (Agad Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/22B19347D4E34E908CBCA12122879F2E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f70ccda019d14307873c9b6e",
+      "source": "RPSC",
+      "title": "23/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Lecturer (Ayurved Dept.) - 2025 (Agad Tantra)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/304FCDE9E8864E18A817242C9A6B041E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "370620433d669fec075c4c3e",
+      "source": "RPSC",
+      "title": "23/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Sanskrit)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/CA3B33586B0F4B98A14A887ED12B16DF.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "286179a969deaf86316ff614",
+      "source": "RPSC",
+      "title": "23/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Sanskrit)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/4980651E5302414BA80E783F5C3ECFB6.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cb0ac88d03fe89f0c7f37761",
+      "source": "RPSC",
+      "title": "23/10/2026 Press Note Regarding Online Detailed Application Form for Statistical Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/763E6378-565F-4EC3-9878-BB7C8B8C543F.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "951180b833369b36be36de5a",
+      "source": "RPSC",
+      "title": "23/10/2026 Press Note Regarding Interview Dates for Asst. Prof. (College Education) - 2025 (Chemistry, Economics)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/F27F2D3E-37B7-4CF6-A80E-44257524E758.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "5729ed23e1f91e29134fc7cb",
+      "source": "RPSC",
+      "title": "23/10/2026 Press Note Regarding Interview Dates for Sub Inspector Comb. Comp. Exam - 2025 (Third Phase)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/096672EF-8065-4F8B-9CD7-8836F9403CA6.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c80d3d9d752bd5a9c297bc22",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Senior Scientific Officer \u2013 2025 (Serology Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/565B8917-C6E6-42D5-83A4-90FBE9C54A77.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "84f66413e959cca24f833eb6",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Senior Scientific Officer \u2013 2025 (Narcotics Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/DFC87ECA-AE62-434A-8E84-5F75D11B68F8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c57606a91c6498900bb813fb",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Senior Scientific Officer \u2013 2025 (Chemistry Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/5EE4E207-F0D0-48FB-A0EA-5C27046F515A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "48c2efba59b1fbd3650aebb3",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Senior Scientific Officer \u2013 2025 (Biology Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/E1D2EAF5-00E1-481E-8089-7DA9E6176665.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "28d0860a98d336c2e68a81ed",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Assistant Director - 2025 (DNA Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/C4095F2E-A14D-4D1F-A68C-9EB450327670.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e3adc33609f85231c5ec5295",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Senior Scientific Officer - 2025 (DNA Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/05E5DB49-2245-4C8B-881C-910B31B7047B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ee8dae687e2a11c9c54d1794",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Sr. Scientific Officer - 2026 (Physics Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/3AEBA8ED-57D7-4A66-8695-8D7A53F736DF.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "69406e2cebf8947e1a337432",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Sr. Scientific Officer - 2026 (Ballistics Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/379B4D7F-75F7-4EB1-81C1-9D0368A5F685.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "fafa326b3bdc4619b543a7b6",
+      "source": "RPSC",
+      "title": "23/10/2026 Question Paper for Sr. Scientific Officer - 2026 (Toxicology Division)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/562BB132-0902-4007-BE62-D7CB83BC5C46.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c32861b886c24a3e40733341",
+      "source": "RPSC",
+      "title": "23/10/2026 Main Merit List for Asst. Professor (Medical Edu.) - 2024 (Orthopaedics (BS))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/150873FC720A47388A2DFC6956BD4DC7.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c6533a65dea702fa4e0012e2",
+      "source": "RPSC",
+      "title": "23/10/2026 Final Answer Key for Asst. Professor (Medical Edu. Dept.), 2024 - Orthopaedics (BS)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/72B5E572-8602-45AD-B0D0-77D6DF4625F1.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "4b0249101f83de6ecc088068",
+      "source": "RPSC",
+      "title": "22/10/2026 Result Preamble and Cutoff Marks (Main List) for Asst. Prof., Librarian And PTI (College Edu.) Exam - 2023 (Librarian)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/E5F23560106B4039AF9343B10D02FDAD.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1c80588272dfca4d60530c7d",
+      "source": "RPSC",
+      "title": "22/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Asst. Prof., Librarian And PTI (College Edu.) Exam - 2023 (Librarian)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/7E6423656DE148F98CF5C847E9A30CF3.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "164fe1b918253f822e743013",
+      "source": "RPSC",
+      "title": "21/10/2026 Result Preamble and Cutoff Marks (Main List) for Asst. Prof., Librarian And PTI (College Edu.) Exam - 2023 (Business Administration)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/32BDCCB230C143D1A87885A52C4C51C9.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "5e58e0c4ae6fe5612b26d70e",
+      "source": "RPSC",
+      "title": "21/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Asst. Prof., Librarian And PTI (College Edu.) Exam - 2023 (Business Administration)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/BE9C847E14CD41F4B0DCDAE9896B90DA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f2aeccb2f4d578617f8aa24b",
+      "source": "RPSC",
+      "title": "16/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Science)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/8FB334B9D9784C6B8714711067CC4CFB.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "5996f19dfd826f326d5bb332",
+      "source": "RPSC",
+      "title": "16/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Science)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/72EC9C1AE1E14D4790E4AA03AA7261FD.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c0c19f42d68431ee0d007172",
+      "source": "RPSC",
+      "title": "16/10/2026 Result Preamble and Cutoff Marks (Qualified for Interview) for Asst. Engineer Comb. Comp. (Mains) Exam - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/2D5EFE8719124D6FAB50DA4A2D8827F5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c35d7831a42658adce7b6931",
+      "source": "RPSC",
+      "title": "15/10/2026 Result Preamble and Cutoff Marks (Main List) for Asst. Professor (Medical Edu.) - 2024 (Orthopaedics (BS))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/F2A90624A7D34475A13F11D46637AE80.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "6476b319bbb488034ab5b42d",
+      "source": "RPSC",
+      "title": "15/10/2026 Result Preamble and Cutoff Marks (Reserve List) for Asst. Professor (Medical Edu.) - 2024 (Orthopaedics (BS))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/37CF8D04D40046F098356BE34933FD69.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9af22c128cc30d5990c786bc",
+      "source": "RPSC",
+      "title": "13/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Hindi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/A1E5B78E579E4AC6924129C8E4D87079.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "367ea6407524f6d4a0c0ce50",
+      "source": "RPSC",
+      "title": "13/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Hindi)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/EAED009CD5914E4AB329501BE095D2ED.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9f6b7ed0d8a302d8c456c561",
+      "source": "RPSC",
+      "title": "13/10/2026 Result Preamble and Cutoff Marks (Qualified for Interview) for Deputy Commandant - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/52710709D13C48959FDB982EDF12A0E4.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "a256a0848d5b6e53771c26b0",
+      "source": "RPSC",
+      "title": "13/10/2026 Press Note Regarding Online Objection on Model Answer Key for Inspector Of Factories and Boilers Exam - 2025 and Inspector Of Factories (Chemical) Exam - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/C3AD61BE-4EA8-4AA3-A20C-19F03A91F9B5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d86150d7dd93b7a21e6255a9",
+      "source": "RPSC",
+      "title": "13/10/2026 Model Answer Key for Inspector of Factories (Chemical) Comp. Exam - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/0E6EF598-2021-4E26-9062-DDC2EAABE878.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e4077b4513cca5033a94db9e",
+      "source": "RPSC",
+      "title": "13/10/2026 Model Answer Key for Inspector of Factories and Boilers Comp. Exam - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/3A0AAA77-AE63-4F1D-BCB0-2F5540639884.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "10d31fdd1aa1e9796b1367b1",
+      "source": "RPSC",
+      "title": "09/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Social Science)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/62B823FAC97A4AF4B74FE1868919F5BD.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "45b11a3d6abbd45b0d2f1010",
+      "source": "RPSC",
+      "title": "09/10/2026 List of Disqualified Candidates for Sr. Teacher (Sec. Edu.) Comp. Exam - 2025 (Social Science)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/BA388A287B944687829D599BEF6DBF8B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "715d88ca59d06638582c71cd",
+      "source": "RPSC",
+      "title": "08/10/2026 Result Preamble for Raj. State And Sub. Services Comb. Comp. Exam - 2023",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DE85D5C16D114760BCADB79E2B9B1FED.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "7575984b9258a06d69e0168f",
+      "source": "RPSC",
+      "title": "08/10/2026 Result Preamble for Mines And Geology Dept. Exam - 2024 (Assistant Mining Engineer)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/21CFA718C3A849BEB2E8FD5E530D04CA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "44d83276b47ced761efef2b5",
+      "source": "RPSC",
+      "title": "08/10/2026 Result Preamble and Cutoff Marks (Provisional List for Eligibility Checking) for Statistical Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/141CA96B97C544DCA0EC3A021A5C7247.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "845c5997047fb3375be7e722",
+      "source": "RPSC",
+      "title": "08/10/2026 List of Disqualified Candidates for Statistical Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/77ADC0A27C954197AAFC36D3B1E7E301.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "121002a64d91aaad94eaf02a",
+      "source": "RPSC",
+      "title": "07/10/2026 Press Note Regarding Interview Dates for Asst. Prof. (College Education) - 2025 (Sociology, Drawing and Painting, E.A.F.M., Urdu, Psychology)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/0389D79B-16FE-4DA0-BD86-70020B591C2B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "3a05eda779bd6b9424f4a1da",
+      "source": "RPSC",
+      "title": "07/10/2026 Press Note Regarding Interview Dates for Sub Inspector Comb. Comp. Exam - 2025 (Second Phase)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/75277D99-B5B0-46DE-B568-E2D3D13DDD95.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8d84aa9d1dfb0ab34c25baf4",
+      "source": "RPSC",
+      "title": "05/10/2026 Additional Result Preamble (Provisionally Qualified for Interview) for Librarian (College Edu.) Exam - 2023",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/77B2E0541F1342FCA73E2F6D31D3B36F.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f9d39adab77c97e49936c1c0",
+      "source": "RPSC",
+      "title": "05/10/2026 Press Note Regarding Exam District Information and Admit Card for Sr. Scientific Officer - 2026",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/B8E67BAE-5AF6-4759-B8B3-0008F24055F8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8ee5605c71e3fb249eb8ff5f",
+      "source": "RPSC",
+      "title": "05/10/2026 Press Note Regarding Exam District Information and Admit Card for Asst. Director And Sr. Scientific Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/B627722B-26E5-40EE-8E4F-28715EBFFDE5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "926b94efa30fe17ecbe941b6",
+      "source": "RPSC",
+      "title": "05/10/2026 Main Merit List for Veterinary Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/724D002C5DB047ACA391D28C4A3B4226.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cb2b127cc34bc568cd2cd8e0",
+      "source": "RPSC",
+      "title": "05/10/2026 Final Answer Key for Assistant Prosecution Officer (Pre) Exam - 2026",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/28221967-BFFD-4D76-95EE-F780D67F0775.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c89ce084090ec1c8a68fa2e9",
+      "source": "RPSC",
+      "title": "05/10/2026 Final Answer Key for Veterinary Officer (Animal Husbandry Deptt.) Exam - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/D6EF223E-4DF8-4CF0-A1B4-B577B62ABD51.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9aa58dd0f2788783cdab3d8b",
+      "source": "RPSC",
+      "title": "05/10/2026 Final Answer Key for Deputy Jailor (Jail Dept.) Comp. Exam-2024 (Paper-I)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/9434F2CB-B73C-4CF1-81EF-E09F11D8A9EA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cb803f0fcb77628136164579",
+      "source": "RPSC",
+      "title": "05/10/2026 Final Answer Key for Deputy Jailor (Jail Dept.) Comp. Exam-2024 (Paper-II)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/8AD21534-C5DD-433C-B55B-E660A9BC3933.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "27879954e7ad7b0cdfc02ce0",
+      "source": "RPSC",
+      "title": "05/10/2026 Main Merit List for Deputy Jailor - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/D25779DB912941E6817C4F08B08DBB2A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f6b56e74d03724ddf95b16a4",
+      "source": "RPSC",
+      "title": "01/10/2026 List of Disqualified Candidates for Asst. Prosecution Officer - 2026",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/456273F952864615AAE8931EED3D98DF.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "024c53d5520ea11aedaac350",
+      "source": "RPSC",
+      "title": "01/10/2026 Result Preamble and Cutoff Marks (Qualified for Mains) for Asst. Prosecution Officer - 2026",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DA8B4C8FB6244F57A6425B1F27F4956C.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "be28181183174306052e17b3",
+      "source": "RPSC",
+      "title": "30/09/2026 Result Preamble and Cutoff Marks (Main List) for Veterinary Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/A257440E4E2B418A84F7A2EFF5BB76DC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d228b993990e13bf2a671a6f",
+      "source": "RPSC",
+      "title": "30/09/2026 Result Preamble and Cutoff Marks (Reserve List) for Veterinary Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/66061E0464EE4BA59390366B1B242C74.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "21136e8fad14c627f9029ada",
+      "source": "RPSC",
+      "title": "30/09/2026 Additional Result Preamble (Prov. Selected for Interview) for Asst. Prof., Librarian And Pti (College Edu.) Exam - 2023 (Librarian)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/6464611BDC4B410EA883F39560F338E9.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e2774d9d66e7f14a5f3c922d",
+      "source": "RPSC",
+      "title": "30/09/2026 Result Preamble for Asst. Prof., Librarian And PTI (College Edu.) Exam - 2023 (Sociology)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/B463DD973E344776801EECFF56782EB9.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "2026ab42b6086ca1f975387d",
+      "source": "RPSC",
+      "title": "29/09/2026 Main Merit List for Asst. Director - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/9E2E07B76C5C4644AA00A19D0125430E.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "866d95d03d5bf630161cf968",
+      "source": "RPSC",
+      "title": "29/09/2026 Final Answer Key for Assistant Director (Science and Tech. Dept.) Comp. Exam-2024 (Paper-II)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/FFA19137-A1BE-4FBE-A556-2C0C778A1C72.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f04bd51893121920394d5ebc",
+      "source": "RPSC",
+      "title": "29/09/2026 Final Answer Key for Assistant Director (Science and Tech. Dept.) Comp. Exam-2024 (Paper-I)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/C89C03ED-B31A-4EFD-A02B-5C58370E0153.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "fea251e5282b9e4ae70cb41a",
+      "source": "RPSC",
+      "title": "29/09/2026 Result Preamble and Cutoff Marks (Main List) for Deputy Jailor - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/7E0F02F02F654AD4A456A1347341BFBA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "23ccdd9cee1ad4f2bfae4d92",
+      "source": "RPSC",
+      "title": "29/09/2026 Result Preamble and Cutoff Marks (Reserve List) for Deputy Jailor - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/45CAD5F276EE4A4BB1511F98499F0117.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "0f4aebf8b8ef7ef4ea6e8823",
+      "source": "RPSC",
+      "title": "28/09/2026 Press Note Regarding Candidate Response Sheet for Inspector Of Factories And Boilers - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/82E086F6-3C04-47D6-95A1-E5ADCCDCCAE3.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "7cf106d7a79d5b5150a922e4",
+      "source": "RPSC",
+      "title": "25/09/2026 Press Note Regarding Interview Dates for Asst. Professor (Medical Edu.) - 2024 Orthopedics (B.S)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/E325F7CD-DE6E-4953-9552-187ED6C10E8A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9878682e1c0ad2a179c6683a",
+      "source": "RPSC",
+      "title": "25/09/2026 Press Note Regarding Interview Dates for Asst. Prof. (College Education) - 2025 (Maths (Last Phase), Public Administration, Political Science)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/D13FFB08-3ADC-45AE-9C74-BE5298CCA21C.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "630d214bd22f111c367999db",
+      "source": "RPSC",
+      "title": "25/09/2026 Press Note Regarding Interview Dates for Asst. Prof., Librarian and PTI (College Edu.) Exam - 2023 (Librarian) (Ninth Phase)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/94535ADC-617E-4E44-AB19-AC103C7E9898.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1b3c44014e3ade9c6331625e",
+      "source": "RPSC",
+      "title": "24/09/2026 Result Preamble and Cutoff Marks (Main List) for Asst. Director - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/71796A60ED8F4875AFD5706CD0D5D1E5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "929519c7099b30d7af6aa578",
+      "source": "RPSC",
+      "title": "24/09/2026 Result Preamble and Cutoff Marks (Reserve List) for Asst. Director - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/80DC92AC86534D99825AA2CBE86C76C1.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8ac1a4fa0d7f02a6e0223fa8",
+      "source": "RPSC",
+      "title": "24/09/2026 Main Merit List for Biochemist - 2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DE41477FAB4E4CC8A147B18ED0313294.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d962b16c23d020fbcda32739",
+      "source": "RPSC",
+      "title": "24/09/2026 Main Merit List for Asst. Professor (Medical Edu.) - 2024 (Physical Medicine And Rehabilitation (BS))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/52DE0F45A5EF41FAB03EFFD16A026DB8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "794abfbfaa216e064f6f5755",
+      "source": "RPSC",
+      "title": "24/09/2026 Main Merit List for Asst. Professor (Medical Edu.) - 2024 (Paediatrics (BS))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/F611C89064BE48B5A5DB70E310EF4A4A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "01237ad9a8f9f5d3a7f87d41",
+      "source": "RPSC",
+      "title": "24/09/2026 Final Answer Key for Biochemist (Medical Edu Dept.) Comp. Exam-2024",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/5ABE5F99-35D5-46D5-9CC9-81167129909D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c65eb3a73a72dd75fcc0647a",
+      "source": "RPSC",
+      "title": "24/09/2026 Question Paper for Inspector Of Factories And Boilers - 2025 (Inspector of Factories (Chemical))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/87513123-E02F-4320-B6F6-08801136FCCD.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "6d674eff557da8c1df6081a6",
+      "source": "RPSC",
+      "title": "24/09/2026 Question Paper for Inspector Of Factories And Boilers - 2025 (Inspector of Factories and Boilers)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/130C43C4-82A3-484C-964C-40AF3AAC184C.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "2fac726dfee1a8a2096e5d3e",
+      "source": "RPSC",
+      "title": "24/09/2026 Final Answer Key for Asst. Professor (Medical Edu. Dept.), 2024 - Physical Medicine and Rehabilitation (BS)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/7065A3A0-3BAD-48AF-B2A7-80C5DF3595F8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "b9bb8fbac5b52753eccfb6d7",
+      "source": "RPSC",
+      "title": "24/09/2026 Final Answer Key for Asst. Professor (Medical Edu. Dept.), 2024 - Paediatrics (BS)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/AnswerKeys/A979B317-1F7D-44F0-A425-B2D67269C3EB.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "02abd14ef147e77e19dc7029",
+      "source": "RPSC",
+      "title": "23/09/2026 Result Preamble and Cutoff Marks (Qualified for Interview) for Junior Legal Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/AAAD8FCA701A41C9932F08F244907905.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f1574773749ffa8053948d1d",
+      "source": "RPSC",
+      "title": "23/09/2026 List of Disqualified Candidates for Junior Legal Officer - 2025",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/35F304B6015C401AA24A4A820194CAFA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c6e8c7241ea32d864da55892",
+      "source": "RPSC",
+      "title": "23/09/2026 Press Note Regarding Online Edit and Withdraw Application form for School Lecturer (Special Education) - 2026",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/7E6C8E2D-1DB8-4CF3-9A29-BB920485C10D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "19fa56001e0f601fa6a341ff",
+      "source": "RPSC",
+      "title": "23/09/2026 Press Note Regarding Online Edit and Withdraw Application form for Raj. State And Sub. Services Comb. Comp Exam - 2026",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/490A21A9-492A-49C9-9F96-565C621B53EE.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "43113da62dc0c6b77a38db76",
+      "source": "RPSC",
+      "title": "23/09/2026 Result Preamble and Cutoff Marks (Qualified for Interview) for Asst. Prof. (College Education) - 2025 (History)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/B6C822D5A0764201AADF8B0A95AECB87.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "43c1761b506b8d6b2c148b4d",
+      "source": "RPSC",
+      "title": "23/09/2026 List of Disqualified Candidates for Asst. Prof. (College Education) - 2025 (History)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/64B67372FE9E4C5B9160A418C65BBEBA.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "edab9f6311e873c497ffd55b",
+      "source": "RPSC",
+      "title": "23/09/2026 Result Preamble and Cutoff Marks (Qualified for Interview) for Asst. Prof. (College Education) - 2025 (Geography)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/43A531BC5D934782B09855345A4EB911.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "3b921c098d220622ab0be493",
+      "source": "RPSC",
+      "title": "23/09/2026 List of Disqualified Candidates for Asst. Prof. (College Education) - 2025 (Geography)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/C0054D182241460E8051AF959E075635.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "37ab3a90cb80ced4a2e0daaa",
+      "source": "RPSC",
+      "title": "23/09/2026 Result Preamble and Cutoff Marks (Qualified for Interview) for Asst. Prof. (College Education) - 2025 (Music (Vocal))",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/Result/DCD39928B9714C42B11F2FAA34AFEBC9.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "23703f94bc56565ef26e5242",
+      "source": "RPSC",
+      "title": "22/09/2026 Press Note Regarding Interview Dates for Sub Inspector Comb. Comp. Exam - 2025 (First Phase)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/Static/PressNotes/906017C3-FEF2-4C4B-89C1-3D81646E79D5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "3a5c71f4828ecf7f6514a548",
+      "source": "RPSC",
+      "title": "17/08/2026 Appointment Letter Regarding Direct Recruitment of Fourth Class Employee -2024 (RPSC)",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/A3A52409810D46A0A2A0262947DCED36.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "77eb35572321cbfb840a28f5",
+      "source": "RPSC",
+      "title": "31/07/2026 Press Note regarding warning against misleading/false information sharing over various social media platforms",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/6B40D76BDB6346AFADDCFD16E648C1C1.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "96b22788b4c573999d86edfc",
+      "source": "RPSC",
+      "title": "02/07/2026 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/DDBBF709FA084177A9DC0E323933A614.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "b89ff99e7805c91f460e71c9",
+      "source": "RPSC",
+      "title": "05/06/2026 Press Note Regarding Candidate Grievance Portal For Candidates Complaints Disposal Process",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/E8B17BD099F3403CAC90A775F03CC8B5.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "b38fc5e4b1145dda449ce5ee",
+      "source": "RPSC",
+      "title": "30/01/2026 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/C84A4680F70F46E2AE40E1C3F3632A53.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ae5a56d647ae5ba2d097ec87",
+      "source": "RPSC",
+      "title": "11/07/2025 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/74105F0AB9494A95927F6C7C470E7D10.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ea384b06ceb56cf6b2349b81",
+      "source": "RPSC",
+      "title": "04/06/2025 Press Note regarding advise to E-mitra operators for filling forms of eligible candidates only.",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/44D0A2752B10437CB7CDA2A56DF4AAE8.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e18edfc8038627b8229eeda3",
+      "source": "RPSC",
+      "title": "06/11/2023 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/BA39488125184D1BBD24C0E201ACEC84.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "c0f635fb7b9b9e10770bbba0",
+      "source": "RPSC",
+      "title": "11/05/2023 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/C0325162C35A4958965DDFBC0381B6CD.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8e86ad0259559414d05c26fb",
+      "source": "RPSC",
+      "title": "21/12/2022 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/5477665951F6476F870DBF5C75FC7289.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "2232167d6ed85f416f9b973a",
+      "source": "RPSC",
+      "title": "14/09/2022 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/EA954461FF3749F3B444C6925C8636BC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "3719aa203b8e878f07a83afd",
+      "source": "RPSC",
+      "title": "17/06/2022 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/F20160166DDC4CAEB121B33A0299525D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f0bbc4bb70f94ad79737d930",
+      "source": "RPSC",
+      "title": "17/02/2022 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/88008F76F1734B81985B870DBC16E198.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "cafa799b20ed5e6d066cb165",
+      "source": "RPSC",
+      "title": "26/10/2021 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/75E46ECD22954DBCB27147DF0D094D4C.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "e729f6c264187520be346fb8",
+      "source": "RPSC",
+      "title": "31/08/2021 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/9743ACAC00504296BD3701897CD7E316.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "9d69a23ae3d167b1089ea83c",
+      "source": "RPSC",
+      "title": "15/06/2021 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/36F35DCC1C3D4D8EACFDA97C497B7606.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f3d78650c00adec601fdf6c3",
+      "source": "RPSC",
+      "title": "17/02/2021 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/BE51BFBCC8F545B3B3884B1280E0D305.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d7c3228716e95d41bfac0ac7",
+      "source": "RPSC",
+      "title": "19/01/2021 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/06C02C2C4D3E42419E695988370C6D6B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "76d8d2c2368543e8c01a0a42",
+      "source": "RPSC",
+      "title": "16/12/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/CA7926BD60CE4167A40C203A0FF14E77.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "536b2557699c65b59b11ee31",
+      "source": "RPSC",
+      "title": "15/10/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/C264733326104C9C9FDF20B88C6AA2F3.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "42637e8173f254ff26db0e16",
+      "source": "RPSC",
+      "title": "28/09/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/C4C744420B4A4A1982E1ECE85C100B63.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "6a13b8448c431188d76949c6",
+      "source": "RPSC",
+      "title": "17/07/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/95C985A962E64D5EA86A25D50CC005C1.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "1c1058cbd543a220fd5a5a20",
+      "source": "RPSC",
+      "title": "11/06/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/5A80EC3D2CF345449EA5B7BB495D00FC.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "296aec55b0941e3e95291263",
+      "source": "RPSC",
+      "title": "19/05/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/01A5B23C7E714C0EA58A2A71BE4D1C7B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "f8b8a08bc1d79a330601b2e4",
+      "source": "RPSC",
+      "title": "03/03/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/AE215C104E29442185DF404065124EC2.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ae58859214d191f6350ca484",
+      "source": "RPSC",
+      "title": "20/01/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/ECECAB7106DE457CAE169D7C0425670D.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "aefa8712694fad6dd417de5e",
+      "source": "RPSC",
+      "title": "09/01/2020 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/5A31CFD37E164487A23907CC5D00F984.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "0f3178e7582d2debe1239563",
+      "source": "RPSC",
+      "title": "01/10/2019 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/5D101FC6750448958687963BF82FDD76.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "d9589ac759db5ff892f7afd8",
+      "source": "RPSC",
+      "title": "05/08/2019 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/7FC9D0025A704EF7A6D01B018A0CF58A.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "ca64b6d204d7557f77c6a943",
+      "source": "RPSC",
+      "title": "05/07/2019 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/CA125392D39C4E938F4BC2CB448C762B.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "88bbd5d8b2e0fd0732b7fef2",
+      "source": "RPSC",
+      "title": "31/05/2019 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/0333DE267E1B45CAB66D5F37AEAA0C41.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "7c5f8767756e7b013206aa7c",
+      "source": "RPSC",
+      "title": "01/05/2019 Press Note Regarding Pre-Litigation Committee",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/F7CCCF20895C4206A063574BF390D261.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "8a8ad3654ac6a40ae0b20793",
+      "source": "RPSC",
+      "title": "04/04/2019 Press Note regarding Pre-Litigation Committee For RPSC Candidates",
+      "notice_url": "https://rpsc.rajasthan.gov.in/~/Static/News/0AF57CC814364702AACDF44D1D7E80CB.pdf",
+      "source_url": "https://rpsc.rajasthan.gov.in/advertisements",
+      "status": "needs_review"
+    },
+    {
+      "notice_id": "149b39203deb15256633341b",
+      "source": "Rajasthan Recruitment Portal (supplementary)",
+      "title": "DIRECT JOINT RECRUITMENT OF JEN 2026",
+      "notice_url": "https://recruitment.rajasthan.gov.in/",
+      "source_url": "https://recruitment.rajasthan.gov.in/",
+      "status": "needs_review",
+      "observed_deadline": "17-Dec-2026",
+      "recruiting_body": "RSSB",
+      "kind": "portal_card; official notification still required"
+    }
+  ]
+}
